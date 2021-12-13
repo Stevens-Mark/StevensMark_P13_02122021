@@ -4,6 +4,7 @@ import Header  from './components/HeaderNav'
 import Footer from './components/Footer'
 import WelcomePage from './pages/WelcomePage'
 import SignIn from './pages/SignIn'
+import User from './pages/User'
 import Error from './pages/Error'
 
 /**
@@ -18,6 +19,7 @@ export default function App() {
         <Routes>
           <Route exact path="/" element={<WelcomePage />}/>
           <Route path="/SignIn" element={<SignIn />}/>
+          <Route path="/User" element={<User />}/>
           <Route path="*" element={<Error />} />
         </Routes> 
       <Footer />

@@ -9,11 +9,11 @@ const HeroContainer = styled.div`
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
-  height: 300px;
+  height: 18.75rem;
   position: relative;
   
   @media (min-width: 920px) {
-      height: 400px;
+      height: 25rem;
       background-position: 0% 33%;
     }
 `;
@@ -21,7 +21,7 @@ const HeroContainer = styled.div`
 const HeroContent = styled.section`
   position: relative;
   top: 2rem;
-  width: 200px;
+  width: 12.5rem;
   background: white;
   padding: 2rem;
   text-align: left;
@@ -29,9 +29,9 @@ const HeroContent = styled.section`
 
   @media (min-width: 920px) {
     position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 300px;
+    top: 3.125rem;
+    right: 3.125rem;
+    width: 18.75rem
     margin: 2rem;
   }
 `;

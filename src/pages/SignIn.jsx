@@ -61,8 +61,8 @@ const SignInButton = styled(Link)`
 `;
 
 /**
- * Renders the 'Welcome Page' 
- * @function WelcomePage
+ * Renders the 'Sign In page & form' 
+ * @function SignIn
  * @returns {JSX}
  */
 const SignIn = () => {
@@ -84,7 +84,7 @@ const SignIn = () => {
                 <input type="checkbox" id="remember-me" /><label for="remember-me">Remember me</label>
               </InputRemember>
 
-            <SignInButton to="/">Sign In</SignInButton>
+            <SignInButton to="/User">Sign In</SignInButton>
           </form>  
         </SignInContent>
       </MAIN>
