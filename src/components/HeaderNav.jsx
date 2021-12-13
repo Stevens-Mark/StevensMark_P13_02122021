@@ -28,15 +28,15 @@ const MainNav = styled.nav`
 
 const MainNavA = styled(NavLink)`
   color:  ${colors.aLink};
-  font-size: clamp(1rem, 1.667vw, 1.5rem);
-  font-weight: 500;
+  // font-size: clamp(1rem, 1.667vw, 1.5rem);
+  font-weight: bold;
   text-decoration: none;
   margin-right: 0.5rem;
-    // &.${(props) => props.activeClassName} {
-    //   color: ${colors.activeA};
-    //     }
+    &.${(props) => props.activeClassName} {
+      color: ${colors.activeA};
+        }
     &:hover {
-      // color: ${colors.activeA};
+      color: ${colors.activeA};
       text-decoration: underline;
 `;
 
@@ -50,7 +50,7 @@ const Header = () => {
           <MainNav>
             <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
                 <h1 class="sr-only">Argent Bank</h1></MainNavA>
-            <MainNavA activeClassName="active" to="/login"><i class="fa fa-user-circle"></i>Sign In</MainNavA>
+            <MainNavA activeClassName="active" to="/SignIn"><i class="fa fa-user-circle"></i>Sign In</MainNavA>
           </MainNav>
     )
 }

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Header  from './components/HeaderNav'
 import Footer from './components/Footer'
 import WelcomePage from './pages/WelcomePage'
-import Profile from './pages/Profile'
+import SignIn from './pages/SignIn'
 import Error from './pages/Error'
 
 /**
@@ -17,7 +17,7 @@ export default function App() {
       <Header />  
         <Routes>
           <Route exact path="/" element={<WelcomePage />}/>
-          <Route path="/login" element={<Profile />}/>
+          <Route path="/SignIn" element={<SignIn />}/>
           <Route path="*" element={<Error />} />
         </Routes> 
       <Footer />

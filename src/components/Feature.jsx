@@ -21,7 +21,7 @@ const FeaturesItem = styled.article`
 
 const FeaturesIcon = styled.img`
   width: 100px;
-  border: 10px solid #00bc77;
+  border: 10px solid ${colors.primary};
   border-radius: 50%;
   padding: 1rem;
 `;

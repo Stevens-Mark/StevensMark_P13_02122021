@@ -24,8 +24,8 @@ import reportWebVitals from './reportWebVitals';
   flex-direction: column;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  color: ${colors.secondary};
-  box-sizing: border-box;
+  // color: ${colors.secondary};
+  
  } 
 
  .main {
