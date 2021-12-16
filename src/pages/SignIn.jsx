@@ -1,7 +1,8 @@
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-
+import { useState } from 'react'
 
 /**
  * CSS for the component using styled.components
@@ -48,13 +49,20 @@ const InputRemember = styled.div`
   
 `;
 
-const SignInButton = styled(Link)`
+const ErrorMsg = styled.p`
+  margin-top: 5px;
+  padding: 5px;
+  color: red;
+`;
+
+const SignInButton = styled.button`
   display: block;
-  // width: 100%;
+  width: 100%;
   padding: 8px;
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
+  cursor: pointer;
   border-color: ${colors.primary};
   background-color: ${colors.primary};
   color: ${colors.tertiary};
@@ -66,26 +74,69 @@ const SignInButton = styled(Link)`
  * @returns {JSX}
  */
 const SignIn = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [invalidInput, setInvalidInput] = useState('')
+  const [rememberMe, setRememberMe] = useState(true)
+
+   useEffect(() => {
+    document.title = 'Argent Bank | Sign In'
+    // if user chose to be remembered then retrieve username from local storage
+    const rememberMe = localStorage.getItem('rememberMe') === 'true';
+    const user = rememberMe ? localStorage.getItem('user') : '';
+    setEmail(user)
+    setRememberMe(rememberMe)
+  }, []) ;
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setInvalidInput('')
+    if (email === '' || password === '') {
+      return setInvalidInput('Please enter both your username and password')
+    }
+    //if user chooses to be remembered then save to local storage
+    const user = email
+    const remembered = rememberMe
+    localStorage.setItem('rememberMe', remembered)
+    localStorage.setItem('user', rememberMe ? user : '')
+  }
+
   return (
       <MAIN>
         <SignInContent>
-          <i class="fa fa-user-circle"></i>
+          <i className="fa fa-user-circle"></i>
           <h1>Sign In</h1>
-          <form>
+          
+          <form onSubmit={handleSubmit}>
+
             <InputWrapper>
-                <label for="username">Username</label>
-                    <input type="text" id="username" />
+                <label htmlFor="email">Username</label>
+                    <input type="text" id="email" 
+                      autoComplete="email"
+                      value={email}
+                      onChange={(e) => {setEmail(e.target.value)}} />
               </InputWrapper>
+
               <InputWrapper>
-                <label for="password">Password</label>
-                    <input type="password" id="password" />
+                <label htmlFor="password">Password</label>
+                    <input type="password" id="password" 
+                      autoComplete="off"
+                      onChange={(e) => {setPassword(e.target.value)}} />
               </InputWrapper>
+
               <InputRemember>
-                <input type="checkbox" id="remember-me" /><label for="remember-me">Remember me</label>
+                  <input type="checkbox" id="remember-me" checked={rememberMe} 
+                      onChange={() => setRememberMe(!rememberMe)} />
+                      <label htmlFor="remember-me">Remember me</label>
               </InputRemember>
 
-            <SignInButton to="/User">Sign In</SignInButton>
+              <ErrorMsg>{invalidInput}</ErrorMsg>
+
+            <SignInButton type="submit">Sign In</SignInButton>
+
           </form>  
+          
         </SignInContent>
       </MAIN>
   )

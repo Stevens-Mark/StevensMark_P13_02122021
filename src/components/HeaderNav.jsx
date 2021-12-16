@@ -49,8 +49,8 @@ const Header = () => {
   return (
           <MainNav>
             <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
-                <h1 class="sr-only">Argent Bank</h1></MainNavA>
-            <MainNavA activeClassName="active" to="/SignIn"><i class="fa fa-user-circle"></i>Sign In</MainNavA>
+                <h1 className="sr-only">Argent Bank</h1></MainNavA>
+            <MainNavA activeClassName="active" to="/SignIn"><i className="fa fa-user-circle"></i>Sign In</MainNavA>
           </MainNav>
     )
 }

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import Hero from '../components/Hero'
 import Feature from '../components/Feature'
@@ -15,6 +16,11 @@ import Feature from '../components/Feature'
  * @returns {JSX}
  */
 const WelcomePage = () => {
+  
+  useEffect(() => {
+    document.title = 'Argent Bank'
+  }, [])
+
   return (
       <MAIN>
         <Hero />

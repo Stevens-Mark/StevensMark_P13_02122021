@@ -1,6 +1,7 @@
+import { useEffect } from 'react'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-import { AccountData } from '../data/AccountData';
+import { AccountData } from '../data/AccountData.js';
 
 /**
  * CSS for component using styled.components
@@ -8,7 +9,7 @@ import { AccountData } from '../data/AccountData';
  const MAIN = styled.main`
  background-color: #12002b;
  min-height: 100vh;
- 
+
  @media (min-width: 720px) {
   min-height: 85vh;
 }
@@ -30,6 +31,7 @@ const EditButton = styled.button`
   color: ${colors.tertiary};
   font-weight: bold;
   padding: 0.625rem;
+  cursor: pointer;
 `;
 
 const Account = styled.section`
@@ -88,7 +90,8 @@ const TransactionButton = styled.button`
   margin-top: 1rem;
   border-color: ${colors.primary};
   background-color: ${colors.primary};
-  color: #fff;
+  color: ${colors.tertiary};
+  cursor: pointer;
 
   @media (min-width: 720px) {
     width: 200px;
@@ -100,6 +103,10 @@ const TransactionButton = styled.button`
  */
 const User = () => {
 
+  useEffect(() => {
+    document.title = 'Argent Bank | Welcome'
+  }, [])
+  
     return (
       <MAIN>
       <HEADER>
@@ -111,7 +118,7 @@ const User = () => {
         <Account key={data.id}>
           <AccountWrapper>
             <AccountTitle>{data.title}</AccountTitle>
-            <AccountAmount>{data.amount}</AccountAmount>
+            <AccountAmount>$ {data.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2})}</AccountAmount>
             <AccountAmountDescription>{data.description}</AccountAmountDescription>
           </AccountWrapper>
           <AccountWrapperCta>
@@ -119,28 +126,6 @@ const User = () => {
           </AccountWrapperCta>
         </Account>
        ))}
-
-      {/* <Account>
-        <AccountWrapper>
-          <AccountTitle>Argent Bank Savings (x6712)</AccountTitle>
-          <AccountAmount>$10,928.42</AccountAmount>
-          <AccountAmountDescription>Available Balance</AccountAmountDescription>
-        </AccountWrapper>
-        <AccountWrapperCta>
-          <TransactionButton>View transactions</TransactionButton>
-        </AccountWrapperCta>
-      </Account>
-
-      <Account>
-        <AccountWrapper>
-          <AccountTitle>Argent Bank Credit Card (x8349)</AccountTitle>
-          <AccountAmount>$184.30</AccountAmount>
-          <AccountAmountDescription>Current Balance</AccountAmountDescription>
-        </AccountWrapper>
-        <AccountWrapperCta>
-          <TransactionButton>View transactions</TransactionButton>
-        </AccountWrapperCta>
-      </Account> */}
     </MAIN>
      )
   }
