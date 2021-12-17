@@ -1,7 +1,9 @@
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-import { AccountData } from '../data/AccountData.js';
+import { AccountData } from '../data/AccountData.js'
 
 /**
  * CSS for component using styled.components
@@ -102,11 +104,14 @@ const TransactionButton = styled.button`
  * @returns {JSX}
  */
 const User = () => {
+  const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn)
 
   useEffect(() => {
     document.title = 'Argent Bank | Welcome'
   }, [])
   
+  if (!isLoggedIn) { return <Navigate to="/" />}
+
     return (
       <MAIN>
       <HEADER>
@@ -130,6 +135,4 @@ const User = () => {
      )
   }
 
-
 export default User
-

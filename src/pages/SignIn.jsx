@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { login } from '../features/Users'
 
 /**
  * CSS for the component using styled.components
@@ -78,6 +80,7 @@ const SignIn = () => {
   const [password, setPassword] = useState('')
   const [invalidInput, setInvalidInput] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
+  const dispatch = useDispatch();
 
    useEffect(() => {
     document.title = 'Argent Bank | Sign In'
@@ -86,20 +89,24 @@ const SignIn = () => {
     const user = rememberMe ? localStorage.getItem('user') : '';
     setEmail(user)
     setRememberMe(rememberMe)
-  }, []) ;
+  }, [])
 
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    setInvalidInput('')
-    if (email === '' || password === '') {
-      return setInvalidInput('Please enter both your username and password')
-    }
     //if user chooses to be remembered then save to local storage
     const user = email
     const remembered = rememberMe
     localStorage.setItem('rememberMe', remembered)
     localStorage.setItem('user', rememberMe ? user : '')
+
+    setInvalidInput('')
+    if (email === '' || password === '') {
+      return setInvalidInput('Please enter both your username and password')
+    }
+    else {
+      dispatch(login())
+    }
   }
 
   return (

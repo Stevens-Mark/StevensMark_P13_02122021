@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
+import { store } from '../src/utils/store/store'
 import { createGlobalStyle } from "styled-components";
 import colors from './utils/style/colors';
 import App from './App';
@@ -50,10 +52,13 @@ import reportWebVitals from './reportWebVitals';
 `;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GlobalStyle />
-    <App />
-  </React.StrictMode>,
+      // Le Provider doit englober toute l'application !
+    <Provider store={store}>
+        <React.StrictMode>
+          <GlobalStyle />
+          <App />
+        </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

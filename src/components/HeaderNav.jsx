@@ -1,9 +1,12 @@
 
 import { NavLink } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // logo imports
 import logo from '../assets/images/argentBankLogo.png'
+import { logout } from '../features/Users'
+
 
 /**
  * CSS for the component using styled.components
@@ -46,11 +49,22 @@ const MainNavA = styled(NavLink)`
  * @returns (JSX)
  */
 const Header = () => {
+  const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn)
+  const dispatch = useDispatch
+
   return (
           <MainNav>
             <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
                 <h1 className="sr-only">Argent Bank</h1></MainNavA>
-            <MainNavA activeClassName="active" to="/SignIn"><i className="fa fa-user-circle"></i>Sign In</MainNavA>
+            {!isLoggedIn ? 
+              ( 
+              <MainNavA activeClassName="active" to="/SignIn"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
+              ) : 
+              ( <div>
+                <MainNavA to="/User"><i className="fa fa-user-circle"></i>Tony</MainNavA> 
+                <MainNavA to="/" onClick={() => dispatch(logout())}><i class="fa fa-sign-out"></i>Sign Out</MainNavA> 
+                </div>
+              )}
           </MainNav>
     )
 }

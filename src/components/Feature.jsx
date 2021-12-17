@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-import { featureData } from '../data/featureData'
+import { featureData } from '../data/FeatureData'
 
 /**
  * CSS for the component using styled.components
