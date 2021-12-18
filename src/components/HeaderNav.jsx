@@ -1,10 +1,12 @@
 
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // logo imports
 import logo from '../assets/images/argentBankLogo.png'
+//import action creator
 import { logout } from '../features/Users'
 
 
@@ -16,6 +18,7 @@ const MainNavLogo = styled.img`
   align-items: center;
   max-width: 100%;
   width: 12.5rem;
+  // cursor: pointer;
   // width: clamp(7rem, 12vw, 10rem);
 `;
 
@@ -50,8 +53,8 @@ const MainNavA = styled(NavLink)`
  */
 const Header = () => {
   const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn)
-  const dispatch = useDispatch
-
+  // const dispatch = useDispatch
+ const store = useStore
   return (
           <MainNav>
             <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
@@ -62,7 +65,7 @@ const Header = () => {
               ) : 
               ( <div>
                 <MainNavA to="/User"><i className="fa fa-user-circle"></i>Tony</MainNavA> 
-                <MainNavA to="/" onClick={() => dispatch(logout())}><i class="fa fa-sign-out"></i>Sign Out</MainNavA> 
+                <MainNavA to="/" onClick={() => store.dispatch(logout())}><i class="fa fa-sign-out"></i>Sign Out</MainNavA> 
                 </div>
               )}
           </MainNav>

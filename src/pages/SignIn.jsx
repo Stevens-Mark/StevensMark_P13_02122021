@@ -1,10 +1,11 @@
 // import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { login } from '../features/Users'
+import { useStore } from 'react-redux'
+import { fetchToken } from '../features/Users'
 
 /**
  * CSS for the component using styled.components
@@ -76,11 +77,15 @@ const SignInButton = styled.button`
  * @returns {JSX}
  */
 const SignIn = () => {
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [invalidInput, setInvalidInput] = useState('')
+  // const [invalidInput, setInvalidInput] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
-  const dispatch = useDispatch();
+  const store = useStore()
+
+  const isLoading = useSelector((state) => state.userReducer.isLoading)
+  const isError = useSelector((state) => state.userReducer.error)
 
    useEffect(() => {
     document.title = 'Argent Bank | Sign In'
@@ -100,13 +105,15 @@ const SignIn = () => {
     localStorage.setItem('rememberMe', remembered)
     localStorage.setItem('user', rememberMe ? user : '')
 
-    setInvalidInput('')
-    if (email === '' || password === '') {
-      return setInvalidInput('Please enter both your username and password')
-    }
-    else {
-      dispatch(login())
-    }
+    fetchToken(store, email, password)
+    // setInvalidInput('')
+    // if (email === '' || password === '') {
+    //   return setInvalidInput('Please enter both your username and password')
+    // }
+    // else {
+    //   // check if valid user & return a 'token' if true
+    //   fetchToken(store, email, password)
+    // }
   }
 
   return (
@@ -114,7 +121,7 @@ const SignIn = () => {
         <SignInContent>
           <i className="fa fa-user-circle"></i>
           <h1>Sign In</h1>
-          
+          {password}
           <form onSubmit={handleSubmit}>
 
             <InputWrapper>
@@ -122,14 +129,17 @@ const SignIn = () => {
                     <input type="text" id="email" 
                       autoComplete="email"
                       value={email}
-                      onChange={(e) => {setEmail(e.target.value)}} />
+                      onChange={(e) => {setEmail(e.target.value)}} 
+                      disabled={isLoading ? true : false}/>
+                      
               </InputWrapper>
 
               <InputWrapper>
                 <label htmlFor="password">Password</label>
                     <input type="password" id="password" 
                       autoComplete="off"
-                      onChange={(e) => {setPassword(e.target.value)}} />
+                      onChange={(e) => {setPassword(e.target.value)}}
+                      disabled={isLoading ? true : false} />
               </InputWrapper>
 
               <InputRemember>
@@ -138,9 +148,11 @@ const SignIn = () => {
                       <label htmlFor="remember-me">Remember me</label>
               </InputRemember>
 
-              <ErrorMsg>{invalidInput}</ErrorMsg>
+              {/* <ErrorMsg>{invalidInput}</ErrorMsg> */}
+              <ErrorMsg>{isError}</ErrorMsg>
 
-            <SignInButton type="submit">Sign In</SignInButton>
+            <SignInButton type="submit" 
+                disabled={isLoading ? true : false}>Sign In</SignInButton>
 
           </form>  
           

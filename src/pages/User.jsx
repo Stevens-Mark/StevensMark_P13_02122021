@@ -110,7 +110,7 @@ const User = () => {
     document.title = 'Argent Bank | Welcome'
   }, [])
   
-  if (!isLoggedIn) { return <Navigate to="/" />}
+  if (!isLoggedIn) return <Navigate to="/" /> 
 
     return (
       <MAIN>
