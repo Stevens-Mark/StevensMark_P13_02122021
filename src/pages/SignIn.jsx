@@ -1,5 +1,5 @@
-// import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
@@ -82,12 +82,15 @@ const SignIn = () => {
   const [password, setPassword] = useState('')
   // const [invalidInput, setInvalidInput] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
+
   const store = useStore()
+  const navigate = useNavigate()
 
   const isLoading = useSelector((state) => state.userReducer.isLoading)
   const isError = useSelector((state) => state.userReducer.error)
-
-   useEffect(() => {
+  const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn)
+  
+    useEffect(() => {
     document.title = 'Argent Bank | Sign In'
     // if user chose to be remembered then retrieve username from local storage
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
@@ -96,6 +99,10 @@ const SignIn = () => {
     setRememberMe(rememberMe)
   }, [])
 
+    useEffect(() => {
+    // Redirect to User transaction page when authenticated/LoggedIn
+      if (isLoggedIn) navigate('/User')
+  }, [isLoggedIn, navigate])
 
   const handleSubmit = (event) => {
     event.preventDefault()

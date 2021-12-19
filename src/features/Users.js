@@ -104,4 +104,3 @@ export async function fetchToken(store, email, password) {
     store.dispatch(tokenRejected(error.response.data.message))
   }
 }
-
