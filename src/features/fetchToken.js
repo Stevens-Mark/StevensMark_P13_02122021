@@ -1,7 +1,7 @@
 // import axios
 import axios from 'axios'
 //import the Immer produce function
-import produce from "immer";
+import produce from "immer"
 
 /**
  * Constants
@@ -31,9 +31,8 @@ export const tokenReset = () => ({ type: RESET })
 
 /**
  * @function tokenReducer
- * @param {object} initial state
+ * @param {object} state
  * @param {string} action
- * User reducer
  */
 export function tokenReducer(state = initialTokenState, action) {
   // on utilise immer pour changer le state
@@ -79,6 +78,7 @@ export function tokenReducer(state = initialTokenState, action) {
  * @param {object} store 
  * @param {string} email 
  * @param {string} password 
+ * @returns {string} token or error message
  */
 export async function fetchToken(store, email, password) {
 

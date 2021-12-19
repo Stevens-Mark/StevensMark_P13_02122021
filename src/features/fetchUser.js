@@ -30,9 +30,8 @@ export const userReset = () => ({ type: RESET })
 
 /**
  * @function userReducer
- * @param {object} initial state
+ * @param {object} state
  * @param {string} action
- * User reducer
  */
 export function userReducer(state = initialUserState, action) {
   // on utilise immer pour changer le state
@@ -70,9 +69,12 @@ export function userReducer(state = initialUserState, action) {
 }
 
 /**
+ * Using the retrieved 'token' for authentication 
+ * the functin it retrieves the user name
  * @function fetchUser
  * @param {object} store 
  * @param {string} token
+ * @returns {object|string} user information or error message
  */
 export async function fetchUser(store, token) {
 

@@ -1,12 +1,12 @@
 import { useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useStore } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-import { AccountData } from '../data/AccountData.js'
-
+import LoadingIcon from '../utils/loader/loadingIcon'
+import { AccountData } from '../data/accountData.js'
 import { fetchUser } from '../features/fetchUser'
-import { useStore } from 'react-redux'
+
 
 /**
  * CSS for component using styled.components
@@ -108,7 +108,9 @@ const TransactionButton = styled.button`
  */
 const User = () => {
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
+
   const token = useSelector((state) => state.tokenReducer.token)
+  const isLoading = useSelector((state) => state.userReducer.isLoading)
   const firstName = useSelector((state) => state.userReducer.user.firstName)
   const lastName = useSelector((state) => state.userReducer.user.lastName)
   const isError = useSelector((state) => state.userReducer.isError)
@@ -124,6 +126,7 @@ const User = () => {
 
     return (
       <MAIN>
+        
       {isError !=='' ? (
         <HEADER>
           <h1>Sorry, Something went wrong !</h1>
@@ -136,7 +139,7 @@ const User = () => {
           <EditButton>Edit Name</EditButton>
         </HEADER>
       )}
-
+      {isLoading && <LoadingIcon />}
       <h2 className ="sr-only">Accounts</h2>
       {AccountData.map((data) => (
         <Account key={data.id}>

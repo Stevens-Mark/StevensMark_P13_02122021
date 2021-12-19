@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-import { featureData } from '../data/FeatureData'
+import { featureData } from '../data/featureData'
 
 /**
  * CSS for the component using styled.components
@@ -34,7 +34,7 @@ const FeaturesIcon = styled.img`
  `;
 
 /**
- * Renders the three "features or slogans" of the bank on the home page
+ * Renders the three "features/slogans" of the bank on the home page
  * @function Feature
  * @returns {JSX}
  */

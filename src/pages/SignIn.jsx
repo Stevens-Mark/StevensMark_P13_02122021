@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { useSelector, useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-import { useState } from 'react'
+import LoadingIcon from '../utils/loader/loadingIcon'
 import { fetchToken } from '../features/fetchToken'
 
 /**
@@ -144,6 +144,7 @@ const SignIn = () => {
               </InputRemember>
 
               <ErrorMsg>{isError}</ErrorMsg>
+              {isLoading && <LoadingIcon />}
 
             <SignInButton type="submit" 
                 disabled={isLoading ? true : false}>Sign In</SignInButton>
