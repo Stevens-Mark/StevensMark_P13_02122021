@@ -1,13 +1,13 @@
 import { createStore, combineReducers } from 'redux'
-import { userReducer } from '../../features/Users'
-
+import { tokenReducer } from '../../features/fetchToken'
+import { userReducer } from '../../features/fetchUser'
 /**
 * put all reducers together
 */
  const rootReducer = combineReducers({
+  tokenReducer,
   userReducer,
 })
-
 
 // create the store & connect devtools
 const reduxDevtools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() // This is the chrome Redux plugin

@@ -1,14 +1,12 @@
 
 import { NavLink } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { useStore } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // logo imports
 import logo from '../assets/images/argentBankLogo.png'
 //import action creator
-import { logout } from '../features/Users'
-
+import { logout } from '../features/fetchToken'
 
 /**
  * CSS for the component using styled.components
@@ -52,9 +50,10 @@ const MainNavA = styled(NavLink)`
  * @returns (JSX)
  */
 const Header = () => {
-  const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn)
-  // const dispatch = useDispatch
- const store = useStore
+  const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
+  const firstName = useSelector((state) => state.userReducer.user.firstName)
+  const dispatch = useDispatch()
+
   return (
           <MainNav>
             <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
@@ -64,8 +63,8 @@ const Header = () => {
               <MainNavA activeClassName="active" to="/SignIn"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
               ) : 
               ( <div>
-                <MainNavA to="/User"><i className="fa fa-user-circle"></i>Tony</MainNavA> 
-                <MainNavA to="/" onClick={() => store.dispatch(logout())}><i class="fa fa-sign-out"></i>Sign Out</MainNavA> 
+                <MainNavA to="/User"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
+                <MainNavA to="/" onClick={() => dispatch(logout())}><i class="fa fa-sign-out"></i>Sign Out</MainNavA> 
                 </div>
               )}
           </MainNav>

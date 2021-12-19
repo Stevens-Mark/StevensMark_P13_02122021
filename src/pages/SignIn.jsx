@@ -1,11 +1,10 @@
 import { useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import { useSelector, useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 import { useState } from 'react'
-import { useStore } from 'react-redux'
-import { fetchToken } from '../features/Users'
+import { fetchToken } from '../features/fetchToken'
 
 /**
  * CSS for the component using styled.components
@@ -80,15 +79,14 @@ const SignIn = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  // const [invalidInput, setInvalidInput] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
 
   const store = useStore()
   const navigate = useNavigate()
 
-  const isLoading = useSelector((state) => state.userReducer.isLoading)
-  const isError = useSelector((state) => state.userReducer.error)
-  const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn)
+  const isLoading = useSelector((state) => state.tokenReducer.isLoading)
+  const isError = useSelector((state) => state.tokenReducer.error)
+  const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
   
     useEffect(() => {
     document.title = 'Argent Bank | Sign In'
@@ -107,20 +105,10 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     //if user chooses to be remembered then save to local storage
-    const user = email
-    const remembered = rememberMe
-    localStorage.setItem('rememberMe', remembered)
-    localStorage.setItem('user', rememberMe ? user : '')
+    localStorage.setItem('rememberMe', rememberMe)
+    localStorage.setItem('user', rememberMe ? email : '')
 
     fetchToken(store, email, password)
-    // setInvalidInput('')
-    // if (email === '' || password === '') {
-    //   return setInvalidInput('Please enter both your username and password')
-    // }
-    // else {
-    //   // check if valid user & return a 'token' if true
-    //   fetchToken(store, email, password)
-    // }
   }
 
   return (
@@ -155,7 +143,6 @@ const SignIn = () => {
                       <label htmlFor="remember-me">Remember me</label>
               </InputRemember>
 
-              {/* <ErrorMsg>{invalidInput}</ErrorMsg> */}
               <ErrorMsg>{isError}</ErrorMsg>
 
             <SignInButton type="submit" 

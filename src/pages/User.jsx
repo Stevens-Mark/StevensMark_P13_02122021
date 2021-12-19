@@ -5,6 +5,9 @@ import styled from 'styled-components'
 import colors from '../utils/style/colors'
 import { AccountData } from '../data/AccountData.js'
 
+import { fetchUser } from '../features/fetchUser'
+import { useStore } from 'react-redux'
+
 /**
  * CSS for component using styled.components
  */
@@ -104,18 +107,24 @@ const TransactionButton = styled.button`
  * @returns {JSX}
  */
 const User = () => {
-  const isLoggedIn = useSelector((state) => state.userReducer.isLoggedIn)
+  const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
+  const token = useSelector((state) => state.tokenReducer.token)
+  const firstName = useSelector((state) => state.userReducer.user.firstName)
+  const lastName = useSelector((state) => state.userReducer.user.lastName)
+
+  const store = useStore()
 
   useEffect(() => {
     document.title = 'Argent Bank | Welcome'
-  }, [])
+    fetchUser(store, token)
+  }, [store, token])
   
   if (!isLoggedIn) return <Navigate to="/" /> 
 
     return (
       <MAIN>
       <HEADER>
-        <h1>Welcome back<br />Tony Jarvis!</h1>
+        <h1>Welcome back<br />{firstName} {lastName} !</h1>
         <EditButton>Edit Name</EditButton>
       </HEADER>
       <h2 className ="sr-only">Accounts</h2>

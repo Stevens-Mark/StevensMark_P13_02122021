@@ -1,5 +1,3 @@
-// import { useDispatch } from 'react-redux';
-
 // import axios
 import axios from 'axios'
 //import the Immer produce function
@@ -35,12 +33,12 @@ export const logout = () => ({ type: LOGOUT })
  }
 
 /**
- * @function userReducer
+ * @function tokenReducer
  * @param {object} initial state
  * @param {string} action
  * User reducer
  */
-export function userReducer(state = initialState, action) {
+export function tokenReducer(state = initialState, action) {
   // on utilise immer pour changer le state
   return produce(state, (draft) => {
     // on fait un switch sur le type de l'action
@@ -98,8 +96,7 @@ export async function fetchToken(store, email, password) {
     const token = await response.data.body.token
     // if request resolved then save the token in the store
      store.dispatch(tokenResolved(token))
- 
-  } catch (error) {
+   } catch (error) {
     // otherwise request rejected
     store.dispatch(tokenRejected(error.response.data.message))
   }
