@@ -9,8 +9,7 @@ import produce from "immer";
 const FETCHING = 'user/fetching'
 const RESOLVED = 'user/resolved'
 const REJECTED = 'user/rejected'
- 
-// const LOGOUT = "user/logout"
+const RESET = 'user/reset'
  
 /**
 * Actions creators
@@ -18,16 +17,15 @@ const REJECTED = 'user/rejected'
 export const userFetching = () => ({ type: FETCHING })
 export const userResolved = (token) => ({ type: RESOLVED, payload: token })
 export const userRejected = (error) => ({ type: REJECTED, payload: error })
-
-// export const logout = () => ({ type: LOGOUT })
+export const userReset = () => ({ type: RESET })
  
 /**
 * Initial state
 */
- const initialStateUser = {
+ const initialUserState = {
    isLoading: false,
    user: {},
-   error: '',
+   isError: '',
  }
 
 /**
@@ -36,7 +34,7 @@ export const userRejected = (error) => ({ type: REJECTED, payload: error })
  * @param {string} action
  * User reducer
  */
-export function userReducer(state = initialStateUser, action) {
+export function userReducer(state = initialUserState, action) {
   // on utilise immer pour changer le state
   return produce(state, (draft) => {
     // on fait un switch sur le type de l'action
@@ -48,20 +46,21 @@ export function userReducer(state = initialStateUser, action) {
        case RESOLVED: {
           draft.isLoading = false
           draft.user = action.payload
+          draft.isError = ''
           return
       }
       case REJECTED: {
           draft.isLoading = false
           draft.user = {}
-          draft.error = action.payload
+          draft.isError = action.payload
           return
       }
-    //   case LOGOUT: {
-    //     draft.isLoading = false
-    //     draft.user = {}
-    //     draft.error = ''
-    //     return 
-    // }
+      case RESET: {
+        draft.isLoading = false
+        draft.user = {}
+        draft.error = ''
+        return 
+    }
       // Otherwise (invalid action)
       default:
         // we do nothing (return the state without modifications)

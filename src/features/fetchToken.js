@@ -9,8 +9,7 @@ import produce from "immer";
 const FETCHING = 'token/fetching'
 const RESOLVED = 'token/resolved'
 const REJECTED = 'token/rejected'
- 
-const LOGOUT = "logout"
+const RESET = 'token/reset'
  
 /**
 * Actions creators
@@ -18,16 +17,14 @@ const LOGOUT = "logout"
 export const tokenFetching = () => ({ type: FETCHING })
 export const tokenResolved = (token) => ({ type: RESOLVED, payload: token })
 export const tokenRejected = (error) => ({ type: REJECTED, payload: error })
-
-export const logout = () => ({ type: LOGOUT })
+export const tokenReset = () => ({ type: RESET })
  
 /**
 * Initial state
 */
- const initialState = {
+ const initialTokenState = {
    isLoading: false,
    isLoggedIn: false,
-   user: {},
    token: null,
    error: '',
  }
@@ -38,7 +35,7 @@ export const logout = () => ({ type: LOGOUT })
  * @param {string} action
  * User reducer
  */
-export function tokenReducer(state = initialState, action) {
+export function tokenReducer(state = initialTokenState, action) {
   // on utilise immer pour changer le state
   return produce(state, (draft) => {
     // on fait un switch sur le type de l'action
@@ -51,6 +48,7 @@ export function tokenReducer(state = initialState, action) {
           draft.isLoading = false
           draft.isLoggedIn = true
           draft.token = action.payload
+          draft.error = ''
           return
       }
       case REJECTED: {
@@ -60,10 +58,9 @@ export function tokenReducer(state = initialState, action) {
           draft.error = action.payload
           return
       }
-      case LOGOUT: {
+      case RESET: {
         draft.isLoading = false
         draft.isLoggedIn = false
-        draft.user = {}
         draft.token = null
         draft.error = ''
         return 

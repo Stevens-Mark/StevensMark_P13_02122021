@@ -6,7 +6,8 @@ import colors from '../utils/style/colors'
 // logo imports
 import logo from '../assets/images/argentBankLogo.png'
 //import action creator
-import { logout } from '../features/fetchToken'
+import { tokenReset } from '../features/fetchToken'
+import { userReset } from '../features/fetchUser'
 
 /**
  * CSS for the component using styled.components
@@ -53,7 +54,7 @@ const Header = () => {
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
   const firstName = useSelector((state) => state.userReducer.user.firstName)
   const dispatch = useDispatch()
-
+  
   return (
           <MainNav>
             <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
@@ -63,8 +64,10 @@ const Header = () => {
               <MainNavA activeClassName="active" to="/SignIn"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
               ) : 
               ( <div>
-                <MainNavA to="/User"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
-                <MainNavA to="/" onClick={() => dispatch(logout())}><i class="fa fa-sign-out"></i>Sign Out</MainNavA> 
+                  <MainNavA to="/User"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
+                  <MainNavA to="/" 
+                  onClick={() => { dispatch(userReset()); dispatch(tokenReset());}}>
+                    <i class="fa fa-sign-out"></i>Sign Out</MainNavA> 
                 </div>
               )}
           </MainNav>

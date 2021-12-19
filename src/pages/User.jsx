@@ -111,6 +111,7 @@ const User = () => {
   const token = useSelector((state) => state.tokenReducer.token)
   const firstName = useSelector((state) => state.userReducer.user.firstName)
   const lastName = useSelector((state) => state.userReducer.user.lastName)
+  const isError = useSelector((state) => state.userReducer.isError)
 
   const store = useStore()
 
@@ -123,10 +124,19 @@ const User = () => {
 
     return (
       <MAIN>
-      <HEADER>
-        <h1>Welcome back<br />{firstName} {lastName} !</h1>
-        <EditButton>Edit Name</EditButton>
-      </HEADER>
+      {isError !=='' ? (
+        <HEADER>
+          <h1>Sorry, Something went wrong !</h1>
+          <h1>Please try again later....</h1>
+          <h1>{isError}</h1>
+        </HEADER>
+        ) : (
+        <HEADER>
+          <h1>Welcome back<br />{firstName} {lastName} !</h1>
+          <EditButton>Edit Name</EditButton>
+        </HEADER>
+      )}
+
       <h2 className ="sr-only">Accounts</h2>
       {AccountData.map((data) => (
         <Account key={data.id}>
