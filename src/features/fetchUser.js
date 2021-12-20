@@ -9,16 +9,25 @@ import produce from "immer";
 const FETCHING = 'user/fetching'
 const RESOLVED = 'user/resolved'
 const REJECTED = 'user/rejected'
+
+const SENDING ='user/updateSending'
+const SUCCESS = 'user/updateSuccess'
+const FAIL = 'user/updateFail'
+
 const RESET = 'user/reset'
- 
 /**
 * Actions creators
 */
 export const userFetching = () => ({ type: FETCHING })
 export const userResolved = (token) => ({ type: RESOLVED, payload: token })
 export const userRejected = (error) => ({ type: REJECTED, payload: error })
+
+export const userUpdateSending = () => ({ type: SENDING })
+export const userUpdateSuccess = (firstName, lastName) => ({ type: SUCCESS, payload: { firstName, lastName } })
+export const userUpdateFail = (error) => ({ type: FAIL, payload: error })
+
 export const userReset = () => ({ type: RESET })
- 
+
 /**
 * Initial state
 */
@@ -34,9 +43,9 @@ export const userReset = () => ({ type: RESET })
  * @param {string} action
  */
 export function userReducer(state = initialUserState, action) {
-  // on utilise immer pour changer le state
+  // we use immer to change the state
   return produce(state, (draft) => {
-    // on fait un switch sur le type de l'action
+    // make a switch on the type of the action
     switch (action.type) {
       case FETCHING: {
           draft.isLoading = true
@@ -54,12 +63,30 @@ export function userReducer(state = initialUserState, action) {
           draft.isError = action.payload
           return
       }
+      //for user name updating
+      case SENDING: {
+        draft.isLoading = true
+        return
+      }
+      case SUCCESS: {
+        draft.isLoading = false
+        draft.user = action.payload
+        draft.isError = ''
+        return
+      }
+      case FAIL: {
+        draft.isLoading = false
+        draft.user = {}
+        draft.isError = action.payload
+        return
+      }
+      // for use logout
       case RESET: {
         draft.isLoading = false
         draft.user = {}
         draft.error = ''
         return 
-    }
+      }
       // Otherwise (invalid action)
       default:
         // we do nothing (return the state without modifications)
@@ -68,21 +95,24 @@ export function userReducer(state = initialUserState, action) {
   })
 }
 
+
 /**
  * Using the retrieved 'token' for authentication 
- * the functin it retrieves the user name
+ * then the function retrieves the user's name
  * @function fetchUser
  * @param {object} store 
  * @param {string} token
  * @returns {object|string} user information or error message
  */
-export async function fetchUser(store, token) {
+ export async function fetchUser(store, token) {
 
   // start the request
     store.dispatch(userFetching())
   try {
     // use axios to make the query
-    const response = await axios.post('http://localhost:3001/api/v1/user/profile', {}, {
+    const response = await axios.post('http://localhost:3001/api/v1/user/profile', 
+    {}, 
+    {
       headers: {
         'Authorization': `Bearer ${token}` 
       }
@@ -93,5 +123,40 @@ export async function fetchUser(store, token) {
   } catch (error) {
     // otherwise request rejected
     store.dispatch(userRejected(error.response.data.message))
+  }
+}
+
+/**
+ * Using the retrieved 'token' for authentication 
+ * then the function updates the user name
+ * @function UpdateUser
+ * @param {object} store 
+ * @param {string} token
+ * @param {string} newFirst: new first name
+ * @param {string} newLast: new last name
+ * @returns {object|string} user's new name or error message
+ */
+ export async function UpdateUser(store, token, newFirst, newLast) {
+
+  // start the update request
+    store.dispatch(userUpdateSending())
+  try {
+    // use axios to make the query
+    const response = await axios.put('http://localhost:3001/api/v1/user/profile', 
+    {
+      firstName: newFirst,
+      lastName: newLast
+    }, 
+    {
+      headers: {
+        'Authorization': `Bearer ${token}` 
+      }
+    })
+    const user = await response.data.body
+    // if request update resolved then save the user in the store
+     store.dispatch(userUpdateSuccess(user.firstName, user.lastName))
+  } catch (error) {
+    // otherwise update request rejected
+    store.dispatch(userUpdateFail(error.response.data.message))
   }
 }

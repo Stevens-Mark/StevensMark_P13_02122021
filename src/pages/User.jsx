@@ -1,12 +1,12 @@
-import { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useStore } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 import LoadingIcon from '../utils/loader/loadingIcon'
-import { AccountData } from '../data/accountData.js'
+import Transactions from '../components/Transactions'
 import { fetchUser } from '../features/fetchUser'
-
+import { UpdateUser } from '../features/fetchUser'
 
 /**
  * CSS for component using styled.components
@@ -43,69 +43,78 @@ const EditButton = styled.button`
   cursor: pointer;
 `;
 
-const Account = styled.section`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid black;
-  background-color:  ${colors.tertiary};;
-  width: 80%;
-  margin: 0 auto;
-  flex-direction: column;
-  padding: 1.5rem;
+/**
+ * CSS for edit name form
+ */
+const EditContent = styled.div`
   box-sizing: border-box;
-  text-align: left;
-  margin-bottom: 2rem;
+  // background-color: white;
+  // width: 550px;
+  margin: 0 auto;
+  padding: 1rem;
+  // position: relative;
+  // top: 3rem;
 
-  @media (min-width: 720px) {
-      flex-direction: row;
+  i {
+    font-size: 1rem;
   }
 `;
 
-const AccountWrapper = styled.div`
-  width: 100%;
-  flex: 1;
+const Form = styled.form`
+  display: flex;
+  justify-content: center;
+
+  }
 `;
 
-const AccountTitle = styled.h3`
-  margin: 0;
-  padding: 0;
-  font-size: 1rem;
-  font-weight: normal;
-`;
+const ItemWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: left;
 
-const AccountAmount = styled.div`
-  margin: 0;
-  font-size: 2.5rem;
-  font-weight: bold;
-`;
-
-const AccountAmountDescription = styled.div`
-  margin: 0;
-`;
-
-const AccountWrapperCta = styled.div`
-  @media (min-width: 720px) {
-    flex: 0;
+  @media screen and (min-width: 600px) {
+    flex-direction: row;
     }
 `;
 
-const TransactionButton = styled.button`
+const InputWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0.625rem;
+  // margin-bottom: 1rem;
+
+  @media screen and (min-width: 600px) {
+    &:nth-child(1) {
+      align-items: flex-end;
+    }
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  input {
+    padding: 5px;
+    font-size: 1.2rem;
+  }
+`;
+
+const EditButtons = styled.button`
   display: block;
-  width: 100%;
   padding: 8px;
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
+  cursor: pointer;
   border-color: ${colors.primary};
   background-color: ${colors.primary};
   color: ${colors.tertiary};
-  cursor: pointer;
 
-  @media (min-width: 720px) {
-    width: 200px;
+  @media screen and (min-width: 600px) {
+    width: 100px;
     }
 `;
+
 /**
  * @function Profile User Page
  * @returns {JSX}
@@ -117,46 +126,73 @@ const User = () => {
   const isLoading = useSelector((state) => state.userReducer.isLoading)
   const firstName = useSelector((state) => state.userReducer.user.firstName)
   const lastName = useSelector((state) => state.userReducer.user.lastName)
-  const isError = useSelector((state) => state.userReducer.isError)
+  // const isError = useSelector((state) => state.userReducer.isError)
 
+  const [newFirst, setNewFirst] = useState(firstName)
+  const [newSecond, setnewSecond] = useState(lastName)
+  const [canEdit, setCanEdit] = useState(false)
   const store = useStore()
 
   useEffect(() => {
     document.title = 'Argent Bank | Welcome'
     fetchUser(store, token)
   }, [store, token])
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setCanEdit(!canEdit)
+    UpdateUser(store, token, newFirst, newSecond)
+  }
   
   if (!isLoggedIn) return <Navigate to="/" /> 
 
     return (
       <MAIN>
-        
-      {isError !=='' ? (
-        <HEADER>
-          <h1>Sorry, Something went wrong !</h1>
-          <h1>Please try again later....</h1>
-          <h1>{isError}</h1>
-        </HEADER>
-        ) : (
-        <HEADER>
-          <h1>Welcome back<br />{firstName} {lastName} !</h1>
-          <EditButton>Edit Name</EditButton>
-        </HEADER>
-      )}
-      {isLoading && <LoadingIcon />}
-      <h2 className ="sr-only">Accounts</h2>
-      {AccountData.map((data) => (
-        <Account key={data.id}>
-          <AccountWrapper>
-            <AccountTitle>{data.title}</AccountTitle>
-            <AccountAmount>$ {data.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2})}</AccountAmount>
-            <AccountAmountDescription>{data.description}</AccountAmountDescription>
-          </AccountWrapper>
-          <AccountWrapperCta>
-            <TransactionButton>View transactions</TransactionButton>
-          </AccountWrapperCta>
-        </Account>
-       ))}
+          <HEADER>
+
+          {canEdit ? (
+            <EditContent>
+              <h1>Please enter your new name</h1>
+              <Form onSubmit={handleSubmit}>
+              <ItemWrapper>
+                <InputWrapper>
+                  <label htmlFor="first">First Name</label>
+                      <input type="text" id="first"
+                        placeholder={firstName}
+                      
+                        onChange={(e) => {setNewFirst(e.target.value)}} 
+                        disabled={isLoading ? true : false}/>    
+                  <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons>     
+                </InputWrapper>
+
+                <InputWrapper>
+                  <label htmlFor="second">Surname</label>
+                      <input type="text" id="second"
+                        placeholder={lastName}
+                        autoComplete="off"
+                        onChange={(e) => {setnewSecond(e.target.value)}}
+                        disabled={isLoading ? true : false} />
+
+                  <EditButtons type="button" 
+                  disabled={isLoading ? true : false}
+                  onClick={() => setCanEdit(!canEdit)}>Cancel</EditButtons>
+
+                </InputWrapper>
+              </ItemWrapper>
+              </Form>  
+            </EditContent>
+          ) : (
+            <React.Fragment>
+              <h1>Welcome back<br />{firstName} {lastName} !</h1>
+              <EditButton onClick={() => setCanEdit(!canEdit)}>Edit Name</EditButton>
+            </React.Fragment>
+          )}
+
+          </HEADER>
+
+          {isLoading && <LoadingIcon />}
+          {/* The transactions component shows dummy transaction data */}
+          <Transactions />
     </MAIN>
      )
   }

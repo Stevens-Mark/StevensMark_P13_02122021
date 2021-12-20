@@ -4,7 +4,7 @@ import heroImg from '../assets/images/bank-tree.jpeg'
 /**
  * CSS for the component using styled.components
  */
-const HeroContainer = styled.div`
+const HeroContainer = styled.section`
   background-image: url(${heroImg});
   background-position: 0 -50px;
   background-size: cover;
@@ -18,7 +18,7 @@ const HeroContainer = styled.div`
     }
 `;
 
-const HeroContent = styled.section`
+const HeroContent = styled.article`
   position: relative;
   top: 2rem;
   width: 12.5rem;
@@ -63,6 +63,7 @@ const HeroText = styled.p`
 const Hero = () => {
   return (
     <HeroContainer>
+        <h1 className="sr-only">Argent Bank - Welcome</h1>
         <HeroContent>
           <h2 className="sr-only">Promoted Content</h2>
           <HeroSubtitle>No fees.</HeroSubtitle>
