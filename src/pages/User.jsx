@@ -14,6 +14,10 @@ import { fetchUser } from '../features/fetchUser'
  const MAIN = styled.main`
  background-color: #12002b;
  min-height: 100vh;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
 
  @media (min-width: 720px) {
   min-height: 85vh;

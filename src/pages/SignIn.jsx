@@ -85,9 +85,9 @@ const SignIn = () => {
   const navigate = useNavigate()
 
   const isLoading = useSelector((state) => state.tokenReducer.isLoading)
-  const isError = useSelector((state) => state.tokenReducer.error)
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
-  
+  const isError = useSelector((state) => state.tokenReducer.error)
+
     useEffect(() => {
     document.title = 'Argent Bank | Sign In'
     // if user chose to be remembered then retrieve username from local storage
