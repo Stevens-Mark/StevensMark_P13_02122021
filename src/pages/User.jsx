@@ -7,7 +7,7 @@ import LoadingIcon from '../utils/loader/loadingIcon'
 import Transactions from '../components/Transactions'
 import { fetchUser } from '../features/fetchUser'
 import { UpdateUser } from '../features/fetchUser'
-
+import { capitalize } from '../utils/functions/capitalize'
 /**
  * CSS for component using styled.components
  */
@@ -39,6 +39,12 @@ const EditButton = styled.button`
   font-weight: bold;
   padding: 0.625rem;
   cursor: pointer;
+  transition: 0.4s;
+  &:hover {
+    opacity: 0.85;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
+    transition: 0.4s;
+  }
 `;
 
 /**
@@ -77,22 +83,44 @@ const InputWrapper = styled.div`
   input {
     padding: 0.5rem;
     font-size: 1.2rem;
-    margin: 0rem 0.5rem;
+    // margin: 0rem 0.5rem;
     border-radius: 0.2rem;
     border: 1px solid black;
   }
 `;
 
+const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin: 0.625rem;
+  margin-bottom: 1rem;
+
+   @media screen and (min-width: 425px) {
+    flex-direction: row;
+    width: unset;
+    }
+  }
+`;
+
 const EditButtons = styled.button`
   // display: block;
-  margin: 0rem 0.5rem;
+  // margin: 0rem 0.5rem;
   padding: 0.625rem;
   font-weight: bold;
+  min-width: 100px;
   cursor: pointer;
   border-radius: 0.2rem;
   border: none;
   background-color: ${colors.primary};
   color: ${colors.tertiary};
+  transition: 0.4s;
+  &:hover {
+    opacity: 0.85;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
+    transition: 0.4s;
+  }
 
   @media screen and (min-width: 600px) {
     width: 100px;
@@ -104,16 +132,16 @@ const EditButtons = styled.button`
  * @returns {JSX}
  */
 const User = () => {
+
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
 
   const token = useSelector((state) => state.tokenReducer.token)
-  const isLoading = useSelector((state) => state.userReducer.isLoading)
-  const firstName = useSelector((state) => state.userReducer.user.firstName)
-  const lastName = useSelector((state) => state.userReducer.user.lastName)
+  const isLoading = (useSelector((state) => state.userReducer.isLoading))
+  const firstName = capitalize(useSelector((state) => state.userReducer.user.firstName))
+  const lastName =  capitalize(useSelector((state) => state.userReducer.user.lastName))
   // const isError = useSelector((state) => state.userReducer.isError)
-
-  const [newFirst, setNewFirst] = useState(firstName)
-  const [newSecond, setnewSecond] = useState(lastName)
+  const [newFirst, setNewFirst] = useState('')
+  const [newLast, setnewLast] = useState('')
   const [canEdit, setCanEdit] = useState(false)
   const store = useStore()
 
@@ -124,8 +152,9 @@ const User = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    UpdateUser(store, token, newFirst, newLast)
     setCanEdit(!canEdit)
-    UpdateUser(store, token, newFirst, newSecond)
+
   }
   
   if (!isLoggedIn) return <Navigate to="/" /> 
@@ -151,25 +180,25 @@ const User = () => {
                       <input type="text" id="second"
                         placeholder={lastName}
                         autoComplete="off"
-                        onChange={(e) => {setnewSecond(e.target.value)}}
+                        onChange={(e) => {setnewLast(e.target.value)}}
                         disabled={isLoading ? true : false} />
 
                 </InputWrapper>
 
-                <InputWrapper>
+                <ButtonWrapper>
 
                   <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons> 
                   <EditButtons type="button" 
                   disabled={isLoading ? true : false}
                   onClick={() => setCanEdit(!canEdit)}>Cancel</EditButtons>
 
-                </InputWrapper>
+                </ButtonWrapper>
            
               </Form>  
             </EditContent>
           ) : (
             <React.Fragment>
-              <h1>{firstName} {lastName} !</h1>
+              <h1>{firstName}  {lastName} !</h1>
               <EditButton onClick={() => setCanEdit(!canEdit)}>Edit Name</EditButton>
             </React.Fragment>
           )}

@@ -65,6 +65,12 @@ const TransactionButton = styled.button`
  background-color: ${colors.primary};
  color: ${colors.tertiary};
  cursor: pointer;
+ transition: 0.4s;
+ &:hover {
+   opacity: 0.85;
+   box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
+   transition: 0.4s;
+ }
 
  @media (min-width: 720px) {
    width: 200px;

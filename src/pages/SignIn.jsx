@@ -11,7 +11,7 @@ import { fetchToken } from '../features/fetchToken'
  */
 const MAIN = styled.main`
   background-color: #12002b;
-  min-height: 85vh;
+  min-height: 100vh;
 `;
 
 const SignInContent = styled.section`
@@ -72,6 +72,12 @@ const SignInButton = styled.button`
   border: none;
   background-color: ${colors.primary};
   color: ${colors.tertiary};
+  transition: 0.4s;
+  &:hover {
+    opacity: 0.85;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
+    transition: 0.4s;
+  }
 `;
 
 /**
