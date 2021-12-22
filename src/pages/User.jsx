@@ -23,6 +23,12 @@ import { capitalize } from '../utils/functions/capitalize'
   min-height: 85vh;
 }
 `;
+const LoadingWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh;
+`;
 
 const UserInfo = styled.section`
   color: ${colors.tertiary};
@@ -49,7 +55,6 @@ const EditButton = styled.button`
     transition: 0.4s;
   }
 `;
-
 /**
  * CSS for edit name form
  */
@@ -131,7 +136,8 @@ const EditButtons = styled.button`
 `;
 
 /**
- * @function Profile User Page
+ * Renders user page with possibilty to edit user profile
+ * @function User
  * @returns {JSX}
  */
 const User = () => {
@@ -146,73 +152,80 @@ const User = () => {
   const [newFirst, setNewFirst] = useState('')
   const [newLast, setnewLast] = useState('')
   const [canEdit, setCanEdit] = useState(false)
-  const store = useStore()
 
+  const store = useStore()
+  // load/fetch user data
   useEffect(() => {
     document.title = 'Argent Bank | Welcome'
     fetchUser(store, token)
   }, [store, token])
 
+  // submit form
   const handleSubmit = (event) => {
     event.preventDefault()
-    UpdateUser(store, token, newFirst, newLast)
-    setCanEdit(!canEdit)
+    if (newFirst && newLast) {
+      if (newFirst.trim() !=='' && newLast.trim() !=='') {
+        UpdateUser(store, token, newFirst, newLast)
+        setCanEdit(false)
+        }   
+    }
+  }
 
+  // reset variables if edit cancelled
+  const resetEdit = () => {
+    setNewFirst('')
+    setnewLast('')
+    setCanEdit(false)
   }
   
+  //if user not authenticated redirect to home page
   if (!isLoggedIn) return <Navigate to="/" /> 
 
     return (
       <MAIN>
+        {isLoading ? (
+          <LoadingWrapper>
+            <LoadingIcon />
+          </LoadingWrapper> 
+        ) : (
+        <React.Fragment>
           <UserInfo>
-          <h1>Welcome back</h1>
-          {canEdit ? (
-            <EditContent>
-              <p className="sr-only">Please enter your new name</p>
-              <Form onSubmit={handleSubmit}> 
+            <h1>Welcome back</h1>
+            {canEdit ? (
+              <EditContent>
+                <p className="sr-only">Please enter your new name</p>
+                <Form onSubmit={handleSubmit}> 
 
-                <InputWrapper>
+                  <InputWrapper>
+                    <label htmlFor="first" className="sr-only" >First Name</label>
+                        <input type="text" id="first"
+                          placeholder={firstName}
+                          onChange={(e) => {setNewFirst(e.target.value)}} /> 
 
-                  <label htmlFor="first" className="sr-only" >First Name</label>
-                      <input type="text" id="first"
-                        placeholder={firstName}
-                        onChange={(e) => {setNewFirst(e.target.value)}} 
-                        disabled={isLoading ? true : false}
-                        required/> 
+                        <label htmlFor="second" className="sr-only" >Surname</label>
+                        <input type="text" id="second"
+                          placeholder={lastName}
+                          onChange={(e) => {setnewLast(e.target.value)}}  />
+                  </InputWrapper>
 
-                      <label htmlFor="second" className="sr-only" >Surname</label>
-                      <input type="text" id="second"
-                        placeholder={lastName}
-                        autoComplete="off"
-                        onChange={(e) => {setnewLast(e.target.value)}}
-                        disabled={isLoading ? true : false}
-                        required />
-
-                </InputWrapper>
-
-                <ButtonWrapper>
-
-                  <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons> 
-                  <EditButtons type="button" 
-                  disabled={isLoading ? true : false}
-                  onClick={() => setCanEdit(!canEdit)}>Cancel</EditButtons>
-
-                </ButtonWrapper>
-           
-              </Form>  
-            </EditContent>
-          ) : (
-            <React.Fragment>
-              <h2>{firstName}  {lastName} !</h2>
-              <EditButton onClick={() => setCanEdit(!canEdit)}>Edit Name</EditButton>
-            </React.Fragment>
-          )}
-
+                  <ButtonWrapper>
+                    <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons> 
+                    <EditButtons type="button" onClick={resetEdit}>Cancel</EditButtons>
+                  </ButtonWrapper>
+            
+                </Form>  
+              </EditContent>
+              ) : (
+                <React.Fragment>
+                  <h2>{firstName}  {lastName} !</h2>
+                  <EditButton onClick={() => setCanEdit(true)}>Edit Name</EditButton>
+                </React.Fragment>
+              )}
           </UserInfo>
-
-          {isLoading && <LoadingIcon />}
-          {/* The transactions component shows dummy transaction data */}
-          <Transactions />
+                {/* Transactions component displays 'dummy' transactions */}
+            <Transactions />
+        </React.Fragment>
+          )}
     </MAIN>
      )
   }

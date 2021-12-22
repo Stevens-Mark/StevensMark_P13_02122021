@@ -117,7 +117,7 @@ const SignIn = () => {
     //if user chooses to be remembered then save to local storage
     localStorage.setItem('rememberMe', rememberMe)
     localStorage.setItem('user', rememberMe ? email : '')
-
+    // get authentication 'token' from API
     fetchToken(store, email, password)
   }
 
@@ -135,8 +135,7 @@ const SignIn = () => {
                       autoComplete="email"
                       value={email}
                       onChange={(e) => {setEmail(e.target.value)}} 
-                      disabled={isLoading ? true : false}/>
-                      
+                      disabled={isLoading ? true : false}/>       
               </InputWrapper>
 
               <InputWrapper>
