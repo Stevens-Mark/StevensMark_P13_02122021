@@ -15,8 +15,8 @@ import { UpdateUser } from '../features/fetchUser'
  background-color: #12002b;
  min-height: 100vh;
  display: flex;
- align-items: center;
- justify-content: center;
+//  align-items: center;
+//  justify-content: center;
  flex-direction: column;
 
  @media (min-width: 720px) {
@@ -25,17 +25,15 @@ import { UpdateUser } from '../features/fetchUser'
 `;
 
 const HEADER = styled.header`
-color: ${colors.tertiary};
-position: relative;
-top: 1.313rem;
-margin-bottom: 3.313rem;
- h1 {
-   margin-top: unset;
- }
+  color: ${colors.tertiary};
+  width: 100%;
+  margin-bottom: 1.5rem;
 `;
 
 const EditButton = styled.button`
-  border-color: ${colors.primary};
+  padding: 0.625rem;
+  border-radius: 0.2rem;
+  border: none;
   background-color: ${colors.primary};
   color: ${colors.tertiary};
   font-weight: bold;
@@ -47,66 +45,52 @@ const EditButton = styled.button`
  * CSS for edit name form
  */
 const EditContent = styled.div`
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  // box-sizing: border-box;
   // background-color: white;
-  // width: 550px;
-  margin: 0 auto;
-  padding: 1rem;
-  // position: relative;
-  // top: 3rem;
-
-  i {
-    font-size: 1rem;
-  }
 `;
 
 const Form = styled.form`
   display: flex;
-  justify-content: center;
-
-  }
-`;
-
-const ItemWrapper = styled.div`
-  display: flex;
   flex-direction: column;
-  text-align: left;
-
-  @media screen and (min-width: 600px) {
-    flex-direction: row;
-    }
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
 `;
+
 
 const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+  width: 100%;
   margin: 0.625rem;
-  // margin-bottom: 1rem;
+  margin-bottom: 1rem;
 
-  @media screen and (min-width: 600px) {
-    &:nth-child(1) {
-      align-items: flex-end;
+   @media screen and (min-width: 600px) {
+    flex-direction: row;
+    width: unset;
     }
   }
 
-  label {
-    font-weight: bold;
-  }
-
   input {
-    padding: 5px;
+    padding: 0.5rem;
     font-size: 1.2rem;
+    margin: 0rem 0.5rem;
+    border-radius: 0.2rem;
+    border: 1px solid black;
   }
 `;
 
 const EditButtons = styled.button`
-  display: block;
+  // display: block;
+  margin: 0rem 0.5rem;
   padding: 0.625rem;
-  // font-size: 1.1rem;
   font-weight: bold;
-  margin-top: 1rem;
   cursor: pointer;
-  border-color: ${colors.primary};
+  border-radius: 0.2rem;
+  border: none;
   background-color: ${colors.primary};
   color: ${colors.tertiary};
 
@@ -149,41 +133,43 @@ const User = () => {
     return (
       <MAIN>
           <HEADER>
-
+          <h1>Welcome back</h1>
           {canEdit ? (
             <EditContent>
-              <h1>Please enter your new name</h1>
-              <Form onSubmit={handleSubmit}>
-              <ItemWrapper>
-                <InputWrapper>
-                  <label htmlFor="first">First Name</label>
-                      <input type="text" id="first"
-                        placeholder={firstName}
-                      
-                        onChange={(e) => {setNewFirst(e.target.value)}} 
-                        disabled={isLoading ? true : false}/>    
-                  <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons>     
-                </InputWrapper>
+              <p className="sr-only">Please enter your new name</p>
+              <Form onSubmit={handleSubmit}> 
 
                 <InputWrapper>
-                  <label htmlFor="second">Surname</label>
+
+                  <label htmlFor="first" className="sr-only" >First Name</label>
+                      <input type="text" id="first"
+                        placeholder={firstName}
+                        onChange={(e) => {setNewFirst(e.target.value)}} 
+                        disabled={isLoading ? true : false}/> 
+
+                      <label htmlFor="second" className="sr-only" >Surname</label>
                       <input type="text" id="second"
                         placeholder={lastName}
                         autoComplete="off"
                         onChange={(e) => {setnewSecond(e.target.value)}}
                         disabled={isLoading ? true : false} />
 
+                </InputWrapper>
+
+                <InputWrapper>
+
+                  <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons> 
                   <EditButtons type="button" 
                   disabled={isLoading ? true : false}
                   onClick={() => setCanEdit(!canEdit)}>Cancel</EditButtons>
 
                 </InputWrapper>
-              </ItemWrapper>
+           
               </Form>  
             </EditContent>
           ) : (
             <React.Fragment>
-              <h1>Welcome back<br />{firstName} {lastName} !</h1>
+              <h1>{firstName} {lastName} !</h1>
               <EditButton onClick={() => setCanEdit(!canEdit)}>Edit Name</EditButton>
             </React.Fragment>
           )}

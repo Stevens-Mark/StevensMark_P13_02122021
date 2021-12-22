@@ -28,6 +28,7 @@ const MainNav = styled.nav`
       padding: 0.313rem 1.25rem; 
       i {
         margin-right: 0.313rem;
+        font-size: 1.2rem;
       }
 `;
 

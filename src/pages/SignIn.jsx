@@ -24,7 +24,7 @@ const SignInContent = styled.section`
   top: 3rem;
 
   i {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 `;
 
@@ -37,8 +37,11 @@ const InputWrapper = styled.div`
     font-weight: bold;
   }
   input {
-    padding: 5px;
+    margin-top: 0.313rem;
+    padding: 8px;
     font-size: 1.2rem;
+    border-radius: 0.2rem;
+    border: 1px solid black;
   }
 `;
 
@@ -52,20 +55,21 @@ const InputRemember = styled.div`
 `;
 
 const ErrorMsg = styled.p`
-  margin-top: 5px;
-  padding: 5px;
+  margin-top: 0.313rem;
+  padding: 0.313rem;
   color: red;
 `;
 
 const SignInButton = styled.button`
   display: block;
   width: 100%;
-  padding: 8px;
+  padding: 0.5rem;
   font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
   cursor: pointer;
-  border-color: ${colors.primary};
+  border-radius: 0.2rem;
+  border: none;
   background-color: ${colors.primary};
   color: ${colors.tertiary};
 `;

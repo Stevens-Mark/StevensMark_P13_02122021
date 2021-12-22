@@ -60,7 +60,8 @@ const TransactionButton = styled.button`
  font-size: 1.1rem;
  font-weight: bold;
  margin-top: 1rem;
- border-color: ${colors.primary};
+ border-radius: 0.2rem;
+ border: none;
  background-color: ${colors.primary};
  color: ${colors.tertiary};
  cursor: pointer;
