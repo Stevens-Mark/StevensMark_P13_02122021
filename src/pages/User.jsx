@@ -177,14 +177,16 @@ const User = () => {
                       <input type="text" id="first"
                         placeholder={firstName}
                         onChange={(e) => {setNewFirst(e.target.value)}} 
-                        disabled={isLoading ? true : false}/> 
+                        disabled={isLoading ? true : false}
+                        required/> 
 
                       <label htmlFor="second" className="sr-only" >Surname</label>
                       <input type="text" id="second"
                         placeholder={lastName}
                         autoComplete="off"
                         onChange={(e) => {setnewLast(e.target.value)}}
-                        disabled={isLoading ? true : false} />
+                        disabled={isLoading ? true : false}
+                        required />
 
                 </InputWrapper>
 
