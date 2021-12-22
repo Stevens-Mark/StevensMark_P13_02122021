@@ -101,8 +101,8 @@ const InputWrapper = styled.div`
 
 const EditButtons = styled.button`
   display: block;
-  padding: 8px;
-  font-size: 1.1rem;
+  padding: 0.625rem;
+  // font-size: 1.1rem;
   font-weight: bold;
   margin-top: 1rem;
   cursor: pointer;
