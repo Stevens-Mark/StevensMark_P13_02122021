@@ -24,10 +24,13 @@ import { capitalize } from '../utils/functions/capitalize'
 }
 `;
 
-const HEADER = styled.header`
+const UserInfo = styled.section`
   color: ${colors.tertiary};
   width: 100%;
   margin-bottom: 1.5rem;
+  h1 {
+    font-size: 2rem;
+  }
 `;
 
 const EditButton = styled.button`
@@ -161,7 +164,7 @@ const User = () => {
 
     return (
       <MAIN>
-          <HEADER>
+          <UserInfo>
           <h1>Welcome back</h1>
           {canEdit ? (
             <EditContent>
@@ -198,12 +201,12 @@ const User = () => {
             </EditContent>
           ) : (
             <React.Fragment>
-              <h1>{firstName}  {lastName} !</h1>
+              <h2>{firstName}  {lastName} !</h2>
               <EditButton onClick={() => setCanEdit(!canEdit)}>Edit Name</EditButton>
             </React.Fragment>
           )}
 
-          </HEADER>
+          </UserInfo>
 
           {isLoading && <LoadingIcon />}
           {/* The transactions component shows dummy transaction data */}

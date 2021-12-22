@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 import { AccountData } from '../data/accountData.js'
@@ -84,8 +83,8 @@ const TransactionButton = styled.button`
  */
 const Transactions = () => {
   return (
-    <React.Fragment>
-      <h1 className ="sr-only">Accounts</h1>
+    <section>
+      <h2 className ="sr-only">Accounts</h2>
           {AccountData.map((data) => (
             <Account key={data.id}>
               <AccountWrapper>
@@ -98,7 +97,7 @@ const Transactions = () => {
               </AccountWrapperCta>
             </Account>
           ))}
-    </React.Fragment>
+    </section>
   )
 }
 
