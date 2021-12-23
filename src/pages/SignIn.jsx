@@ -86,17 +86,22 @@ const SignInButton = styled.button`
  * @returns {JSX}
  */
 const SignIn = () => {
-
+  // local state
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
 
   const store = useStore()
   const navigate = useNavigate()
-
+  // retrieve Redux state
   const isLoading = useSelector((state) => state.tokenReducer.isLoading)
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
-  const isError = useSelector((state) => state.tokenReducer.error)
+  const isError = useSelector((state) => state.tokenReducer.IsError)
+
+  useEffect(() => {
+    // Redirect to User transaction page when authenticated/LoggedIn
+      if (isLoggedIn) navigate('/user')
+  }, [isLoggedIn, navigate])
 
     useEffect(() => {
     document.title = 'Argent Bank | Sign In'
@@ -106,11 +111,6 @@ const SignIn = () => {
     setEmail(user)
     setRememberMe(rememberMe)
   }, [])
-
-    useEffect(() => {
-    // Redirect to User transaction page when authenticated/LoggedIn
-      if (isLoggedIn) navigate('/User')
-  }, [isLoggedIn, navigate])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -159,7 +159,6 @@ const SignIn = () => {
                 disabled={isLoading ? true : false}>Sign In</SignInButton>
 
           </form>  
-          
         </SignInContent>
       </MAIN>
   )

@@ -26,7 +26,7 @@ export const tokenReset = () => ({ type: RESET })
    isLoading: false,
    isLoggedIn: false,
    token: null,
-   error: '',
+   isError: '',
  }
 
 /**
@@ -47,21 +47,21 @@ export function tokenReducer(state = initialTokenState, action) {
           draft.isLoading = false
           draft.isLoggedIn = true
           draft.token = action.payload
-          draft.error = ''
+          draft.isError = ''
           return
       }
       case REJECTED: {
           draft.isLoading = false
           draft.isLoggedIn = false
           draft.token = null
-          draft.error = action.payload
+          draft.isError = action.payload
           return
       }
       case RESET: {
         draft.isLoading = false
         draft.isLoggedIn = false
         draft.token = null
-        draft.error = ''
+        draft.isError = ''
         return 
     }
       // Otherwise (invalid action)

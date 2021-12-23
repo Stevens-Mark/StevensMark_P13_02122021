@@ -135,20 +135,27 @@ const EditButtons = styled.button`
     }
 `;
 
+const ErrorMsg = styled.p`
+  margin-top: 0.313rem;
+  padding: 0.313rem;
+  color: red;
+`;
+
 /**
  * Renders user page with possibilty to edit user profile
  * @function User
  * @returns {JSX}
  */
 const User = () => {
-
+  // retrieve Redux state
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
 
   const token = useSelector((state) => state.tokenReducer.token)
   const isLoading = (useSelector((state) => state.userReducer.isLoading))
   const firstName = capitalize(useSelector((state) => state.userReducer.user.firstName))
   const lastName =  capitalize(useSelector((state) => state.userReducer.user.lastName))
-  // const isError = useSelector((state) => state.userReducer.isError)
+  const isError = useSelector((state) => state.userReducer.isError)
+  //local state
   const [newFirst, setNewFirst] = useState('')
   const [newLast, setnewLast] = useState('')
   const [canEdit, setCanEdit] = useState(false)
@@ -223,7 +230,9 @@ const User = () => {
               )}
           </UserInfo>
                 {/* Transactions component displays 'dummy' transactions */}
+                
             <Transactions />
+            <ErrorMsg>{isError}</ErrorMsg>
         </React.Fragment>
           )}
     </MAIN>

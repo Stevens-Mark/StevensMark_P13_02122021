@@ -18,8 +18,8 @@ export default function App() {
       <Header />  
         <Routes>
           <Route exact path="/" element={<WelcomePage />}/>
-          <Route path="/SignIn" element={<SignIn />}/>
-          <Route path="/User" element={<User />}/>
+          <Route path="/signin" element={<SignIn />}/>
+          <Route path="/user" element={<User />}/>
           <Route path="*" element={<Error />} />
         </Routes> 
       <Footer />

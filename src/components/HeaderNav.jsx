@@ -62,10 +62,10 @@ const Header = () => {
                 <h1 className="sr-only">Argent Bank</h1></MainNavA>
             {!isLoggedIn ? 
               ( 
-              <MainNavA activeClassName="active" to="/SignIn"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
+              <MainNavA activeClassName="active" to="/signin"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
               ) : 
               ( <div>
-                  <MainNavA to="/User"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
+                  <MainNavA to="/user"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
                   <MainNavA to="/" 
                   onClick={() => { dispatch(userReset()); dispatch(tokenReset());}}>
                     <i class="fa fa-sign-out"></i>Sign Out</MainNavA> 

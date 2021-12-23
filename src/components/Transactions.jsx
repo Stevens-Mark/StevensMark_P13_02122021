@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-import { AccountData } from '../data/accountData.js'
+import { AccountData } from '../data/data.js'
 
  /**
  * CSS for the component using styled.components

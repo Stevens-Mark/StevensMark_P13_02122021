@@ -84,7 +84,7 @@ export function userReducer(state = initialUserState, action) {
       case RESET: {
         draft.isLoading = false
         draft.user = {}
-        draft.error = ''
+        draft.isError = ''
         return 
       }
       // Otherwise (invalid action)
