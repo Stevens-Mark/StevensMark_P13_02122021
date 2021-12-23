@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import styled from 'styled-components'
+// import components
 import Hero from '../components/Hero'
 import Feature from '../components/Feature'
 

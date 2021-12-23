@@ -29,7 +29,7 @@ export const featureData = [
 ]
 
 
-// Data used to fill in the user transaction page
+// 'Dummy' data used to fill in the user transaction page
 
 export const AccountData = [
 	{

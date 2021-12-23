@@ -3,11 +3,15 @@ import { useSelector, useStore } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
+// import components
 import LoadingIcon from '../utils/loader/loadingIcon'
 import Transactions from '../components/Transactions'
+// import functions for API calls
 import { fetchUser } from '../features/fetchUser'
 import { UpdateUser } from '../features/fetchUser'
+// import helper function
 import { capitalize } from '../utils/functions/capitalize'
+
 /**
  * CSS for component using styled.components
  */
@@ -23,7 +27,8 @@ import { capitalize } from '../utils/functions/capitalize'
   min-height: 85vh;
 }
 `;
-const LoadingWrapper = styled.div`
+
+const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,6 +60,7 @@ const EditButton = styled.button`
     transition: 0.4s;
   }
 `;
+
 /**
  * CSS for edit name form
  */
@@ -72,7 +78,6 @@ const Form = styled.form`
   width: 80%;
   margin: 0 auto;
 `;
-
 
 const InputWrapper = styled.div`
   display: flex;
@@ -135,10 +140,10 @@ const EditButtons = styled.button`
     }
 `;
 
-const ErrorMsg = styled.p`
+const ErrorMsg = styled.h1`
   margin-top: 0.313rem;
   padding: 0.313rem;
-  color: red;
+  color: ${colors.tertiary};
 `;
 
 /**
@@ -151,7 +156,7 @@ const User = () => {
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
 
   const token = useSelector((state) => state.tokenReducer.token)
-  const isLoading = (useSelector((state) => state.userReducer.isLoading))
+  const isLoading =  (useSelector((state) => state.userReducer.isLoading))
   const firstName = capitalize(useSelector((state) => state.userReducer.user.firstName))
   const lastName =  capitalize(useSelector((state) => state.userReducer.user.lastName))
   const isError = useSelector((state) => state.userReducer.isError)
@@ -188,55 +193,62 @@ const User = () => {
   //if user not authenticated redirect to home page
   if (!isLoggedIn) return <Navigate to="/" /> 
 
-    return (
-      <MAIN>
-        {isLoading ? (
-          <LoadingWrapper>
-            <LoadingIcon />
-          </LoadingWrapper> 
-        ) : (
+  return (
+    <MAIN>
+      {/* Show load spinner whilst waiting for data */}
+      {isLoading ? <Wrapper>
+                      <LoadingIcon />
+                    </Wrapper> : 
         <React.Fragment>
-          <UserInfo>
-            <h1>Welcome back</h1>
-            {canEdit ? (
-              <EditContent>
-                <p className="sr-only">Please enter your new name</p>
-                <Form onSubmit={handleSubmit}> 
+          {/* Display a generic error message if there is a problem */}
+          {isError ? <Wrapper>
+                        <ErrorMsg>Something went wrong, Please try again later...</ErrorMsg>
+                      </Wrapper> :  
+            <React.Fragment>
+              {/* Otherwise display user's information & transactions */}
+              <React.Fragment>
+                <UserInfo>
+                  <h1>Welcome back</h1>
+                  {canEdit ? (
+                    <EditContent>
+                      <p className="sr-only">Please enter your new name</p>
+                      <Form onSubmit={handleSubmit}> 
 
-                  <InputWrapper>
-                    <label htmlFor="first" className="sr-only" >First Name</label>
-                        <input type="text" id="first"
-                          placeholder={firstName}
-                          onChange={(e) => {setNewFirst(e.target.value)}} /> 
+                        <InputWrapper>
+                          <label htmlFor="first" className="sr-only" >First Name</label>
+                              <input type="text" id="first"
+                                placeholder={firstName}
+                                onChange={(e) => {setNewFirst(e.target.value)}} /> 
 
-                        <label htmlFor="second" className="sr-only" >Surname</label>
-                        <input type="text" id="second"
-                          placeholder={lastName}
-                          onChange={(e) => {setnewLast(e.target.value)}}  />
-                  </InputWrapper>
+                              <label htmlFor="second" className="sr-only" >Surname</label>
+                              <input type="text" id="second"
+                                placeholder={lastName}
+                                onChange={(e) => {setnewLast(e.target.value)}}  />
+                        </InputWrapper>
 
-                  <ButtonWrapper>
-                    <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons> 
-                    <EditButtons type="button" onClick={resetEdit}>Cancel</EditButtons>
-                  </ButtonWrapper>
-            
-                </Form>  
-              </EditContent>
-              ) : (
-                <React.Fragment>
-                  <h2>{firstName}  {lastName} !</h2>
-                  <EditButton onClick={() => setCanEdit(true)}>Edit Name</EditButton>
-                </React.Fragment>
-              )}
-          </UserInfo>
-                {/* Transactions component displays 'dummy' transactions */}
-                
-            <Transactions />
-            <ErrorMsg>{isError}</ErrorMsg>
+                        <ButtonWrapper>
+                          <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons> 
+                          <EditButtons type="button" onClick={resetEdit}>Cancel</EditButtons>
+                        </ButtonWrapper>
+                  
+                      </Form>  
+                    </EditContent>
+                    ) : (
+                      <React.Fragment>
+                        <h2>{firstName}  {lastName} !</h2>
+                        <EditButton onClick={() => setCanEdit(true)}>Edit Name</EditButton>
+                      </React.Fragment>
+                    )}
+                </UserInfo>
+                      {/* Transactions component displays 'dummy' transactions */}     
+                  <Transactions />   
+              </React.Fragment>  
+            </React.Fragment>
+          }
         </React.Fragment>
-          )}
+      }         
     </MAIN>
-     )
+    )
   }
 
 export default User

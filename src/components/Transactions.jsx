@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
+// import 'dummy' data
 import { AccountData } from '../data/data.js'
 
  /**

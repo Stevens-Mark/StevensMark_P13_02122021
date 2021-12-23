@@ -41,9 +41,10 @@ export const userReset = () => ({ type: RESET })
  * @function userReducer
  * @param {object} state
  * @param {string} action
+ * @returns {object} new state
  */
 export function userReducer(state = initialUserState, action) {
-  // we use immer to change the state
+  // use immer to change the state
   return produce(state, (draft) => {
     // make a switch on the type of the action
     switch (action.type) {
@@ -80,7 +81,7 @@ export function userReducer(state = initialUserState, action) {
         draft.isError = action.payload
         return
       }
-      // for use logout
+      // for user logout
       case RESET: {
         draft.isLoading = false
         draft.user = {}
@@ -89,7 +90,7 @@ export function userReducer(state = initialUserState, action) {
       }
       // Otherwise (invalid action)
       default:
-        // we do nothing (return the state without modifications)
+        // do nothing (return the state without modifications)
         return state
     }
   })

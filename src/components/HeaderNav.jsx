@@ -3,9 +3,9 @@ import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-// logo imports
+// logo import
 import logo from '../assets/images/argentBankLogo.png'
-//import action creator
+//import action creators 
 import { tokenReset } from '../features/fetchToken'
 import { userReset } from '../features/fetchUser'
 

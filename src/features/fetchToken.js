@@ -33,11 +33,12 @@ export const tokenReset = () => ({ type: RESET })
  * @function tokenReducer
  * @param {object} state
  * @param {string} action
+ * @returns {object} new state
  */
 export function tokenReducer(state = initialTokenState, action) {
-  // on utilise immer pour changer le state
+  // use immer to change the state
   return produce(state, (draft) => {
-    // on fait un switch sur le type de l'action
+    // make a switch on the type of the action
     switch (action.type) {
       case FETCHING: {
           draft.isLoading = true
@@ -66,7 +67,7 @@ export function tokenReducer(state = initialTokenState, action) {
     }
       // Otherwise (invalid action)
       default:
-        // we do nothing (return the state without modifications)
+        // do nothing (return the state without modifications)
         return state
     }
   })

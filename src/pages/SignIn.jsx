@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
+// import component
 import LoadingIcon from '../utils/loader/loadingIcon'
+// import function for API call
 import { fetchToken } from '../features/fetchToken'
 
 /**
@@ -151,9 +153,10 @@ const SignIn = () => {
                       onChange={() => setRememberMe(!rememberMe)} />
                       <label htmlFor="remember-me">Remember me</label>
               </InputRemember>
-
-              <ErrorMsg>{isError}</ErrorMsg>
+              {/* Show loading whilst fetching data */}
               {isLoading && <LoadingIcon />}
+              {/* Display error message if needed */}
+              <ErrorMsg>{isError}</ErrorMsg>
 
             <SignInButton type="submit" 
                 disabled={isLoading ? true : false}>Sign In</SignInButton>
