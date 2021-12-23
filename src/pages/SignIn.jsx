@@ -98,7 +98,7 @@ const SignIn = () => {
   // retrieve Redux state
   const isLoading = useSelector((state) => state.tokenReducer.isLoading)
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
-  const isError = useSelector((state) => state.tokenReducer.IsError)
+  const isError = useSelector((state) => state.tokenReducer.isError)
 
   useEffect(() => {
     // Redirect to User transaction page when authenticated/LoggedIn
@@ -154,9 +154,10 @@ const SignIn = () => {
                       <label htmlFor="remember-me">Remember me</label>
               </InputRemember>
               {/* Show loading whilst fetching data */}
+              <ErrorMsg>{isError}</ErrorMsg>
               {isLoading && <LoadingIcon />}
               {/* Display error message if needed */}
-              <ErrorMsg>{isError}</ErrorMsg>
+              
 
             <SignInButton type="submit" 
                 disabled={isLoading ? true : false}>Sign In</SignInButton>

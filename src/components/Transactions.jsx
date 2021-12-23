@@ -10,8 +10,8 @@ import { AccountData } from '../data/data.js'
  display: flex;
  justify-content: space-between;
  align-items: center;
- border: 1px solid black;
- background-color:  ${colors.tertiary};;
+ border: 1px solid ${colors.secondary};
+ background-color:  ${colors.tertiary};
  width: 80%;
  margin: 0 auto;
  flex-direction: column;
