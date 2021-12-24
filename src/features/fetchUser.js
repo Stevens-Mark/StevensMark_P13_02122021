@@ -4,7 +4,7 @@ import axios from 'axios'
 import produce from "immer";
 
 /**
- * Constants
+ * Constants/Actions
  */
 const FETCHING = 'user/fetching'
 const RESOLVED = 'user/resolved'
@@ -96,10 +96,10 @@ export function userReducer(state = initialUserState, action) {
   })
 }
 
-
 /**
+ * API call
  * Using the retrieved 'token' for authentication 
- * then the function retrieves the user's name
+ * the function retrieves the user's name
  * @function fetchUser
  * @param {object} store 
  * @param {string} token
@@ -128,8 +128,9 @@ export function userReducer(state = initialUserState, action) {
 }
 
 /**
+ * API call
  * Using the retrieved 'token' for authentication 
- * then the function updates the user name
+ * the function updates the user name
  * @function UpdateUser
  * @param {object} store 
  * @param {string} token

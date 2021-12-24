@@ -4,7 +4,7 @@ import axios from 'axios'
 import produce from "immer"
 
 /**
- * Constants
+ * Constants/Actions
  */
 const FETCHING = 'token/fetching'
 const RESOLVED = 'token/resolved'
@@ -74,6 +74,7 @@ export function tokenReducer(state = initialTokenState, action) {
 }
 
 /**
+ * API call
  * Checks if user exists in the database & if true returns a 'token'
  * @function fetchToken
  * @param {object} store 

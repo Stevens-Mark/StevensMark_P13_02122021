@@ -43,8 +43,8 @@ const Error = () => {
   return (
     <ErrorWrapper>
       <h1>404</h1>
-      <p>Oups! La page que vous demandez n'existe pas.</p>
-      <ReturnLink to="/">Retourner sur la page d’accueil</ReturnLink>
+      <p>Oops! The page you request does not exist</p>
+      <ReturnLink to="/">Return to the home page</ReturnLink>
     </ErrorWrapper>
   )
 }

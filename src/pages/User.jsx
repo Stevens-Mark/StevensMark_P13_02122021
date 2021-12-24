@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import components
-import LoadingIcon from '../utils/loader/loadingIcon'
+import LoadingIcon from '../utils/loader/LoadingIcon'
 import Transactions from '../components/Transactions'
 // import functions for API calls
 import { fetchUser } from '../features/fetchUser'
