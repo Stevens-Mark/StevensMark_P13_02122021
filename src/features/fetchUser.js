@@ -23,7 +23,7 @@ export const userResolved = (user) => ({ type: RESOLVED, payload: user})
 export const userRejected = (error) => ({ type: REJECTED, payload: error })
 
 export const userUpdateSending = () => ({ type: SENDING })
-export const userUpdateSuccess = (firstName, lastName) => ({ type: SUCCESS, payload: { firstName, lastName } })
+export const userUpdateSuccess = (user) => ({ type: SUCCESS, payload: user })
 export const userUpdateFail = (error) => ({ type: FAIL, payload: error })
 
 export const userReset = () => ({ type: RESET })
@@ -120,7 +120,6 @@ export function userReducer(state = initialUserState, action) {
     })
     const user = await response.data.body
     console.log(user)
-    console.log(response.data)
     // if request resolved then save the user in the store
      store.dispatch(userResolved(user))
   } catch (error) {
@@ -157,8 +156,9 @@ export function userReducer(state = initialUserState, action) {
       }
     })
     const user = await response.data.body
+    console.log(user)
     // if request update resolved then save the user in the store
-     store.dispatch(userUpdateSuccess(user.firstName, user.lastName))
+     store.dispatch(userUpdateSuccess(user))
   } catch (error) {
     // otherwise update request rejected
     store.dispatch(userUpdateFail(error.response.data.message))
