@@ -19,7 +19,7 @@ const RESET = 'user/reset'
 * Actions creators
 */
 export const userFetching = () => ({ type: FETCHING })
-export const userResolved = (token) => ({ type: RESOLVED, payload: token })
+export const userResolved = (user) => ({ type: RESOLVED, payload: user})
 export const userRejected = (error) => ({ type: REJECTED, payload: error })
 
 export const userUpdateSending = () => ({ type: SENDING })
@@ -119,6 +119,8 @@ export function userReducer(state = initialUserState, action) {
       }
     })
     const user = await response.data.body
+    console.log(user)
+    console.log(response.data)
     // if request resolved then save the user in the store
      store.dispatch(userResolved(user))
   } catch (error) {
