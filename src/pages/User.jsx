@@ -154,14 +154,19 @@ const ErrorMsg = styled.h1`
  */
 const User = () => {
   // retrieve Redux state
-  const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
+  const { isLoggedIn, token } = useSelector((state) => state.token)
+  // const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
+  // const token = useSelector((state) => state.token.token)
+  const { isLoading, isUpdated, isError } = useSelector((state) => state.userStats)
+  // const isLoading =  useSelector((state) => state.userStats.isLoading)
+  // const isUpdated =  useSelector((state) => state.userStats.isUpdated)
+// const isError = useSelector((state) => state.userStats.isError)
+  const { firstName, lastName  } = useSelector((state) => state.userStats.user)
+  // const firstName = capitalize(useSelector((state) => state.userStats.user.firstName))
+  // const lastName =  capitalize(useSelector((state) => state.userStats.user.lastName))
+  const capitalizedFirst = capitalize(firstName)
+  const capitalizedLast = capitalize(lastName)
 
-  const token = useSelector((state) => state.token.token)
-  const isLoading =  useSelector((state) => state.userStats.isLoading)
-  const isUpdated =  useSelector((state) => state.userStats.isUpdated)
-  const firstName = capitalize(useSelector((state) => state.userStats.user.firstName))
-  const lastName =  capitalize(useSelector((state) => state.userStats.user.lastName))
-  const isError = useSelector((state) => state.userStats.isError)
   //local state
   const [newFirst, setNewFirst] = useState('')
   const [newLast, setnewLast] = useState('')
@@ -240,7 +245,7 @@ const User = () => {
                     </EditContent>
                     ) : (
                       <React.Fragment>
-                        <h2>{firstName}  {lastName} !</h2>
+                        <h2>{capitalizedFirst}  {capitalizedLast} !</h2>
                         {/* Display a generic error message if unable to update user details */}
                         {submitted && !isUpdated && <Notify delay="2000">Sorry, there was a problem, please try later...</Notify>}
                         <EditButton onClick={() => setCanEdit(true)}>Edit Name</EditButton>

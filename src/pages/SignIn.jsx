@@ -96,9 +96,10 @@ const SignIn = () => {
   const store = useStore()
 
   // retrieve Redux state
-  const isLoading = useSelector((state) => state.token.isLoading)
-  const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
-  const isError = useSelector((state) => state.token.isError)
+  // const isLoading = useSelector((state) => state.token.isLoading)
+  // const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
+  // const isError = useSelector((state) => state.token.isError)
+  const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
 
     useEffect(() => {
     document.title = 'Argent Bank | Sign In'
