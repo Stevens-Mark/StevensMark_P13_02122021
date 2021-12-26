@@ -24,7 +24,7 @@ export const userRejected = (error) => ({ type: REJECTED, payload: error })
 
 export const userUpdateSending = () => ({ type: SENDING })
 export const userUpdateSuccess = (user) => ({ type: SUCCESS, payload: user })
-export const userUpdateFail = (error) => ({ type: FAIL, payload: error })
+export const userUpdateFail = () => ({ type: FAIL })
 
 export const userReset = () => ({ type: RESET })
 
@@ -35,6 +35,7 @@ export const userReset = () => ({ type: RESET })
    isLoading: false,
    user: {},
    isError: '',
+   isUpdated: false,
  }
 
 /**
@@ -71,19 +72,22 @@ export function userReducer(state = initialUserState, action) {
       }
       case SUCCESS: {
         draft.isLoading = false
+        draft.isUpdated = true
         draft.user = action.payload
         draft.isError = ''
         return
       }
       case FAIL: {
         draft.isLoading = false
+        draft.isUpdated = false
         // draft.user = {}
-        draft.isError = action.payload
+        // draft.isError = action.payload
         return
       }
       // for user logout
       case RESET: {
         draft.isLoading = false
+        draft.isUpdated = false
         draft.user = {}
         draft.isError = ''
         return 
@@ -161,6 +165,6 @@ export function userReducer(state = initialUserState, action) {
      store.dispatch(userUpdateSuccess(user))
   } catch (error) {
     // otherwise update request rejected
-    store.dispatch(userUpdateFail(error.response.data.message))
+    store.dispatch(userUpdateFail())
   }
 }

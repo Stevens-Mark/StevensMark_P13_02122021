@@ -5,8 +5,8 @@ import { userReducer } from '../../features/fetchUser'
 * put all reducers together
 */
  const rootReducer = combineReducers({
-  tokenReducer,
-  userReducer,
+  token: tokenReducer,
+  userStats: userReducer,
 })
 
 // create the store & connect devtools

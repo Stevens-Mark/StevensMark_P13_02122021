@@ -11,6 +11,7 @@ import { fetchUser } from '../features/fetchUser'
 import { UpdateUser } from '../features/fetchUser'
 // import helper function
 import { capitalize } from '../utils/functions/capitalize'
+import { Notify } from '../components/Notify'
 
 /**
  * CSS for component using styled.components
@@ -153,17 +154,19 @@ const ErrorMsg = styled.h1`
  */
 const User = () => {
   // retrieve Redux state
-  const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
+  const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
 
-  const token = useSelector((state) => state.tokenReducer.token)
-  const isLoading =  useSelector((state) => state.userReducer.isLoading)
-  const firstName = capitalize(useSelector((state) => state.userReducer.user.firstName))
-  const lastName =  capitalize(useSelector((state) => state.userReducer.user.lastName))
-  const isError = useSelector((state) => state.userReducer.isError)
+  const token = useSelector((state) => state.token.token)
+  const isLoading =  useSelector((state) => state.userStats.isLoading)
+  const isUpdated =  useSelector((state) => state.userStats.isUpdated)
+  const firstName = capitalize(useSelector((state) => state.userStats.user.firstName))
+  const lastName =  capitalize(useSelector((state) => state.userStats.user.lastName))
+  const isError = useSelector((state) => state.userStats.isError)
   //local state
   const [newFirst, setNewFirst] = useState('')
   const [newLast, setnewLast] = useState('')
   const [canEdit, setCanEdit] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
 
   const store = useStore()
   // load/fetch user data
@@ -178,6 +181,7 @@ const User = () => {
     if (newFirst && newLast) {
       if (newFirst.trim() !=='' && newLast.trim() !=='') {
         UpdateUser(store, token, newFirst, newLast)
+        setSubmitted(true)
         setCanEdit(false)
         }   
     }
@@ -187,6 +191,7 @@ const User = () => {
   const resetEdit = () => {
     setNewFirst('')
     setnewLast('')
+    setSubmitted(false)
     setCanEdit(false)
   }
   
@@ -200,9 +205,9 @@ const User = () => {
                       <LoadingIcon />
                     </Wrapper> : 
         <React.Fragment>
-          {/* Display a generic error message if there is a problem */}
+          {/* Display error message if there is a problem fecthing the user data*/}
           {isError ? <Wrapper>
-                        <ErrorMsg>Something went wrong, Please try again later...</ErrorMsg>
+                        <ErrorMsg>Something went wrong, Please try again later... {isError}</ErrorMsg>
                       </Wrapper> :  
             <React.Fragment>
               {/* Otherwise display user's information & transactions */}
@@ -236,6 +241,8 @@ const User = () => {
                     ) : (
                       <React.Fragment>
                         <h2>{firstName}  {lastName} !</h2>
+                        {/* Display a generic error message if unable to update user details */}
+                        {submitted && !isUpdated && <Notify delay="2000">Sorry, there was a problem, please try later...</Notify>}
                         <EditButton onClick={() => setCanEdit(true)}>Edit Name</EditButton>
                       </React.Fragment>
                     )}

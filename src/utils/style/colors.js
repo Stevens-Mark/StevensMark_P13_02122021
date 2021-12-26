@@ -4,7 +4,8 @@ const colors = {
   primary: '#00bc77',
   secondary: '#000',
   tertiary: '#fff',
-
+  warning: 'red',
+  
   // Link
   activeA: '#42b983',
   aLink: '#2c3e50',

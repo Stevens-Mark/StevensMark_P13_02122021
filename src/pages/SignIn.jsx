@@ -59,7 +59,7 @@ const InputRemember = styled.div`
 const ErrorMsg = styled.p`
   margin-top: 0.313rem;
   padding: 0.313rem;
-  color: red;
+  color: ${colors.warning};
 `;
 
 const SignInButton = styled.button`
@@ -96,9 +96,9 @@ const SignIn = () => {
   const store = useStore()
 
   // retrieve Redux state
-  const isLoading = useSelector((state) => state.tokenReducer.isLoading)
-  const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
-  const isError = useSelector((state) => state.tokenReducer.isError)
+  const isLoading = useSelector((state) => state.token.isLoading)
+  const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
+  const isError = useSelector((state) => state.token.isError)
 
     useEffect(() => {
     document.title = 'Argent Bank | Sign In'
@@ -153,7 +153,7 @@ const SignIn = () => {
               </InputRemember>
               {/* Show loading whilst fetching data */}
               {isLoading && <LoadingIcon />}
-              {/* Display error message if needed */}
+              {/* Display error message if username or password error */}
               <ErrorMsg>{isError}</ErrorMsg>
 
             <SignInButton type="submit" 

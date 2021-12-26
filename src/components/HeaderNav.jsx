@@ -52,8 +52,8 @@ const MainNavA = styled(NavLink)`
  * @returns (JSX)
  */
 const Header = () => {
-  const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
-  const firstName = useSelector((state) => state.userReducer.user.firstName)
+  const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
+  const firstName = useSelector((state) => state.userStats.user.firstName)
   const dispatch = useDispatch()
   
   return (
