@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"
 import { useSelector, useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
@@ -154,10 +154,9 @@ const SignIn = () => {
                       <label htmlFor="remember-me">Remember me</label>
               </InputRemember>
               {/* Show loading whilst fetching data */}
-              <ErrorMsg>{isError}</ErrorMsg>
               {isLoading && <LoadingIcon />}
               {/* Display error message if needed */}
-              
+              <ErrorMsg>{isError}</ErrorMsg>
 
             <SignInButton type="submit" 
                 disabled={isLoading ? true : false}>Sign In</SignInButton>

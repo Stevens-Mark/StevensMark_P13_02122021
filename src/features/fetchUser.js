@@ -77,7 +77,7 @@ export function userReducer(state = initialUserState, action) {
       }
       case FAIL: {
         draft.isLoading = false
-        draft.user = {}
+        // draft.user = {}
         draft.isError = action.payload
         return
       }
