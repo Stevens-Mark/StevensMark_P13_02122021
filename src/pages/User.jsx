@@ -156,7 +156,7 @@ const User = () => {
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
 
   const token = useSelector((state) => state.tokenReducer.token)
-  const isLoading =  (useSelector((state) => state.userReducer.isLoading))
+  const isLoading =  useSelector((state) => state.userReducer.isLoading)
   const firstName = capitalize(useSelector((state) => state.userReducer.user.firstName))
   const lastName =  capitalize(useSelector((state) => state.userReducer.user.lastName))
   const isError = useSelector((state) => state.userReducer.isError)

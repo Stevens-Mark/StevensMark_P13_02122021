@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { useSelector, useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
@@ -94,16 +94,11 @@ const SignIn = () => {
   const [rememberMe, setRememberMe] = useState(true)
 
   const store = useStore()
-  const navigate = useNavigate()
+
   // retrieve Redux state
   const isLoading = useSelector((state) => state.tokenReducer.isLoading)
   const isLoggedIn = useSelector((state) => state.tokenReducer.isLoggedIn)
   const isError = useSelector((state) => state.tokenReducer.isError)
-
-  useEffect(() => {
-    // Redirect to User transaction page when authenticated/LoggedIn
-      if (isLoggedIn) navigate('/user')
-  }, [isLoggedIn, navigate])
 
     useEffect(() => {
     document.title = 'Argent Bank | Sign In'
@@ -122,6 +117,9 @@ const SignIn = () => {
     // get authentication 'token' from API
     fetchToken(store, email, password)
   }
+
+  // Redirect to User transaction page when authenticated/LoggedIn
+  if (isLoggedIn) return <Navigate to="/user" /> 
 
   return (
       <MAIN>
