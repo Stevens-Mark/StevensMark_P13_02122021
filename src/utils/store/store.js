@@ -1,6 +1,6 @@
 import { createStore, combineReducers } from 'redux'
 import { tokenReducer } from '../../features/fetchToken'
-import { userReducer } from '../../features/fetchUser'
+import { userReducer } from '../../features/fetchUpdateUser'
 /**
 * put all reducers together
 */

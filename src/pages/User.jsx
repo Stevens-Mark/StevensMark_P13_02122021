@@ -7,8 +7,8 @@ import colors from '../utils/style/colors'
 import LoadingIcon from '../utils/loader/LoadingIcon'
 import Transactions from '../components/Transactions'
 // import functions for API calls
-import { fetchUser } from '../features/fetchUser'
-import { UpdateUser } from '../features/fetchUser'
+import { fetchUser } from '../features/fetchUpdateUser'
+import { UpdateUser } from '../features/fetchUpdateUser'
 // import helper function
 import { capitalize } from '../utils/functions/capitalize'
 import { Notify } from '../components/Notify'

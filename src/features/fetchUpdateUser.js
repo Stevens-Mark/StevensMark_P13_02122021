@@ -1,8 +1,7 @@
 // import axios
 import axios from 'axios'
 //import the Immer produce function
-import produce from "immer";
-
+import produce from "immer"
 /**
  * Constants/Actions
  */
@@ -33,9 +32,9 @@ export const userReset = () => ({ type: RESET })
 */
  const initialUserState = {
    isLoading: false,
+   isUpdated: false,
    user: {},
    isError: '',
-   isUpdated: false,
  }
 
 /**

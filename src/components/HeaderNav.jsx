@@ -7,7 +7,7 @@ import colors from '../utils/style/colors'
 import logo from '../assets/images/argentBankLogo.png'
 //import action creators 
 import { tokenReset } from '../features/fetchToken'
-import { userReset } from '../features/fetchUser'
+import { userReset } from '../features/fetchUpdateUser'
 
 /**
  * CSS for the component using styled.components
