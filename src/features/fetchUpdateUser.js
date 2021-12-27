@@ -1,31 +1,45 @@
 // import axios
 import axios from 'axios'
-//import the Immer produce function
+// import the Immer produce function
 import produce from "immer"
+// redux tools kit function
+import { createAction } from '@reduxjs/toolkit'
+
 /**
- * Constants/Actions
+ * Actions
  */
-const FETCHING = 'user/fetching'
-const RESOLVED = 'user/resolved'
-const REJECTED = 'user/rejected'
 
-const SENDING ='user/updateSending'
-const SUCCESS = 'user/updateSuccess'
-const FAIL = 'user/updateFail'
+// for fetching user data
+export const userFetching = createAction('user/fetching')
 
-const RESET = 'user/reset'
-/**
-* Actions creators
-*/
-export const userFetching = () => ({ type: FETCHING })
-export const userResolved = (user) => ({ type: RESOLVED, payload: user})
-export const userRejected = (error) => ({ type: REJECTED, payload: error })
+export const userResolved = createAction(
+  'user/resolved',
+  (user) => ({
+    payload:  user,
+  })
+)
 
-export const userUpdateSending = () => ({ type: SENDING })
-export const userUpdateSuccess = (user) => ({ type: SUCCESS, payload: user })
-export const userUpdateFail = () => ({ type: FAIL })
+export const userRejected = createAction(
+  'user/rejected',
+  (error) => ({
+    payload:  error,
+  })
+)
 
-export const userReset = () => ({ type: RESET })
+// for updating user data
+export const userUpdateSending = createAction('user/updateSending')
+
+export const userUpdateSuccess = createAction(
+  'user/updateSuccess',
+  (user) => ({
+    payload:  user,
+  })
+)
+
+export const userUpdateFail = createAction('user/updateFail')
+
+// reset to initial state on logout
+export const userReset = createAction('user/reset')
 
 /**
 * Initial state
@@ -48,42 +62,42 @@ export function userReducer(state = initialUserState, action) {
   return produce(state, (draft) => {
     // make a switch on the type of the action
     switch (action.type) {
-      case FETCHING: {
+      case userFetching.toString(): {
           draft.isLoading = true
           return
       }
-       case RESOLVED: {
+       case userResolved.toString(): {
           draft.isLoading = false
           draft.user = action.payload
           draft.isError = ''
           return
       }
-      case REJECTED: {
+      case userRejected.toString(): {
           draft.isLoading = false
           draft.user = {}
           draft.isError = action.payload
           return
       }
       // for user name updating
-      case SENDING: {
+      case userUpdateSending.toString(): {
         draft.isLoading = true
         return
       }
-      case SUCCESS: {
+      case userUpdateSuccess.toString(): {
         draft.isLoading = false
         draft.isUpdated = true
         draft.user = action.payload
         draft.isError = ''
         return
       }
-      case FAIL: {
+      case userUpdateFail.toString(): {
         draft.isLoading = false
         draft.isUpdated = false
         // draft.isError = action.payload
         return
       }
       // for user logout
-      case RESET: {
+      case userReset.toString(): {
         draft.isLoading = false
         draft.isUpdated = false
         draft.user = {}

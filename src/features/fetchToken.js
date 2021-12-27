@@ -1,24 +1,32 @@
 // import axios
 import axios from 'axios'
-//import the Immer produce function
+// import the Immer produce function
 import produce from "immer"
+// redux tools kit function
+import { createAction } from '@reduxjs/toolkit'
 
 /**
- * Constants/Actions
+ * Actions
  */
-const FETCHING = 'token/fetching'
-const RESOLVED = 'token/resolved'
-const REJECTED = 'token/rejected'
-const RESET = 'token/reset'
- 
-/**
-* Actions creators
-*/
-export const tokenFetching = () => ({ type: FETCHING })
-export const tokenResolved = (token) => ({ type: RESOLVED, payload: token })
-export const tokenRejected = (error) => ({ type: REJECTED, payload: error })
-export const tokenReset = () => ({ type: RESET })
- 
+export const tokenFetching = createAction('token/fetching')
+
+export const tokenResolved = createAction(
+  'token/resolved',
+  (token) => ({
+    payload:  token,
+  })
+)
+
+export const tokenRejected = createAction(
+  'token/rejected',
+  (error) => ({
+    payload:  error,
+  })
+)
+
+// reset to initial state on logout
+export const tokenReset = createAction('token/reset')
+
 /**
 * Initial state
 */
@@ -40,25 +48,25 @@ export function tokenReducer(state = initialTokenState, action) {
   return produce(state, (draft) => {
     // make a switch on the type of the action
     switch (action.type) {
-      case FETCHING: {
+      case tokenFetching.toString(): {
           draft.isLoading = true
           return
       }
-       case RESOLVED: {
+       case tokenResolved.toString(): {
           draft.isLoading = false
           draft.isLoggedIn = true
           draft.token = action.payload
           draft.isError = ''
           return
       }
-      case REJECTED: {
+      case tokenRejected.toString(): {
           draft.isLoading = false
           draft.isLoggedIn = false
           draft.token = null
           draft.isError = action.payload
           return
       }
-      case RESET: {
+      case tokenReset.toString(): {
         draft.isLoading = false
         draft.isLoggedIn = false
         draft.token = null
