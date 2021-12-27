@@ -64,7 +64,7 @@ export function userReducer(state = initialUserState, action) {
           draft.isError = action.payload
           return
       }
-      //for user name updating
+      // for user name updating
       case SENDING: {
         draft.isLoading = true
         return
@@ -79,7 +79,6 @@ export function userReducer(state = initialUserState, action) {
       case FAIL: {
         draft.isLoading = false
         draft.isUpdated = false
-        // draft.user = {}
         // draft.isError = action.payload
         return
       }
@@ -106,7 +105,7 @@ export function userReducer(state = initialUserState, action) {
  * @function fetchUser
  * @param {object} store 
  * @param {string} token
- * @returns {object|string} user information or error message
+ * @returns {object|string} user information or error message to store
  */
  export async function fetchUser(store, token) {
 
@@ -140,7 +139,7 @@ export function userReducer(state = initialUserState, action) {
  * @param {string} token
  * @param {string} newFirst: new first name
  * @param {string} newLast: new last name
- * @returns {object|string} user's new name or error message
+ * @returns {object|string} user's new name to store
  */
  export async function UpdateUser(store, token, newFirst, newLast) {
 

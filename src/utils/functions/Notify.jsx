@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import styled from 'styled-components'
-import colors from '../utils/style/colors'
+import colors from '../style/colors'
 /**
  * CSS for component using styled.components
  */
  const Wrapper = styled.div`
- padding-bottom: 1.25rem;
+ padding-bottom: 0.8rem;
  color: ${colors.primary};
 `;
 

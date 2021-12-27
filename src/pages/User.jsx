@@ -9,9 +9,9 @@ import Transactions from '../components/Transactions'
 // import functions for API calls
 import { fetchUser } from '../features/fetchUpdateUser'
 import { UpdateUser } from '../features/fetchUpdateUser'
-// import helper function
+// import helper functions
 import { capitalize } from '../utils/functions/capitalize'
-import { Notify } from '../components/Notify'
+import { Notify } from '../utils/functions/Notify'
 
 /**
  * CSS for component using styled.components
@@ -148,45 +148,44 @@ const ErrorMsg = styled.h1`
 `;
 
 /**
- * Renders user page with possibilty to edit user profile
+ * Renders user page with possibility to edit user profile
  * @function User
  * @returns {JSX}
  */
 const User = () => {
   // retrieve Redux state
   const { isLoggedIn, token } = useSelector((state) => state.token)
-  // const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
-  // const token = useSelector((state) => state.token.token)
   const { isLoading, isUpdated, isError } = useSelector((state) => state.userStats)
-  // const isLoading =  useSelector((state) => state.userStats.isLoading)
-  // const isUpdated =  useSelector((state) => state.userStats.isUpdated)
-// const isError = useSelector((state) => state.userStats.isError)
   const { firstName, lastName  } = useSelector((state) => state.userStats.user)
-  // const firstName = capitalize(useSelector((state) => state.userStats.user.firstName))
-  // const lastName =  capitalize(useSelector((state) => state.userStats.user.lastName))
-  const capitalizedFirst = capitalize(firstName)
-  const capitalizedLast = capitalize(lastName)
 
-  //local state
+  // local state
   const [newFirst, setNewFirst] = useState('')
   const [newLast, setnewLast] = useState('')
   const [canEdit, setCanEdit] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [inputOk, setInputOk] = useState(false)
+
+ // ensure first letters of name capitalised
+  const capitalizedFirst = capitalize(firstName)
+  const capitalizedLast = capitalize(lastName)
 
   const store = useStore()
-  // load/fetch user data
+  
   useEffect(() => {
     document.title = 'Argent Bank | Welcome'
+    // load/fetch user data
     fetchUser(store, token)
   }, [store, token])
 
-  // submit form
+  // submit form (if both name fields completed otherwise indicate error)
   const handleSubmit = (event) => {
     event.preventDefault()
+    setInputOk(false)
+    setSubmitted(true)
     if (newFirst && newLast) {
       if (newFirst.trim() !=='' && newLast.trim() !=='') {
         UpdateUser(store, token, newFirst, newLast)
-        setSubmitted(true)
+        setInputOk(true)
         setCanEdit(false)
         }   
     }
@@ -200,7 +199,7 @@ const User = () => {
     setCanEdit(false)
   }
   
-  //if user not authenticated redirect to home page
+  // if user not authenticated redirect to home page
   if (!isLoggedIn) return <Navigate to="/" /> 
 
   return (
@@ -223,7 +222,8 @@ const User = () => {
                     <EditContent>
                       <p className="sr-only">Please enter your new name</p>
                       <Form onSubmit={handleSubmit}> 
-
+                      {/* Display error message if both names not entered*/}
+                      {submitted && !inputOk && <Notify delay="2000">Please enter your full name.</Notify>}
                         <InputWrapper>
                           <label htmlFor="first" className="sr-only" >First Name</label>
                               <input type="text" id="first"

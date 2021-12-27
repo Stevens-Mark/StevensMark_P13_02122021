@@ -80,7 +80,7 @@ export function tokenReducer(state = initialTokenState, action) {
  * @param {object} store 
  * @param {string} email 
  * @param {string} password 
- * @returns {string} token or error message
+ * @returns {string} token or error message to store
  */
 export async function fetchToken(store, email, password) {
 

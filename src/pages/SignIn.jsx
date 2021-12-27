@@ -88,6 +88,9 @@ const SignInButton = styled.button`
  * @returns {JSX}
  */
 const SignIn = () => {
+// retrieve Redux state
+const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
+
   // local state
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -95,13 +98,7 @@ const SignIn = () => {
 
   const store = useStore()
 
-  // retrieve Redux state
-  // const isLoading = useSelector((state) => state.token.isLoading)
-  // const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
-  // const isError = useSelector((state) => state.token.isError)
-  const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
-
-    useEffect(() => {
+  useEffect(() => {
     document.title = 'Argent Bank | Sign In'
     // if user chose to be remembered then retrieve username from local storage
     const rememberMe = localStorage.getItem('rememberMe') === 'true';
@@ -112,7 +109,7 @@ const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    //if user chooses to be remembered then save to local storage
+    // if user chooses to be remembered then save to local storage
     localStorage.setItem('rememberMe', rememberMe)
     localStorage.setItem('user', rememberMe ? email : '')
     // get authentication 'token' from API
