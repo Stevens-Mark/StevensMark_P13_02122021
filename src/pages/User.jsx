@@ -20,8 +20,6 @@ import { Notify } from '../utils/functions/Notify'
  background-color: #12002b;
  min-height: 100vh;
  display: flex;
-//  align-items: center;
-//  justify-content: center;
  flex-direction: column;
 
  @media (min-width: 720px) {
@@ -68,8 +66,6 @@ const EditButton = styled.button`
 const EditContent = styled.div`
   display: flex;
   flex-direction: column;
-  // box-sizing: border-box;
-  // background-color: white;
 `;
 
 const Form = styled.form`
@@ -119,8 +115,6 @@ const ButtonWrapper = styled.div`
 `;
 
 const EditButtons = styled.button`
-  // display: block;
-  // margin: 0rem 0.5rem;
   padding: 0.625rem;
   font-weight: bold;
   min-width: 100px;

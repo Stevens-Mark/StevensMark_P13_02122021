@@ -1,14 +1,21 @@
 // import axios
 import axios from 'axios'
-// import the Immer produce function
-import produce from "immer"
 // redux tools kit function
-import { createAction } from '@reduxjs/toolkit'
+import { createAction, createReducer } from '@reduxjs/toolkit'
+
+/**
+* Initial state
+*/
+const initialUserState = {
+  isLoading: false,
+  isUpdated: false,
+  user: {},
+  isError: '',
+}
 
 /**
  * Actions
  */
-
 // for fetching user data
 export const userFetching = createAction('user/fetching')
 
@@ -42,77 +49,6 @@ export const userUpdateFail = createAction('user/updateFail')
 export const userReset = createAction('user/reset')
 
 /**
-* Initial state
-*/
- const initialUserState = {
-   isLoading: false,
-   isUpdated: false,
-   user: {},
-   isError: '',
- }
-
-/**
- * @function userReducer
- * @param {object} state
- * @param {string} action
- * @returns {object} new state
- */
-export function userReducer(state = initialUserState, action) {
-  // use immer to change the state
-  return produce(state, (draft) => {
-    // make a switch on the type of the action
-    switch (action.type) {
-      case userFetching.toString(): {
-          draft.isLoading = true
-          return
-      }
-       case userResolved.toString(): {
-          draft.isLoading = false
-          draft.user = action.payload
-          draft.isError = ''
-          return
-      }
-      case userRejected.toString(): {
-          draft.isLoading = false
-          draft.user = {}
-          draft.isError = action.payload
-          return
-      }
-      // for user name updating
-      case userUpdateSending.toString(): {
-        draft.isLoading = true
-        return
-      }
-      case userUpdateSuccess.toString(): {
-        draft.isLoading = false
-        draft.isUpdated = true
-        draft.user = action.payload
-        draft.isError = ''
-        return
-      }
-      case userUpdateFail.toString(): {
-        draft.isLoading = false
-        draft.isUpdated = false
-        // draft.isError = action.payload
-        return
-      }
-      // for user logout
-      case userReset.toString(): {
-        draft.isLoading = false
-        draft.isUpdated = false
-        draft.user = {}
-        draft.isError = ''
-        return 
-      }
-      // Otherwise (invalid action)
-      default:
-        // do nothing (return the state without modifications)
-        return state
-    }
-  })
-}
-
-/**
  * API call
  * Using the retrieved 'token' for authentication 
  * the function retrieves the user's name
@@ -122,7 +58,6 @@ export function userReducer(state = initialUserState, action) {
  * @returns {object|string} user information or error message to store
  */
  export async function fetchUser(store, token) {
-
   // start the request
     store.dispatch(userFetching())
   try {
@@ -156,7 +91,6 @@ export function userReducer(state = initialUserState, action) {
  * @returns {object|string} user's new name to store
  */
  export async function UpdateUser(store, token, newFirst, newLast) {
-
   // start the update request
     store.dispatch(userUpdateSending())
   try {
@@ -180,3 +114,56 @@ export function userReducer(state = initialUserState, action) {
     store.dispatch(userUpdateFail())
   }
 }
+
+/**
+ * Reducer for user fetching & updating
+ * @function createReducer
+ * @param {object} state
+ * @param {string} action
+ * @returns {object} new state
+ */
+export default createReducer(initialUserState, (builder) => {
+  builder
+  .addCase(userFetching, (draft, action) => {
+    draft.isLoading = true
+    return
+  })
+  .addCase(userResolved, (draft, action) => {
+    draft.isLoading = false
+    draft.user = action.payload
+    draft.isError = ''
+    return
+  })
+  .addCase(userRejected, (draft, action) => {
+    draft.isLoading = false
+    draft.user = {}
+    draft.isError = action.payload
+    return
+  })
+  // for user name updating
+  .addCase(userUpdateSending, (draft, action) => {
+    draft.isLoading = true
+    return
+  })
+  .addCase(userUpdateSuccess, (draft, action) => {
+    draft.isLoading = false
+    draft.isUpdated = true
+    draft.user = action.payload
+    draft.isError = ''
+    return
+  })
+  .addCase(userUpdateFail, (draft, action) => {
+    draft.isLoading = false
+    draft.isUpdated = false
+    // draft.isError = action.payload
+    return
+  })
+  // for user logout
+  .addCase(userReset, (draft, action) => {
+    draft.isLoading = false
+    draft.isUpdated = false
+    draft.user = {}
+    draft.isError = ''
+    return 
+  })
+})

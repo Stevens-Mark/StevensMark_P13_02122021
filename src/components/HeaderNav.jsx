@@ -17,8 +17,6 @@ const MainNavLogo = styled.img`
   align-items: center;
   max-width: 100%;
   width: 12.5rem;
-  // cursor: pointer;
-  // width: clamp(7rem, 12vw, 10rem);
 `;
 
 const MainNav = styled.nav`

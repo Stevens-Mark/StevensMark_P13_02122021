@@ -1,9 +1,17 @@
 // import axios
 import axios from 'axios'
-// import the Immer produce function
-import produce from "immer"
-// redux tools kit function
-import { createAction } from '@reduxjs/toolkit'
+// redux tools kit functions
+import { createAction, createReducer } from '@reduxjs/toolkit'
+
+/**
+* Initial state
+*/
+const initialTokenState = {
+  isLoading: false,
+  isLoggedIn: false,
+  token: null,
+  isError: '',
+}
 
 /**
  * Actions
@@ -28,60 +36,6 @@ export const tokenRejected = createAction(
 export const tokenReset = createAction('token/reset')
 
 /**
-* Initial state
-*/
- const initialTokenState = {
-   isLoading: false,
-   isLoggedIn: false,
-   token: null,
-   isError: '',
- }
-
-/**
- * @function tokenReducer
- * @param {object} state
- * @param {string} action
- * @returns {object} new state
- */
-export function tokenReducer(state = initialTokenState, action) {
-  // use immer to change the state
-  return produce(state, (draft) => {
-    // make a switch on the type of the action
-    switch (action.type) {
-      case tokenFetching.toString(): {
-          draft.isLoading = true
-          return
-      }
-       case tokenResolved.toString(): {
-          draft.isLoading = false
-          draft.isLoggedIn = true
-          draft.token = action.payload
-          draft.isError = ''
-          return
-      }
-      case tokenRejected.toString(): {
-          draft.isLoading = false
-          draft.isLoggedIn = false
-          draft.token = null
-          draft.isError = action.payload
-          return
-      }
-      case tokenReset.toString(): {
-        draft.isLoading = false
-        draft.isLoggedIn = false
-        draft.token = null
-        draft.isError = ''
-        return 
-    }
-      // Otherwise (invalid action)
-      default:
-        // do nothing (return the state without modifications)
-        return state
-    }
-  })
-}
-
-/**
  * API call
  * Checks if user exists in the database & if true returns a 'token'
  * @function fetchToken
@@ -91,7 +45,6 @@ export function tokenReducer(state = initialTokenState, action) {
  * @returns {string} token or error message to store
  */
 export async function fetchToken(store, email, password) {
-
   // start the request
     store.dispatch(tokenFetching())
   try {
@@ -108,3 +61,42 @@ export async function fetchToken(store, email, password) {
     store.dispatch(tokenRejected(error.response.data.message))
   }
 }
+
+/**
+ *  Reducer for token fetching
+ * @function createReducer
+ * @param {object} state
+ * @param {string} action
+ * @returns {object} new state
+ */
+ export default createReducer(initialTokenState, (builder) => {
+  builder
+  .addCase(tokenFetching, (draft, action) => {
+    draft.isLoading = true
+    return
+  })
+  .addCase(tokenResolved, (draft, action) => {
+    draft.isLoading = false
+    draft.isLoggedIn = true
+    draft.token = action.payload
+    draft.isError = ''
+    return
+  })
+  .addCase(tokenRejected, (draft, action) => {
+    draft.isLoading = false
+    draft.isLoggedIn = false
+    draft.token = null
+    draft.isError = action.payload
+    return
+  })
+  // for user logout
+  .addCase(tokenReset, (draft, action) => {
+    draft.isLoading = false
+    draft.isLoggedIn = false
+    draft.token = null
+    draft.isError = ''
+    return 
+  })
+})
+
+
