@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useStore } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+// import { Navigate } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import components
@@ -12,6 +12,7 @@ import { updateUser } from '../features/fetchUpdateUser'
 // import helper functions
 import { capitalize } from '../utils/functions/capitalize'
 import { Notify } from '../utils/functions/Notify'
+import { Redirect } from 'react-router-dom'
 
 /**
  * CSS for component using styled.components
@@ -194,7 +195,7 @@ const User = () => {
   }
   
   // if user not authenticated redirect to home page
-  if (!isLoggedIn) return <Navigate to="/" /> 
+  if (!isLoggedIn) return <Redirect to="/" /> 
 
   return (
     <MAIN>

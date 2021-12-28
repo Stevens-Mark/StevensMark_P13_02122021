@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Navigate } from "react-router-dom"
+// import { Navigate } from "react-router-dom"
 import { useSelector, useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
@@ -7,6 +7,7 @@ import colors from '../utils/style/colors'
 import LoadingIcon from '../utils/loader/LoadingIcon'
 // import function for API call
 import { fetchToken } from '../features/fetchToken'
+import { Redirect } from 'react-router-dom'
 
 /**
  * CSS for the component using styled.components
@@ -117,7 +118,7 @@ const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
   }
 
   // Redirect to User transaction page when authenticated/LoggedIn
-  if (isLoggedIn) return <Navigate to="/user" /> 
+  if (isLoggedIn) return <Redirect to="/user" /> 
 
   return (
       <MAIN>

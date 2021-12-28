@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 // component imports
 import Header  from './components/HeaderNav'
 import Footer from './components/Footer'
@@ -16,12 +16,12 @@ export default function App() {
   return (   
     <Router>
       <Header />  
-        <Routes>
-          <Route exact path="/" element={<WelcomePage />}/>
-          <Route path="/signin" element={<SignIn />}/>
-          <Route path="/user" element={<User />}/>
-          <Route path="*" element={<Error />} />
-        </Routes> 
+        <Switch>
+          <Route exact path="/" component={WelcomePage}/>
+          <Route path="/signin" component={SignIn}/>
+          <Route path="/user" component={User}/>
+          <Route path="*" component={Error} />
+        </Switch> 
       <Footer />
     </Router>  
   )
