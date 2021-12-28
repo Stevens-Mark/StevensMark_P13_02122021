@@ -8,7 +8,7 @@ import LoadingIcon from '../utils/loader/LoadingIcon'
 import Transactions from '../components/Transactions'
 // import functions for API calls
 import { fetchUser } from '../features/fetchUpdateUser'
-import { UpdateUser } from '../features/fetchUpdateUser'
+import { updateUser } from '../features/fetchUpdateUser'
 // import helper functions
 import { capitalize } from '../utils/functions/capitalize'
 import { Notify } from '../utils/functions/Notify'
@@ -178,7 +178,7 @@ const User = () => {
     setSubmitted(true)
     if (newFirst && newLast) {
       if (newFirst.trim() !=='' && newLast.trim() !=='') {
-        UpdateUser(store, token, newFirst, newLast)
+        updateUser(store, token, newFirst, newLast)
         setInputOk(true)
         setCanEdit(false)
         }   

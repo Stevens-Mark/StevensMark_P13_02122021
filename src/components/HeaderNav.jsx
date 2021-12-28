@@ -66,7 +66,7 @@ const Header = () => {
                   <MainNavA to="/user"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
                   <MainNavA to="/" 
                   onClick={() => { dispatch(userReset()); dispatch(tokenReset());}}>
-                    <i class="fa fa-sign-out"></i>Sign Out</MainNavA> 
+                    <i className="fa fa-sign-out"></i>Sign Out</MainNavA> 
                 </div>
               )}
           </MainNav>

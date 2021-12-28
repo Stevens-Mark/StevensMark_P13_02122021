@@ -70,6 +70,7 @@ export const userReset = createAction('user/reset')
       }
     })
     const user = await response.data.body
+    
     console.log(user)
     // if request resolved then save the user in the store
      store.dispatch(userResolved(user))
@@ -83,14 +84,14 @@ export const userReset = createAction('user/reset')
  * API call
  * Using the retrieved 'token' for authentication 
  * the function updates the user name
- * @function UpdateUser
+ * @function updateUser
  * @param {object} store 
  * @param {string} token
  * @param {string} newFirst: new first name
  * @param {string} newLast: new last name
- * @returns {object|string} user's new name to store
+ * @returns {object} user's new name to store
  */
- export async function UpdateUser(store, token, newFirst, newLast) {
+ export async function updateUser(store, token, newFirst, newLast) {
   // start the update request
     store.dispatch(userUpdateSending())
   try {
