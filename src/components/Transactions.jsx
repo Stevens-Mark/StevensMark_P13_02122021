@@ -86,18 +86,18 @@ const Transactions = () => {
   return (
     <section>
       <h2 className ="sr-only">Accounts</h2>
-          {AccountData.map((data) => (
-            <Account key={data.id}>
-              <AccountWrapper>
-                <AccountTitle>{data.title}</AccountTitle>
-                <AccountAmount>$ {data.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2})}</AccountAmount>
-                <AccountAmountDescription>{data.description}</AccountAmountDescription>
-              </AccountWrapper>
-              <AccountWrapperCta>
-                <TransactionButton>View transactions</TransactionButton>
-              </AccountWrapperCta>
-            </Account>
-          ))}
+        {AccountData.map((data) => (
+          <Account key={data.id}>
+            <AccountWrapper>
+              <AccountTitle>{data.title}</AccountTitle>
+              <AccountAmount>$ {data.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2})}</AccountAmount>
+              <AccountAmountDescription>{data.description}</AccountAmountDescription>
+            </AccountWrapper>
+            <AccountWrapperCta>
+              <TransactionButton>View transactions</TransactionButton>
+            </AccountWrapperCta>
+          </Account>
+        ))}
     </section>
   )
 }

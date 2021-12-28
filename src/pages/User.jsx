@@ -171,7 +171,7 @@ const User = () => {
     fetchUser(store, token)
   }, [store, token])
 
-  // submit form (if both name fields completed otherwise indicate error)
+  // submit form (if both name fields completed, otherwise indicate error)
   const handleSubmit = (event) => {
     event.preventDefault()
     setInputOk(false)
@@ -213,6 +213,7 @@ const User = () => {
                 <UserInfo>
                   <h1>Welcome back</h1>
                   {canEdit ? (
+                    // Form to update user's name - if edit button pressed //
                     <EditContent>
                       <p className="sr-only">Please enter your new name</p>
                       <Form onSubmit={handleSubmit}> 

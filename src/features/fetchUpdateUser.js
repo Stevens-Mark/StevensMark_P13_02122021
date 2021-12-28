@@ -89,20 +89,17 @@ export const userReset = createAction('user/reset')
  * @param {string} newLast: new last name
  * @returns {object} user's new name to store
  */
- export async function updateUser(store, token, newFirst, newLast) {
+ export async function updateUser(store, token, firstName, lastName) {
   // start the update request
     store.dispatch(userUpdateSending())
   try {
     // use axios to make the query
     const response = await axios.put('http://localhost:3001/api/v1/user/profile', 
     {
-      firstName: newFirst,
-      lastName: newLast
+       firstName, lastName
     }, 
     {
-      headers: {
-        'Authorization': `Bearer ${token}` 
-      }
+      headers: { 'Authorization': `Bearer ${token}`}
     })
     const user = await response.data.body
     // if request update resolved then save the user in the store

@@ -42,7 +42,6 @@ const Feature = () => {
   return (
     <Features>
       <h2 className="sr-only">Features</h2>
-
       {featureData.map((data) => (
         <FeaturesItem key={data.id}>
           <FeaturesIcon src={data.icon} alt={data.altText} />

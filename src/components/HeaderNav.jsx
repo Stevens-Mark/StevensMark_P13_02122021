@@ -1,4 +1,3 @@
-
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
@@ -6,9 +5,8 @@ import colors from '../utils/style/colors'
 // logo import
 import logo from '../assets/images/argentBankLogo.png'
 // import action creators 
-import { tokenReset } from '../features/fetchToken'
 import { userReset } from '../features/fetchUpdateUser'
-
+import { tokenReset } from '../features/fetchToken'
 /**
  * CSS for the component using styled.components
  */
@@ -54,22 +52,22 @@ const Header = () => {
   const dispatch = useDispatch()
   
   return (
-          <MainNav>
-            <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
-                <h1 className="sr-only">Argent Bank</h1></MainNavA>
-            {!isLoggedIn ? 
-              ( 
-              <MainNavA activeClassName="active" to="/signin"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
-              ) : 
-              ( <div>
-                  <MainNavA to="/user"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
-                  <MainNavA to="/" 
-                  onClick={() => { dispatch(userReset()); dispatch(tokenReset());}}>
-                    <i className="fa fa-sign-out"></i>Sign Out</MainNavA> 
-                </div>
-              )}
-          </MainNav>
-    )
+    <MainNav>
+      <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
+          <h1 className="sr-only">Argent Bank</h1></MainNavA>
+      {!isLoggedIn ? 
+        ( 
+        <MainNavA activeClassName="active" to="/signin"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
+        ) : 
+        ( <div>
+            <MainNavA to="/user"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
+            <MainNavA to="/" 
+            onClick={() => { dispatch(userReset()); dispatch(tokenReset());}}>
+              <i className="fa fa-sign-out"></i>Sign Out</MainNavA> 
+          </div>
+        )}
+    </MainNav>
+  )
 }
 
 export default Header

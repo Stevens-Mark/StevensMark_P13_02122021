@@ -1,39 +1,16 @@
 // import axios
 import axios from 'axios'
-// redux tools kit functions
-import { createAction, createReducer } from '@reduxjs/toolkit'
-
+// redux tool kit function
+import { createSlice } from '@reduxjs/toolkit'
 /**
 * Initial state
 */
-const initialTokenState = {
+const initialState = {
   isLoading: false,
   isLoggedIn: false,
   token: null,
   isError: '',
 }
-
-/**
- * Actions
- */
-export const tokenFetching = createAction('token/fetching')
-
-export const tokenResolved = createAction(
-  'token/resolved',
-  (token) => ({
-    payload:  token,
-  })
-)
-
-export const tokenRejected = createAction(
-  'token/rejected',
-  (error) => ({
-    payload:  error,
-  })
-)
-
-// reset to initial state on logout
-export const tokenReset = createAction('token/reset')
 
 /**
  * API call
@@ -46,57 +23,79 @@ export const tokenReset = createAction('token/reset')
  */
 export async function fetchToken(store, email, password) {
   // start the request
-    store.dispatch(tokenFetching())
+    store.dispatch(fetching())
   try {
     // use axios to make the query
-    const response = await axios.post('http://localhost:3001/api/v1/user/login', {
-      email: email,
-      password: password
+    const response = await axios.post('http://localhost:3001/api/v1/user/login', 
+    {
+      email, password
     })
     const token = await response.data.body.token
     // if request resolved then save the token in the store
-     store.dispatch(tokenResolved(token))
+     store.dispatch(resolved(token))
    } catch (error) {
-    // otherwise request rejected
-    store.dispatch(tokenRejected(error.response.data.message))
+    // otherwise request rejected: with relevant error message
+    store.dispatch(rejected(error.response.data.message))
   }
 }
 
 /**
- *  Reducer for token fetching
- * @function createReducer
+ * Unify actions and reducers with Redux-Toolkit slices
+ * instead of createAction & createReducer
+ * @function tokenSlice
  * @param {object} state
  * @param {string} action
  * @returns {object} new state
  */
- export default createReducer(initialTokenState, (builder) => {
-  builder
-  .addCase(tokenFetching, (draft, action) => {
-    draft.isLoading = true
-    return
-  })
-  .addCase(tokenResolved, (draft, action) => {
-    draft.isLoading = false
-    draft.isLoggedIn = true
-    draft.token = action.payload
-    draft.isError = ''
-    return
-  })
-  .addCase(tokenRejected, (draft, action) => {
-    draft.isLoading = false
-    draft.isLoggedIn = false
-    draft.token = null
-    draft.isError = action.payload
-    return
-  })
-  // for user logout
-  .addCase(tokenReset, (draft, action) => {
-    draft.isLoading = false
-    draft.isLoggedIn = false
-    draft.token = null
-    draft.isError = ''
-    return 
-  })
+const tokenSlice = createSlice({
+  name: 'token',
+  initialState,
+  reducers: {
+    fetching: {
+      reducer: (draft, action) => {
+        draft.isLoading = true
+        return
+      },
+    },
+    resolved: {
+      // prepare allows to modify the payload
+      prepare: (token) => ({
+        payload: token,
+      }),
+      // the reducer function
+      reducer: (draft, action) => {
+        draft.isLoading = false
+        draft.isLoggedIn = true
+        draft.token = action.payload
+        draft.isError = ''
+        return
+      },
+    },
+    rejected: {
+      prepare: (error) => ({
+        payload: error,
+      }),
+      reducer: (draft, action) => {
+        draft.isLoading = false
+        draft.isLoggedIn = false
+        draft.token = null
+        draft.isError = action.payload
+        return
+      },
+    },
+    tokenReset: {
+      reducer: (draft, action) => {
+        draft.isLoading = false
+        draft.isLoggedIn = false
+        draft.token = null
+        draft.isError = ''
+        return 
+      },
+    },
+  },
 })
 
-
+// export each action individually
+export const { fetching, resolved, rejected, tokenReset } = tokenSlice.actions
+// export the reducer as default export
+export default tokenSlice.reducer

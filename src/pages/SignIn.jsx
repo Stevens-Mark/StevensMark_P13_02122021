@@ -150,7 +150,7 @@ const SignIn = () => {
                       onChange={() => setRememberMe(!rememberMe)} />
                       <label htmlFor="remember-me">Remember me</label>
               </InputRemember>
-              {/* Show loading whilst fetching data */}
+              {/* Show loading spiiner whilst fetching data */}
               {isLoading && <LoadingIcon />}
               {/* Display error message if username or password error */}
               <ErrorMsg>{isError}</ErrorMsg>
