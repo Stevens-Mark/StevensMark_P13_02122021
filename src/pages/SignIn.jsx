@@ -89,8 +89,8 @@ const SignInButton = styled.button`
  * @returns {JSX}
  */
 const SignIn = () => {
-// retrieve Redux state
-const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
+  // retrieve Redux state
+  const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
 
   // local state
   const [email, setEmail] = useState('')

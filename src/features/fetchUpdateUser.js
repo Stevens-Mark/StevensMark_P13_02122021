@@ -70,8 +70,6 @@ export const userReset = createAction('user/reset')
       }
     })
     const user = await response.data.body
-    
-    console.log(user)
     // if request resolved then save the user in the store
      store.dispatch(userResolved(user))
   } catch (error) {
@@ -107,7 +105,6 @@ export const userReset = createAction('user/reset')
       }
     })
     const user = await response.data.body
-    console.log(user)
     // if request update resolved then save the user in the store
      store.dispatch(userUpdateSuccess(user))
   } catch (error) {

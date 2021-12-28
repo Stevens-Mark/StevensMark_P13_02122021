@@ -94,7 +94,6 @@ const InputWrapper = styled.div`
   input {
     padding: 0.5rem;
     font-size: 1.2rem;
-    // margin: 0rem 0.5rem;
     border-radius: 0.2rem;
     border: 1px solid black;
   }
@@ -217,8 +216,7 @@ const User = () => {
                     <EditContent>
                       <p className="sr-only">Please enter your new name</p>
                       <Form onSubmit={handleSubmit}> 
-                      {/* Display error message if both names not entered*/}
-                      {submitted && !inputOk && <Notify delay="2000">Please enter your full name.</Notify>}
+
                         <InputWrapper>
                           <label htmlFor="first" className="sr-only" >First Name</label>
                               <input type="text" id="first"
@@ -230,6 +228,9 @@ const User = () => {
                                 placeholder={lastName}
                                 onChange={(e) => {setnewLast(e.target.value)}}  />
                         </InputWrapper>
+
+                      {/* Display error message if both names not entered*/}
+                      {submitted && !inputOk && <Notify delay="2000">Please enter your full name.</Notify>}
 
                         <ButtonWrapper>
                           <EditButtons type="submit" disabled={isLoading ? true : false}>Save</EditButtons> 

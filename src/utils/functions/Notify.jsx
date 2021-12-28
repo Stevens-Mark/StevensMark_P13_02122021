@@ -4,7 +4,7 @@ import colors from '../style/colors'
 /**
  * CSS for component using styled.components
  */
- const Wrapper = styled.div`
+ const Wrapper = styled.span`
  padding-bottom: 0.8rem;
  color: ${colors.primary};
 `;

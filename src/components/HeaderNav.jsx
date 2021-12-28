@@ -32,7 +32,6 @@ const MainNav = styled.nav`
 
 const MainNavA = styled(NavLink)`
   color:  ${colors.aLink};
-  // font-size: clamp(1rem, 1.667vw, 1.5rem);
   font-weight: bold;
   text-decoration: none;
   margin-right: 0.5rem;
