@@ -62,7 +62,7 @@ const initialState = {
       firstName, lastName
     }, 
     {
-      headers: { 'Authorization': `Bearer ${token}`}
+      headers: { 'Authorization': `Bearer1 ${token}`}
     })
     const user = await response.data.body
     // if request update resolved then save the user in the store
