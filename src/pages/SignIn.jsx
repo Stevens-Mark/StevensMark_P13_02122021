@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-// import { Navigate } from "react-router-dom"
+import { Redirect } from 'react-router-dom'
 import { useSelector, useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
@@ -7,7 +7,7 @@ import colors from '../utils/style/colors'
 import LoadingIcon from '../utils/loader/LoadingIcon'
 // import function for API call
 import { fetchToken } from '../features/fetchToken'
-import { Redirect } from 'react-router-dom'
+
 
 /**
  * CSS for the component using styled.components
@@ -20,7 +20,7 @@ const MAIN = styled.main`
 const SignInContent = styled.section`
   box-sizing: border-box;
   background-color: white;
-  width: 300px;
+  max-width: 300px;
   margin: 0 auto;
   padding: 2rem;
   position: relative;
@@ -84,7 +84,7 @@ const SignInButton = styled.button`
 `;
 
 /**
- * Renders the 'Sign In page & form' 
+ * Renders the 'SignIn page' & form
  * @function SignIn
  * @returns {JSX}
  */
@@ -92,7 +92,7 @@ const SignIn = () => {
   // retrieve Redux state
   const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
 
-  // local state
+  // local states
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [rememberMe, setRememberMe] = useState(true)
@@ -150,7 +150,7 @@ const SignIn = () => {
                       onChange={() => setRememberMe(!rememberMe)} />
                       <label htmlFor="remember-me">Remember me</label>
               </InputRemember>
-              {/* Show loading spiiner whilst fetching data */}
+              {/* Show loading spinner whilst fetching data */}
               {isLoading && <LoadingIcon />}
               {/* Display error message if username or password error */}
               <ErrorMsg>{isError}</ErrorMsg>

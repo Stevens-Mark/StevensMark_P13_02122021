@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useStore } from 'react-redux'
-// import { Navigate } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import components
@@ -12,7 +12,7 @@ import { updateUser } from '../features/fetchUpdateUser'
 // import helper functions
 import { capitalize } from '../utils/functions/capitalize'
 import { Notify } from '../utils/functions/Notify'
-import { Redirect } from 'react-router-dom'
+
 
 /**
  * CSS for component using styled.components
@@ -152,7 +152,7 @@ const User = () => {
   const { isLoading, isUpdated, isError } = useSelector((state) => state.userStats)
   const { firstName, lastName  } = useSelector((state) => state.userStats.user)
 
-  // local state
+  // local states
   const [newFirst, setNewFirst] = useState('')
   const [newLast, setnewLast] = useState('')
   const [canEdit, setCanEdit] = useState(false)
@@ -203,9 +203,9 @@ const User = () => {
                       <LoadingIcon />
                     </Wrapper> : 
         <React.Fragment>
-          {/* Display error message if there is a problem fecthing the user data*/}
+          {/* Display error message if there is a problem fetcthing the user data*/}
           {isError ? <Wrapper>
-                        <ErrorMsg>Something went wrong, Please try again later... {isError}</ErrorMsg>
+                        <ErrorMsg>Something went wrong, Please try again later...<br/> {isError}</ErrorMsg>
                       </Wrapper> :  
             <React.Fragment>
               {/* Otherwise display user's information & transactions */}
@@ -244,7 +244,7 @@ const User = () => {
                       <React.Fragment>
                         <h2>{capitalizedFirst}  {capitalizedLast} !</h2>
                         {/* Display a generic error message if unable to update user details */}
-                        {submitted && !isUpdated && <Notify delay="2000">Sorry, there was a problem, please try later...</Notify>}
+                        {submitted && !isUpdated && <Notify delay="3500">Sorry there was a problem updating your details, please try again later...</Notify>}
                         <EditButton onClick={() => setCanEdit(true)}>Edit Name</EditButton>
                       </React.Fragment>
                     )}

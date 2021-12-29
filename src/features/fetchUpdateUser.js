@@ -1,52 +1,17 @@
 // import axios
 import axios from 'axios'
-// redux tools kit function
-import { createAction, createReducer } from '@reduxjs/toolkit'
+// redux tool kit function
+import { createSlice } from '@reduxjs/toolkit'
 
 /**
 * Initial state
 */
-const initialUserState = {
+const initialState = {
   isLoading: false,
   isUpdated: false,
   user: {},
   isError: '',
 }
-
-/**
- * Actions
- */
-// for fetching user data
-export const userFetching = createAction('user/fetching')
-
-export const userResolved = createAction(
-  'user/resolved',
-  (user) => ({
-    payload:  user,
-  })
-)
-
-export const userRejected = createAction(
-  'user/rejected',
-  (error) => ({
-    payload:  error,
-  })
-)
-
-// for updating user data
-export const userUpdateSending = createAction('user/updateSending')
-
-export const userUpdateSuccess = createAction(
-  'user/updateSuccess',
-  (user) => ({
-    payload:  user,
-  })
-)
-
-export const userUpdateFail = createAction('user/updateFail')
-
-// reset to initial state on logout
-export const userReset = createAction('user/reset')
 
 /**
  * API call
@@ -59,22 +24,20 @@ export const userReset = createAction('user/reset')
  */
  export async function fetchUser(store, token) {
   // start the request
-    store.dispatch(userFetching())
+    store.dispatch(fetching())
   try {
     // use axios to make the query
     const response = await axios.post('http://localhost:3001/api/v1/user/profile', 
     {}, 
     {
-      headers: {
-        'Authorization': `Bearer ${token}` 
-      }
+      headers: { 'Authorization': `Bearer ${token}` }
     })
     const user = await response.data.body
     // if request resolved then save the user in the store
-     store.dispatch(userResolved(user))
+     store.dispatch(resolved(user))
   } catch (error) {
-    // otherwise request rejected
-    store.dispatch(userRejected(error.response.data.message))
+    // otherwise request rejected with corresponding error mesage
+    store.dispatch(rejected(error.response.data.message))
   }
 }
 
@@ -85,80 +48,118 @@ export const userReset = createAction('user/reset')
  * @function updateUser
  * @param {object} store 
  * @param {string} token
- * @param {string} newFirst: new first name
- * @param {string} newLast: new last name
- * @returns {object} user's new name to store
+ * @param {string} new first name
+ * @param {string} new last name
+ * @returns {object} user's new name to store or nothing
  */
  export async function updateUser(store, token, firstName, lastName) {
   // start the update request
-    store.dispatch(userUpdateSending())
+    store.dispatch(updateSending())
   try {
     // use axios to make the query
     const response = await axios.put('http://localhost:3001/api/v1/user/profile', 
     {
-       firstName, lastName
+      firstName, lastName
     }, 
     {
       headers: { 'Authorization': `Bearer ${token}`}
     })
     const user = await response.data.body
     // if request update resolved then save the user in the store
-     store.dispatch(userUpdateSuccess(user))
+     store.dispatch(updateSuccess(user))
   } catch (error) {
     // otherwise update request rejected
-    store.dispatch(userUpdateFail())
+    store.dispatch(updateFail())
   }
 }
 
 /**
- * Reducer for user fetching & updating
- * @function createReducer
+ * Unify actions and reducers with Redux-Toolkit slices
+ * instead of createAction & createReducer
+ * create actions & reducer logic regarding user retrieval/updating
+ * @function userSlice
  * @param {object} state
  * @param {string} action
  * @returns {object} new state
  */
-export default createReducer(initialUserState, (builder) => {
-  builder
-  .addCase(userFetching, (draft, action) => {
-    draft.isLoading = true
-    return
-  })
-  .addCase(userResolved, (draft, action) => {
-    draft.isLoading = false
-    draft.user = action.payload
-    draft.isError = ''
-    return
-  })
-  .addCase(userRejected, (draft, action) => {
-    draft.isLoading = false
-    draft.user = {}
-    draft.isError = action.payload
-    return
-  })
-  // for user name updating
-  .addCase(userUpdateSending, (draft, action) => {
-    draft.isLoading = true
-    return
-  })
-  .addCase(userUpdateSuccess, (draft, action) => {
-    draft.isLoading = false
-    draft.isUpdated = true
-    draft.user = action.payload
-    draft.isError = ''
-    return
-  })
-  .addCase(userUpdateFail, (draft, action) => {
-    draft.isLoading = false
-    draft.isUpdated = false
-    // draft.isError = action.payload
-    return
-  })
-  // for user logout
-  .addCase(userReset, (draft, action) => {
-    draft.isLoading = false
-    draft.isUpdated = false
-    draft.user = {}
-    draft.isError = ''
-    return 
-  })
+ const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    fetching: {
+      reducer: (draft, action) => {
+        draft.isLoading = true
+        return
+      },
+    },
+    resolved: {
+      // prepare allows to modify the payload
+      prepare: (user) => ({
+        payload: user,
+      }),
+      // the reducer function
+      reducer: (draft, action) => {
+        draft.isLoading = false
+        draft.user = action.payload
+        draft.isError = ''
+        return
+      },
+    },
+    rejected: {
+      prepare: (error) => ({
+        payload: error,
+      }),
+      reducer: (draft, action) => {
+        draft.isLoading = false
+        draft.user = {}
+        draft.isError = action.payload
+        return
+      },
+    },
+    // for user name updating
+    updateSending: {
+      reducer: (draft, action) => {
+        draft.isLoading = true
+        return
+      },
+    },
+    updateSuccess: {
+      prepare: (user) => ({
+        payload: user,
+      }),
+      reducer: (draft, action) => {
+        draft.isLoading = false
+        draft.isUpdated = true
+        draft.user = action.payload
+        draft.isError = ''
+        return
+      },
+    },
+    updateFail: {
+      prepare: (error) => ({
+        payload: error,
+      }),
+      reducer: (draft, action) => {
+        draft.isLoading = false
+        draft.isUpdated = false
+        // draft.isError = action.payload
+        return
+      },
+    },
+    // for user logout
+    resetUser: {
+      reducer: (draft, action) => {
+        draft.isLoading = false
+        draft.isUpdated = false
+        draft.user = {}
+        draft.isError = ''
+        return 
+      },
+    },
+  },
 })
+
+// export each action individually
+export const { fetching, resolved, rejected, updateSending, updateSuccess, updateFail, resetUser } = userSlice.actions
+// export the reducer as default export
+export default userSlice.reducer

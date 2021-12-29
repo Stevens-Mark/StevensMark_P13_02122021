@@ -42,6 +42,7 @@ export async function fetchToken(store, email, password) {
 /**
  * Unify actions and reducers with Redux-Toolkit slices
  * instead of createAction & createReducer
+ * create actions & reducer logic regarding token retrieval
  * @function tokenSlice
  * @param {object} state
  * @param {string} action
@@ -83,7 +84,7 @@ const tokenSlice = createSlice({
         return
       },
     },
-    tokenReset: {
+    resetToken: {
       reducer: (draft, action) => {
         draft.isLoading = false
         draft.isLoggedIn = false
@@ -96,6 +97,6 @@ const tokenSlice = createSlice({
 })
 
 // export each action individually
-export const { fetching, resolved, rejected, tokenReset } = tokenSlice.actions
+export const { fetching, resolved, rejected, resetToken } = tokenSlice.actions
 // export the reducer as default export
 export default tokenSlice.reducer
