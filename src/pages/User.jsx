@@ -225,12 +225,12 @@ const User = () => {
                         <InputWrapper>
                           <label htmlFor="first" className="sr-only" >First Name</label>
                               <input type="text" id="first"
-                                placeholder={firstName}
+                                placeholder={capitalizedFirst}
                                 onChange={(e) => {setNewFirst(e.target.value)}} /> 
 
                               <label htmlFor="second" className="sr-only" >Surname</label>
                               <input type="text" id="second"
-                                placeholder={lastName}
+                                placeholder={capitalizedLast}
                                 onChange={(e) => {setnewLast(e.target.value)}}  />
                         </InputWrapper>
 
