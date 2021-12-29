@@ -1,3 +1,4 @@
+import { useTheme } from '../utils/functions/theme'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 import { featureData } from '../data/data'
@@ -27,7 +28,7 @@ const FeaturesIcon = styled.img`
 `;
 
  const FeatureItemTitle = styled.h3`
-  color: ${colors.itemTitle};
+  color: ${({ theme }) => (theme === 'light' ? `${colors.itemTitle}` : `${colors.tertiary}`)};
   font-size: 1.25rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
@@ -39,13 +40,15 @@ const FeaturesIcon = styled.img`
  * @returns {JSX}
  */
 const Feature = () => {
+  const { theme } = useTheme()
+
   return (
     <Features>
       <h2 className="sr-only">Features</h2>
       {featureData.map((data) => (
         <FeaturesItem key={data.id}>
           <FeaturesIcon src={data.icon} alt={data.altText} />
-          <FeatureItemTitle>{data.title}</FeatureItemTitle>
+          <FeatureItemTitle theme={theme}>{data.title}</FeatureItemTitle>
           <p>{data.content}</p>
         </FeaturesItem>
         ))}

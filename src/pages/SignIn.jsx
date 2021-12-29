@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { useSelector, useStore } from 'react-redux'
+import { useTheme } from '../utils/functions/theme'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import component
@@ -8,18 +9,17 @@ import LoadingIcon from '../utils/loader/LoadingIcon'
 // import function for API call
 import { fetchToken } from '../features/fetchToken'
 
-
 /**
  * CSS for the component using styled.components
  */
 const MAIN = styled.main`
-  background-color: #12002b;
-  min-height: 100vh;
+  background-color: ${colors.signInBackground};
+  min-height: 85vh;
 `;
 
 const SignInContent = styled.section`
   box-sizing: border-box;
-  background-color: white;
+  background-color: ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.backgroundDark}`)};
   max-width: 300px;
   margin: 0 auto;
   padding: 2rem;
@@ -61,6 +61,7 @@ const ErrorMsg = styled.p`
   margin-top: 0.313rem;
   padding: 0.313rem;
   color: ${colors.warning};
+  color: ${({ theme }) => (theme === 'light' ? `${colors.warning}` : `${colors.primary}`)};
 `;
 
 const SignInButton = styled.button`
@@ -89,6 +90,7 @@ const SignInButton = styled.button`
  * @returns {JSX}
  */
 const SignIn = () => {
+  const { theme } = useTheme()
   // retrieve Redux state
   const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
 
@@ -122,7 +124,7 @@ const SignIn = () => {
 
   return (
       <MAIN>
-        <SignInContent>
+        <SignInContent theme={theme}>
           <i className="fa fa-user-circle"></i>
           <h1>Sign In</h1>
           {password}
@@ -153,7 +155,7 @@ const SignIn = () => {
               {/* Show loading spinner whilst fetching data */}
               {isLoading && <LoadingIcon />}
               {/* Display error message if username or password error */}
-              <ErrorMsg>{isError}</ErrorMsg>
+              <ErrorMsg theme={theme}>{isError}</ErrorMsg>
 
             <SignInButton type="submit" 
                 disabled={isLoading ? true : false}>Sign In</SignInButton>

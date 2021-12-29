@@ -1,4 +1,6 @@
+import { useTheme } from '../utils/functions/theme'
 import styled from 'styled-components'
+import colors from '../utils/style/colors'
 import heroImg from '../assets/images/bank-tree.jpeg'
 
 /**
@@ -22,7 +24,7 @@ const HeroContent = styled.article`
   position: relative;
   top: 2rem;
   width: 12.5rem;
-  background: white;
+  background: ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.itemTitle}`)};
   padding: 2rem;
   text-align: left;
   margin: 0 auto;
@@ -61,10 +63,11 @@ const HeroText = styled.p`
  * @returns {JSX}
  */
 const Hero = () => {
+  const { theme } = useTheme()
   return (
     <HeroContainer>
         <h1 className="sr-only">Argent Bank - Welcome</h1>
-        <HeroContent>
+        <HeroContent theme={theme}>
           <h2 className="sr-only">Promoted Content</h2>
           <HeroSubtitle>No fees.</HeroSubtitle>
           <HeroSubtitle>No minimum deposit.</HeroSubtitle>

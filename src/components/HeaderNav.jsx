@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { useTheme } from '../utils/functions/theme'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // logo import
@@ -15,6 +16,7 @@ const MainNavLogo = styled.img`
   align-items: center;
   max-width: 100%;
   width: clamp(11rem, 13vw, 12.5rem);
+  border: ${({ theme }) => (theme === 'light' ? `1px solid ${colors.tertiary}` : `1px solid ${colors.primary}`)};
 `;
 
 const MainNav = styled.nav`
@@ -30,7 +32,7 @@ const MainNav = styled.nav`
 `;
 
 const MainNavA = styled(NavLink)`
-  color:  ${colors.aLink};
+  color: ${({ theme }) => (theme === 'light' ? `${colors.aLink}` : `${colors.tertiary}`)};
   font-weight: bold;
   text-decoration: none;
   margin-right: 0.5rem;
@@ -48,21 +50,22 @@ const MainNavA = styled(NavLink)`
  * @returns (JSX)
  */
 const Header = () => {
+  const { theme } = useTheme()
   const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
   const firstName = useSelector((state) => state.userStats.user.firstName)
   const dispatch = useDispatch()
   
   return (
     <MainNav>
-      <MainNavA to="/"><MainNavLogo className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
+      <MainNavA to="/"><MainNavLogo theme={theme} className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
           <h1 className="sr-only">Argent Bank</h1></MainNavA>
       {!isLoggedIn ? 
         ( 
-        <MainNavA activeClassName="active" to="/signin"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
+        <MainNavA theme={theme} activeClassName="active" to="/signin"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
         ) : 
         ( <div>
-            <MainNavA to="/user"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
-            <MainNavA to="/" 
+            <MainNavA theme={theme} to="/user"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
+            <MainNavA theme={theme} to="/" 
             onClick={() => { dispatch(resetUser()); dispatch(resetToken());}}>
               <i className="fa fa-sign-out"></i>Sign Out</MainNavA> 
           </div>

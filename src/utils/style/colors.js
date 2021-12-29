@@ -4,6 +4,8 @@ const colors = {
   primary: '#00bc77',
   secondary: '#000',
   tertiary: '#fff',
+  signInBackground: '#12002b',
+  backgroundDark: '#4F4C6B',
   warning: 'red',
   
   // Link

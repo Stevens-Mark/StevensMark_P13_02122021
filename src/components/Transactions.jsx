@@ -1,3 +1,4 @@
+import { useTheme } from '../utils/functions/theme'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import 'dummy' data
@@ -10,8 +11,8 @@ import { AccountData } from '../data/data.js'
  display: flex;
  justify-content: space-between;
  align-items: center;
- border: 1px solid ${colors.secondary};
- background-color:  ${colors.tertiary};
+ border: ${({ theme }) => (theme === 'light' ? `1px solid ${colors.secondary}` : `1px solid ${colors.primary}`)};
+ background-color:  ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.backgroundDark}`)};
  width: 80%;
  margin: 0 auto;
  flex-direction: column;
@@ -83,11 +84,12 @@ const TransactionButton = styled.button`
  * @returns {JSX}
  */
 const Transactions = () => {
+  const { theme } = useTheme()
   return (
     <section>
       <h2 className ="sr-only">Accounts</h2>
         {AccountData.map((data) => (
-          <Account key={data.id}>
+          <Account theme={theme} key={data.id}>
             <AccountWrapper>
               <AccountTitle>{data.title}</AccountTitle>
               <AccountAmount>$ {data.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2})}</AccountAmount>
