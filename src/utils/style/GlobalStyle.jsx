@@ -16,7 +16,7 @@ import colors from './colors'
  }
 
  body {  
-  background-color: ${({ isDarkMode }) => (isDarkMode ? `${colors.backgroundDark}` : `${colors.tertiary}`)};
+  background-color: ${({ isDarkMode }) => (isDarkMode ? `${colors.darkModeHighlights}` : `${colors.tertiary}`)};
   margin: 0;
   display: flex;
   flex-direction: column;

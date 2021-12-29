@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useStore } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+// styling
+import { useTheme } from '../utils/functions/theme'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import components
@@ -18,7 +20,8 @@ import { Notify } from '../utils/functions/Notify'
  * CSS for component using styled.components
  */
  const MAIN = styled.main`
- background-color: #12002b;
+//  background-color: ${colors.mainBackground};
+ background-color: ${({ theme }) => (theme === 'light' ? `${colors.mainBackground}` : `${colors.mainBackgroundDarkMode}`)};
  min-height: 100vh;
  display: flex;
  flex-direction: column;
@@ -147,6 +150,7 @@ const ErrorMsg = styled.h1`
  * @returns {JSX}
  */
 const User = () => {
+  const { theme } = useTheme()
   // retrieve Redux state
   const { isLoggedIn, token } = useSelector((state) => state.token)
   const { isLoading, isUpdated, isError } = useSelector((state) => state.userStats)
@@ -197,7 +201,7 @@ const User = () => {
   if (!isLoggedIn) return <Redirect to="/" /> 
 
   return (
-    <MAIN>
+    <MAIN theme={theme}>
       {/* Show load spinner whilst waiting for data */}
       {isLoading ? <Wrapper>
                       <LoadingIcon />

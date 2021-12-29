@@ -12,7 +12,7 @@ import { AccountData } from '../data/data.js'
  justify-content: space-between;
  align-items: center;
  border: ${({ theme }) => (theme === 'light' ? `1px solid ${colors.secondary}` : `1px solid ${colors.primary}`)};
- background-color:  ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.backgroundDark}`)};
+ background-color:  ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.darkModeHighlights}`)};
  width: 80%;
  margin: 0 auto;
  flex-direction: column;

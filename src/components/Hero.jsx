@@ -24,7 +24,7 @@ const HeroContent = styled.article`
   position: relative;
   top: 2rem;
   width: 12.5rem;
-  background: ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.itemTitle}`)};
+  background: ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.mainBackgroundDarkMode}`)};
   padding: 2rem;
   text-align: left;
   margin: 0 auto;

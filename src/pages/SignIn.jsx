@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { useSelector, useStore } from 'react-redux'
+// styling
 import { useTheme } from '../utils/functions/theme'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
@@ -13,13 +14,15 @@ import { fetchToken } from '../features/fetchToken'
  * CSS for the component using styled.components
  */
 const MAIN = styled.main`
-  background-color: ${colors.signInBackground};
+  // background-color: ${colors.mainBackground};
+  background-color: ${({ theme }) => (theme === 'light' ? `${colors.mainBackground}` : `${colors.mainBackgroundDarkMode}`)};
   min-height: 85vh;
 `;
 
 const SignInContent = styled.section`
   box-sizing: border-box;
-  background-color: ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.backgroundDark}`)};
+  background-color: ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.darkModeHighlights}`)};
+  border: ${({ theme }) => (theme === 'light' ? `1px solid ${colors.tertiary}` : `1px solid ${colors.primary}`)};
   max-width: 300px;
   margin: 0 auto;
   padding: 2rem;
@@ -123,7 +126,7 @@ const SignIn = () => {
   if (isLoggedIn) return <Redirect to="/user" /> 
 
   return (
-      <MAIN>
+      <MAIN theme={theme}>
         <SignInContent theme={theme}>
           <i className="fa fa-user-circle"></i>
           <h1>Sign In</h1>
