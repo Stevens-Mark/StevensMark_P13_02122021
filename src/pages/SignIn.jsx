@@ -5,7 +5,7 @@ import { useSelector, useStore } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import component
-import LoadingIcon from '../utils/loader/LoadingIcon'
+import LoadingIcon from '../utils/loader/loadingIcon'
 // import function for API call
 import { fetchToken } from '../features/fetchToken'
 // import selectors
