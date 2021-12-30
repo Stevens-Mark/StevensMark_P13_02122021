@@ -15,7 +15,7 @@ const MainNavLogo = styled.img`
   display: flex;
   align-items: center;
   max-width: 100%;
-  width: clamp(11rem, 13vw, 12.5rem);
+  width: clamp(10rem, 13vw, 12.5rem);
   border: ${({ theme }) => (theme === 'light' ? `1px solid ${colors.tertiary}` : `1px solid ${colors.primary}`)};
 `;
 
@@ -24,7 +24,7 @@ const MainNav = styled.nav`
       justify-content: space-between;
       align-items: center;
       padding: 0.313rem 1.25rem; 
-      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      font-size: clamp(0.8rem, 1.4vw, 1.2rem);
       i {
         margin-right: 0.313rem;
         font-size: clamp(1rem, 1.4vw, 1.2rem);
@@ -38,10 +38,11 @@ const MainNavA = styled(NavLink)`
   margin-right: 0.5rem;
     &.${(props) => props.activeClassName} {
       color: ${colors.activeA};
-        }
+    }
     &:hover {
       color: ${colors.activeA};
       text-decoration: underline;
+    }
 `;
 
 /**
