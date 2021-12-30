@@ -28,9 +28,8 @@ const MainNav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.313rem 1.25rem; 
-  font-size: clamp(0.8rem, 1.4vw, 1.2rem);
-
+  padding: 0.313rem 0.5rem; 
+  font-size: clamp(0.9rem, 1.4vw, 1.2rem);
   i {
     margin-right: 0.313rem;
     font-size: clamp(1rem, 1.4vw, 1.2rem);
@@ -49,6 +48,13 @@ const MainNavA = styled(NavLink)`
   &:hover {
     color: ${colors.activeA};
     text-decoration: underline;
+  }
+`;
+
+const UserName = styled.span`
+  display: block;
+  @media (min-width: 347px) {
+    display: inline-block;
   }
 `;
 
@@ -77,7 +83,9 @@ const Header = () => {
         <MainNavA theme={theme} activeClassName="active" to="/signin"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
         ) : 
         ( <div>
-            <MainNavA theme={theme} to="/user"><i className="fa fa-user-circle"></i>{capitalizedFirst}</MainNavA> 
+            <UserName>
+              <MainNavA theme={theme} to="/user"><i className="fa fa-user-circle"></i>{capitalizedFirst}</MainNavA>
+            </UserName>
             <MainNavA theme={theme} to="/" 
             onClick={() => { dispatch(resetUser()); dispatch(resetToken());}}>
               <i className="fa fa-sign-out"></i>Sign Out</MainNavA> 
