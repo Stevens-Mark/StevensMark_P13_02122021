@@ -84,7 +84,7 @@ const Header = () => {
         ) : 
         ( <div>
             <UserName>
-              <MainNavA theme={theme} to="/user"><i className="fa fa-user-circle"></i>{capitalizedFirst}</MainNavA>
+              <MainNavA theme={theme} activeClassName="active" to="/user"><i className="fa fa-user-circle"></i>{capitalizedFirst}</MainNavA>
             </UserName>
             <MainNavA theme={theme} to="/" 
             onClick={() => { dispatch(resetUser()); dispatch(resetToken());}}>
