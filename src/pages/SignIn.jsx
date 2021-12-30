@@ -134,7 +134,6 @@ const SignIn = () => {
         <SignInContent theme={theme}>
           <i className="fa fa-user-circle"></i>
           <h1>Sign In</h1>
-          {password}
           <form onSubmit={handleSubmit}>
 
             <InputWrapper>

@@ -4,16 +4,6 @@ import axios from 'axios'
 import { createSlice } from '@reduxjs/toolkit'
 
 /**
-* Initial state
-*/
-const initialState = {
-  isLoading: false,
-  isUpdated: false,
-  user: {},
-  isError: '',
-}
-
-/**
  * API call
  * Using the retrieved 'token' for authentication 
  * the function retrieves the user's name
@@ -84,78 +74,48 @@ const initialState = {
  */
  const userSlice = createSlice({
   name: 'user',
-  initialState,
+  initialState: {
+    isLoading: false,
+    isUpdated: false,
+    user: {},
+    isError: '',
+  },
   // reducers allows to define the actions and the reducer
   reducers: {
-    fetching: {
-      reducer: (draft, action) => {
+    fetching: (draft) => {
         draft.isLoading = true
-        return
-      },
     },
-    resolved: {
-      // prepare allows to modify the payload
-      prepare: (user) => ({
-        payload: user,
-      }),
-      // the reducer function
-      reducer: (draft, action) => {
+    resolved: (draft, action) => {
         draft.isLoading = false
         draft.user = action.payload
         draft.isError = ''
-        return
-      },
     },
-    rejected: {
-      prepare: (error) => ({
-        payload: error,
-      }),
-      reducer: (draft, action) => {
+    rejected:  (draft, action) => {
         draft.isLoading = false
         draft.user = {}
         draft.isError = action.payload
-        return
-      },
     },
     // for user name updating
-    updateSending: {
-      reducer: (draft, action) => {
+    updateSending: (draft) => {
         draft.isLoading = true
-        return
-      },
     },
-    updateSuccess: {
-      prepare: (user) => ({
-        payload: user,
-      }),
-      reducer: (draft, action) => {
+    updateSuccess: (draft, action) => {
         draft.isLoading = false
         draft.isUpdated = true
         draft.user = action.payload
         draft.isError = ''
-        return
-      },
     },
-    updateFail: {
-      prepare: (error) => ({
-        payload: error,
-      }),
-      reducer: (draft, action) => {
+    updateFail: (draft) => {
         draft.isLoading = false
         draft.isUpdated = false
         // draft.isError = action.payload
-        return
-      },
     },
     // for user logout
-    resetUser: {
-      reducer: (draft, action) => {
+    resetUser: (draft) => {
         draft.isLoading = false
         draft.isUpdated = false
         draft.user = {}
         draft.isError = ''
-        return 
-      },
     },
   },
 })

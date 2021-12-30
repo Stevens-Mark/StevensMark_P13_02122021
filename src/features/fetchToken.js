@@ -2,15 +2,6 @@
 import axios from 'axios'
 // redux tool kit function
 import { createSlice } from '@reduxjs/toolkit'
-/**
-* Initial state
-*/
-const initialState = {
-  isLoading: false,
-  isLoggedIn: false,
-  token: null,
-  isError: '',
-}
 
 /**
  * API call
@@ -50,49 +41,34 @@ export async function fetchToken(store, email, password) {
  */
 const tokenSlice = createSlice({
   name: 'token',
-  initialState,
+  initialState: {
+    isLoading: false,
+    isLoggedIn: false,
+    token: null,
+    isError: '',
+  },
   // reducers allows to define the actions and the reducer
   reducers: {
-    fetching: {
-      reducer: (draft, action) => {
+    fetching: (draft) => {
         draft.isLoading = true
-        return
-      },
     },
-    resolved: {
-      // prepare allows to modify the payload
-      prepare: (token) => ({
-        payload: token,
-      }),
-      // the reducer function
-      reducer: (draft, action) => {
+    resolved: (draft, action) => {
         draft.isLoading = false
         draft.isLoggedIn = true
         draft.token = action.payload
         draft.isError = ''
-        return
-      },
     },
-    rejected: {
-      prepare: (error) => ({
-        payload: error,
-      }),
-      reducer: (draft, action) => {
+    rejected: (draft, action) => {
         draft.isLoading = false
         draft.isLoggedIn = false
         draft.token = null
         draft.isError = action.payload
-        return
-      },
     },
-    resetToken: {
-      reducer: (draft, action) => {
+    resetToken: (draft) => {
         draft.isLoading = false
         draft.isLoggedIn = false
         draft.token = null
         draft.isError = ''
-        return 
-      },
     },
   },
 })
