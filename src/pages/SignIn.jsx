@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { useSelector, useStore } from 'react-redux'
 // styling
-import { useTheme } from '../utils/functions/theme'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import component
@@ -39,9 +38,11 @@ const InputWrapper = styled.div`
   flex-direction: column;
   text-align: left;
   margin-bottom: 1rem;
+
   label {
     font-weight: bold;
   }
+
   input {
     margin-top: 0.313rem;
     padding: 8px;
@@ -57,7 +58,6 @@ const InputRemember = styled.div`
   label {
     margin-left: 0.25rem;
   }
-  
 `;
 
 const ErrorMsg = styled.p`
@@ -80,6 +80,7 @@ const SignInButton = styled.button`
   background-color: ${colors.primary};
   color: ${colors.tertiary};
   transition: 0.4s;
+
   &:hover {
     opacity: 0.85;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
@@ -93,9 +94,9 @@ const SignInButton = styled.button`
  * @returns {JSX}
  */
 const SignIn = () => {
-  const { theme } = useTheme()
   // retrieve Redux state
   const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
+  const theme = useSelector((state) => state.theme)
 
   // local states
   const [email, setEmail] = useState('')

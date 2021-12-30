@@ -1,8 +1,9 @@
-// import { useContext } from 'react'
-// import { ThemeContext } from '../utils/functions/context'
-import { useTheme } from '../utils/functions/theme'
+import { useDispatch, useSelector } from 'react-redux'
+// styling
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
+// import action
+import { toggleTheme } from '../features/theme'
 
 /**
  * CSS for the component using styled.components
@@ -20,10 +21,10 @@ const FooterText = styled.p`
 `;
 
 const NightModeButton = styled.button`
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    color: ${({ theme }) => (theme === 'light' ? `${colors.itemTitle}` : `${colors.tertiary}`)};  
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: ${({ theme }) => (theme === 'light' ? `${colors.itemTitle}` : `${colors.tertiary}`)};  
 `;
 
 /**
@@ -32,12 +33,16 @@ const NightModeButton = styled.button`
  * @returns {JSX}
  */
  const Footer = () => {
-  const { toggleTheme, theme } = useTheme()
+
+   // retrieve Redux state
+  const  theme  = useSelector((state) => state.theme)
+
+  const dispatch = useDispatch()
 
   return (
     <FOOTER>
       <FooterText>Copyright 2020 Argent Bank</FooterText>
-      <NightModeButton theme={theme} onClick={() => toggleTheme()}>
+      <NightModeButton theme={theme} onClick={() => dispatch(toggleTheme())}>
             Change mode : {theme === 'light' ? '☀️' : '🌙'}
         </NightModeButton>
     </FOOTER>

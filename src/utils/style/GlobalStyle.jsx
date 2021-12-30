@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { useTheme } from '../functions/theme'
+import { useSelector } from 'react-redux'
 import colors from './colors'
 
 /**
@@ -49,7 +49,8 @@ import colors from './colors'
  * @returns global theme css styling (either for day or night depending on state)
  */
 function GlobalStyle() {
-  const { theme } = useTheme()
+  const theme = useSelector((state) => state.theme)
+  
   return <StyledGlobalStyle isDarkMode={theme === 'dark'} />
 }
 

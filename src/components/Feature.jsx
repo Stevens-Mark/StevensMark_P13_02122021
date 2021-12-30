@@ -1,6 +1,8 @@
-import { useTheme } from '../utils/functions/theme'
+import { useSelector } from 'react-redux'
+// styling
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
+// import 'dummy' transaction data
 import { featureData } from '../data/data'
 
 /**
@@ -11,8 +13,8 @@ import { featureData } from '../data/data'
   flex-direction: column;
 
   @media (min-width: 920px) {
-      flex-direction: row;
-    }
+    flex-direction: row;
+  }
 `;
 
 const FeaturesItem = styled.article`
@@ -40,7 +42,9 @@ const FeaturesIcon = styled.img`
  * @returns {JSX}
  */
 const Feature = () => {
-  const { theme } = useTheme()
+
+  // retrieve Redux state
+  const theme = useSelector((state) => state.theme)
 
   return (
     <Features>

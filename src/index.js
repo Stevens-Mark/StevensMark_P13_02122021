@@ -1,24 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from "react-redux"
-// import { createGlobalStyle } from "styled-components"
-import { ThemeProvider } from '../src/utils/functions/context'
 import GlobalStyle from './utils/style/GlobalStyle'
-// import { ThemeContext } from '../src/utils/functions/context'
-// import colors from './utils/style/colors'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 // import store
 import store from '../src/utils/store/store'
 
 ReactDOM.render(
-      // Le Provider doit englober toute l'application !
+      // The Provider must encompass the entire application!
     <Provider store={store}>
         <React.StrictMode>
-          <ThemeProvider>
               <GlobalStyle />
               <App />
-          </ThemeProvider>
         </React.StrictMode>
   </Provider>,
   document.getElementById('root')

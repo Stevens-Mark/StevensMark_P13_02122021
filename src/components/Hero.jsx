@@ -1,6 +1,8 @@
-import { useTheme } from '../utils/functions/theme'
+import { useSelector} from 'react-redux'
+// styling
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
+// hero banner background
 import heroImg from '../assets/images/bank-tree.jpeg'
 
 /**
@@ -15,9 +17,9 @@ const HeroContainer = styled.section`
   position: relative;
   
   @media (min-width: 920px) {
-      height: 25rem;
-      background-position: 0% 33%;
-    }
+    height: 25rem;
+    background-position: 0% 33%;
+  }
 `;
 
 const HeroContent = styled.article`
@@ -63,7 +65,10 @@ const HeroText = styled.p`
  * @returns {JSX}
  */
 const Hero = () => {
-  const { theme } = useTheme()
+
+  // retrieve Redux state
+  const theme = useSelector((state) => state.theme)
+
   return (
     <HeroContainer>
         <h1 className="sr-only">Argent Bank - Welcome</h1>

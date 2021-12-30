@@ -1,13 +1,14 @@
 import { NavLink } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { useTheme } from '../utils/functions/theme'
+// styling
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // logo import
 import logo from '../assets/images/argentBankLogo.png'
-// import action creators 
+// import actions
 import { resetUser } from '../features/fetchUpdateUser'
 import { resetToken } from '../features/fetchToken'
+
 /**
  * CSS for the component using styled.components
  */
@@ -20,15 +21,16 @@ const MainNavLogo = styled.img`
 `;
 
 const MainNav = styled.nav`
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0.313rem 1.25rem; 
-      font-size: clamp(0.8rem, 1.4vw, 1.2rem);
-      i {
-        margin-right: 0.313rem;
-        font-size: clamp(1rem, 1.4vw, 1.2rem);
-      }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.313rem 1.25rem; 
+  font-size: clamp(0.8rem, 1.4vw, 1.2rem);
+
+  i {
+    margin-right: 0.313rem;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+  }
 `;
 
 const MainNavA = styled(NavLink)`
@@ -36,13 +38,14 @@ const MainNavA = styled(NavLink)`
   font-weight: bold;
   text-decoration: none;
   margin-right: 0.5rem;
-    &.${(props) => props.activeClassName} {
-      color: ${colors.activeA};
-    }
-    &:hover {
-      color: ${colors.activeA};
-      text-decoration: underline;
-    }
+
+  &.${(props) => props.activeClassName} {
+    color: ${colors.activeA};
+  }
+  &:hover {
+    color: ${colors.activeA};
+    text-decoration: underline;
+  }
 `;
 
 /**
@@ -51,9 +54,12 @@ const MainNavA = styled(NavLink)`
  * @returns (JSX)
  */
 const Header = () => {
-  const { theme } = useTheme()
+
+  // retrieve Redux states
+  const theme = useSelector((state) => state.theme)
   const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
   const firstName = useSelector((state) => state.userStats.user.firstName)
+
   const dispatch = useDispatch()
   
   return (

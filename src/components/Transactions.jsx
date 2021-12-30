@@ -1,7 +1,8 @@
-import { useTheme } from '../utils/functions/theme'
+import { useSelector } from 'react-redux'
+// styling
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-// import 'dummy' data
+// import 'dummy' transaction data
 import { AccountData } from '../data/data.js'
 
  /**
@@ -22,7 +23,7 @@ import { AccountData } from '../data/data.js'
  margin-bottom: 2rem;
 
  @media (min-width: 720px) {
-     flex-direction: row;
+    flex-direction: row;
  }
 `;
 
@@ -51,7 +52,7 @@ const AccountAmountDescription = styled.div`
 const AccountWrapperCta = styled.div`
  @media (min-width: 720px) {
    flex: 0;
-   }
+  }
 `;
 
 const TransactionButton = styled.button`
@@ -67,15 +68,16 @@ const TransactionButton = styled.button`
  color: ${colors.tertiary};
  cursor: pointer;
  transition: 0.4s;
+
  &:hover {
-   opacity: 0.85;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
-   transition: 0.4s;
+  opacity: 0.85;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
+  transition: 0.4s;
  }
 
  @media (min-width: 720px) {
    width: 200px;
-   }
+  }
 `;
 
 /**
@@ -84,7 +86,10 @@ const TransactionButton = styled.button`
  * @returns {JSX}
  */
 const Transactions = () => {
-  const { theme } = useTheme()
+
+  // retrieve Redux state
+  const theme = useSelector((state) => state.theme)
+
   return (
     <section>
       <h2 className ="sr-only">Accounts</h2>
