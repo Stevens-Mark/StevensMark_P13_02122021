@@ -1,5 +1,11 @@
+import { useSelector} from 'react-redux'
+// styling
 import styled from 'styled-components'
+import colors from '../utils/style/colors'
+// hero banner background
 import heroImg from '../assets/images/bank-tree.jpeg'
+// import selector
+import { selectTheme } from '../utils/selectors' 
 
 /**
  * CSS for the component using styled.components
@@ -13,16 +19,16 @@ const HeroContainer = styled.section`
   position: relative;
   
   @media (min-width: 920px) {
-      height: 25rem;
-      background-position: 0% 33%;
-    }
+    height: 25rem;
+    background-position: 0% 33%;
+  }
 `;
 
 const HeroContent = styled.article`
   position: relative;
   top: 2rem;
   width: 12.5rem;
-  background: white;
+  background: ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.mainBackgroundDarkMode}`)};
   padding: 2rem;
   text-align: left;
   margin: 0 auto;
@@ -61,10 +67,14 @@ const HeroText = styled.p`
  * @returns {JSX}
  */
 const Hero = () => {
+
+  // retrieve Redux state
+  const theme = useSelector(selectTheme)
+
   return (
     <HeroContainer>
         <h1 className="sr-only">Argent Bank - Welcome</h1>
-        <HeroContent>
+        <HeroContent theme={theme}>
           <h2 className="sr-only">Promoted Content</h2>
           <HeroSubtitle>No fees.</HeroSubtitle>
           <HeroSubtitle>No minimum deposit.</HeroSubtitle>

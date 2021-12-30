@@ -1,63 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from "react-redux"
-import { createGlobalStyle } from "styled-components"
-import colors from './utils/style/colors'
+import GlobalStyle from './utils/style/GlobalStyle'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 // import store
 import store from '../src/utils/store/store'
 
-
-/**
- * CSS Global styles for the site using styled.components
- */
- const GlobalStyle = createGlobalStyle`
- html {
-   box-sizing: border-box;
-   font-family: Avenir, Helvetica, Arial, sans-serif;
-   -webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
-   text-align: center;
-   color: #2c3e50;
- }
-
- body {  
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  // color: ${colors.secondary};
-  
- } 
-
- .main {
-    flex: 1;
-}
- 
- .sr-only {
-   border: 0 !important;
-   clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
-   -webkit-clip-path: inset(50%) !important;
-   clip-path: inset(50%) !important; /* 2 */
-   height: 1px !important;
-   margin: -1px !important;
-   overflow: hidden !important;
-   padding: 0 !important;
-   position: absolute !important;
-   width: 1px !important;
-   white-space: nowrap !important; /* 3 */
- }
-
-`;
-
 ReactDOM.render(
-      // Le Provider doit englober toute l'application !
+      // The Provider must encompass the entire application!
     <Provider store={store}>
         <React.StrictMode>
-          <GlobalStyle />
-          <App />
+              <GlobalStyle />
+              <App />
         </React.StrictMode>
   </Provider>,
   document.getElementById('root')

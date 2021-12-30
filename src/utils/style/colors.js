@@ -4,6 +4,9 @@ const colors = {
   primary: '#00bc77',
   secondary: '#000',
   tertiary: '#fff',
+  mainBackground: '#12002b',
+  mainBackgroundDarkMode: '#2F2E41',
+  darkModeHighlights: '#4F4C6B',
   warning: 'red',
   
   // Link

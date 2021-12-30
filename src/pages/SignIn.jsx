@@ -1,25 +1,29 @@
 import { useEffect, useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { useSelector, useStore } from 'react-redux'
+// styling
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import component
-import LoadingIcon from '../utils/loader/LoadingIcon'
+import LoadingIcon from '../utils/loader/loadingIcon'
 // import function for API call
 import { fetchToken } from '../features/fetchToken'
-
+// import selectors
+import { selectTheme, selectToken } from '../utils/selectors'
 
 /**
  * CSS for the component using styled.components
  */
 const MAIN = styled.main`
-  background-color: #12002b;
-  min-height: 100vh;
+  // background-color: ${colors.mainBackground};
+  background-color: ${({ theme }) => (theme === 'light' ? `${colors.mainBackground}` : `${colors.mainBackgroundDarkMode}`)};
+  min-height: 85vh;
 `;
 
 const SignInContent = styled.section`
   box-sizing: border-box;
-  background-color: white;
+  background-color: ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.darkModeHighlights}`)};
+  border: ${({ theme }) => (theme === 'light' ? `1px solid ${colors.tertiary}` : `1px solid ${colors.primary}`)};
   max-width: 300px;
   margin: 0 auto;
   padding: 2rem;
@@ -36,9 +40,11 @@ const InputWrapper = styled.div`
   flex-direction: column;
   text-align: left;
   margin-bottom: 1rem;
+
   label {
     font-weight: bold;
   }
+
   input {
     margin-top: 0.313rem;
     padding: 8px;
@@ -54,13 +60,13 @@ const InputRemember = styled.div`
   label {
     margin-left: 0.25rem;
   }
-  
 `;
 
 const ErrorMsg = styled.p`
   margin-top: 0.313rem;
   padding: 0.313rem;
   color: ${colors.warning};
+  color: ${({ theme }) => (theme === 'light' ? `${colors.warning}` : `${colors.primary}`)};
 `;
 
 const SignInButton = styled.button`
@@ -76,6 +82,7 @@ const SignInButton = styled.button`
   background-color: ${colors.primary};
   color: ${colors.tertiary};
   transition: 0.4s;
+
   &:hover {
     opacity: 0.85;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
@@ -89,8 +96,10 @@ const SignInButton = styled.button`
  * @returns {JSX}
  */
 const SignIn = () => {
+
   // retrieve Redux state
-  const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
+  const { isLoading, isLoggedIn, isError } = useSelector(selectToken)
+  const theme = useSelector(selectTheme)
 
   // local states
   const [email, setEmail] = useState('')
@@ -121,8 +130,8 @@ const SignIn = () => {
   if (isLoggedIn) return <Redirect to="/user" /> 
 
   return (
-      <MAIN>
-        <SignInContent>
+      <MAIN theme={theme}>
+        <SignInContent theme={theme}>
           <i className="fa fa-user-circle"></i>
           <h1>Sign In</h1>
           {password}
@@ -153,7 +162,7 @@ const SignIn = () => {
               {/* Show loading spinner whilst fetching data */}
               {isLoading && <LoadingIcon />}
               {/* Display error message if username or password error */}
-              <ErrorMsg>{isError}</ErrorMsg>
+              <ErrorMsg theme={theme}>{isError}</ErrorMsg>
 
             <SignInButton type="submit" 
                 disabled={isLoading ? true : false}>Sign In</SignInButton>

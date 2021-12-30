@@ -1,7 +1,11 @@
+import { useSelector } from 'react-redux'
+// styling
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
-// import 'dummy' data
+// import 'dummy' transaction data
 import { AccountData } from '../data/data.js'
+// import selector
+import { selectTheme } from '../utils/selectors' 
 
  /**
  * CSS for the component using styled.components
@@ -10,8 +14,8 @@ import { AccountData } from '../data/data.js'
  display: flex;
  justify-content: space-between;
  align-items: center;
- border: 1px solid ${colors.secondary};
- background-color:  ${colors.tertiary};
+ border: ${({ theme }) => (theme === 'light' ? `1px solid ${colors.secondary}` : `1px solid ${colors.primary}`)};
+ background-color:  ${({ theme }) => (theme === 'light' ? `${colors.tertiary}` : `${colors.darkModeHighlights}`)};
  width: 80%;
  margin: 0 auto;
  flex-direction: column;
@@ -21,7 +25,7 @@ import { AccountData } from '../data/data.js'
  margin-bottom: 2rem;
 
  @media (min-width: 720px) {
-     flex-direction: row;
+    flex-direction: row;
  }
 `;
 
@@ -50,7 +54,7 @@ const AccountAmountDescription = styled.div`
 const AccountWrapperCta = styled.div`
  @media (min-width: 720px) {
    flex: 0;
-   }
+  }
 `;
 
 const TransactionButton = styled.button`
@@ -66,15 +70,16 @@ const TransactionButton = styled.button`
  color: ${colors.tertiary};
  cursor: pointer;
  transition: 0.4s;
+
  &:hover {
-   opacity: 0.85;
-   box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
-   transition: 0.4s;
+  opacity: 0.85;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
+  transition: 0.4s;
  }
 
  @media (min-width: 720px) {
    width: 200px;
-   }
+  }
 `;
 
 /**
@@ -83,11 +88,15 @@ const TransactionButton = styled.button`
  * @returns {JSX}
  */
 const Transactions = () => {
+
+  // retrieve Redux state
+  const theme = useSelector(selectTheme)
+
   return (
     <section>
       <h2 className ="sr-only">Accounts</h2>
         {AccountData.map((data) => (
-          <Account key={data.id}>
+          <Account theme={theme} key={data.id}>
             <AccountWrapper>
               <AccountTitle>{data.title}</AccountTitle>
               <AccountAmount>$ {data.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2})}</AccountAmount>

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useStore } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+// styling
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import components
-import LoadingIcon from '../utils/loader/LoadingIcon'
+import LoadingIcon from '../utils/loader/loadingIcon'
 import Transactions from '../components/Transactions'
 // import functions for API calls
 import { fetchUser } from '../features/fetchUpdateUser'
@@ -12,13 +13,15 @@ import { updateUser } from '../features/fetchUpdateUser'
 // import helper functions
 import { capitalize } from '../utils/functions/capitalize'
 import { Notify } from '../utils/functions/Notify'
-
+// import selectors
+import { selectTheme, selectToken, selectUser } from '../utils/selectors'
 
 /**
  * CSS for component using styled.components
  */
  const MAIN = styled.main`
- background-color: #12002b;
+//  background-color: ${colors.mainBackground};
+ background-color: ${({ theme }) => (theme === 'light' ? `${colors.mainBackground}` : `${colors.mainBackgroundDarkMode}`)};
  min-height: 100vh;
  display: flex;
  flex-direction: column;
@@ -39,6 +42,7 @@ const UserInfo = styled.section`
   color: ${colors.tertiary};
   width: 100%;
   margin-bottom: 1.5rem;
+
   h1 {
     font-size: 2rem;
   }
@@ -54,6 +58,7 @@ const EditButton = styled.button`
   padding: 0.625rem;
   cursor: pointer;
   transition: 0.4s;
+
   &:hover {
     opacity: 0.85;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
@@ -85,10 +90,9 @@ const InputWrapper = styled.div`
   margin: 0.625rem;
   margin-bottom: 1rem;
 
-   @media screen and (min-width: 600px) {
-    flex-direction: row;
-    width: unset;
-    }
+  @media screen and (min-width: 600px) {
+  flex-direction: row;
+  width: unset;
   }
 
   input {
@@ -107,10 +111,9 @@ const ButtonWrapper = styled.div`
   margin: 0.625rem;
   margin-bottom: 1rem;
 
-   @media screen and (min-width: 425px) {
+  @media screen and (min-width: 425px) {
     flex-direction: row;
     width: unset;
-    }
   }
 `;
 
@@ -124,6 +127,7 @@ const EditButtons = styled.button`
   background-color: ${colors.primary};
   color: ${colors.tertiary};
   transition: 0.4s;
+
   &:hover {
     opacity: 0.85;
     box-shadow: 0 2px 4px rgba(0, 0, 0, .8);
@@ -132,7 +136,7 @@ const EditButtons = styled.button`
 
   @media screen and (min-width: 600px) {
     width: 100px;
-    }
+  }
 `;
 
 const ErrorMsg = styled.h1`
@@ -147,10 +151,12 @@ const ErrorMsg = styled.h1`
  * @returns {JSX}
  */
 const User = () => {
+
   // retrieve Redux state
-  const { isLoggedIn, token } = useSelector((state) => state.token)
-  const { isLoading, isUpdated, isError } = useSelector((state) => state.userStats)
-  const { firstName, lastName  } = useSelector((state) => state.userStats.user)
+  const theme = useSelector(selectTheme)
+  const { isLoggedIn, token } = useSelector(selectToken)
+  const { isLoading, isUpdated, isError } = useSelector(selectUser)
+  const { firstName, lastName  } = useSelector(selectUser).user
 
   // local states
   const [newFirst, setNewFirst] = useState('')
@@ -197,7 +203,7 @@ const User = () => {
   if (!isLoggedIn) return <Redirect to="/" /> 
 
   return (
-    <MAIN>
+    <MAIN theme={theme}>
       {/* Show load spinner whilst waiting for data */}
       {isLoading ? <Wrapper>
                       <LoadingIcon />
@@ -221,12 +227,12 @@ const User = () => {
                         <InputWrapper>
                           <label htmlFor="first" className="sr-only" >First Name</label>
                               <input type="text" id="first"
-                                placeholder={firstName}
+                                placeholder={capitalizedFirst}
                                 onChange={(e) => {setNewFirst(e.target.value)}} /> 
 
                               <label htmlFor="second" className="sr-only" >Surname</label>
                               <input type="text" id="second"
-                                placeholder={lastName}
+                                placeholder={capitalizedLast}
                                 onChange={(e) => {setnewLast(e.target.value)}}  />
                         </InputWrapper>
 
