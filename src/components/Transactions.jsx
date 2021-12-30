@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import 'dummy' transaction data
 import { AccountData } from '../data/data.js'
+// import selector
+import { selectTheme } from '../utils/selectors' 
 
  /**
  * CSS for the component using styled.components
@@ -88,7 +90,7 @@ const TransactionButton = styled.button`
 const Transactions = () => {
 
   // retrieve Redux state
-  const theme = useSelector((state) => state.theme)
+  const theme = useSelector(selectTheme)
 
   return (
     <section>

@@ -34,7 +34,7 @@ const Loader = styled.div`
 `;
 
 /**
- * Renders a loading icon
+ * Renders a loading spinner icon
  * @function LoadingIcon
  * @returns {JSX}
  */

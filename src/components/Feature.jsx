@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import 'dummy' transaction data
 import { featureData } from '../data/data'
+// import selector
+import { selectTheme } from '../utils/selectors'
 
 /**
  * CSS for the component using styled.components
@@ -44,7 +46,7 @@ const FeaturesIcon = styled.img`
 const Feature = () => {
 
   // retrieve Redux state
-  const theme = useSelector((state) => state.theme)
+  const theme = useSelector(selectTheme)
 
   return (
     <Features>

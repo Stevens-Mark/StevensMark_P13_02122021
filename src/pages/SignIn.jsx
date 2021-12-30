@@ -8,6 +8,8 @@ import colors from '../utils/style/colors'
 import LoadingIcon from '../utils/loader/LoadingIcon'
 // import function for API call
 import { fetchToken } from '../features/fetchToken'
+// import selectors
+import { selectTheme, selectToken } from '../utils/selectors'
 
 /**
  * CSS for the component using styled.components
@@ -94,9 +96,10 @@ const SignInButton = styled.button`
  * @returns {JSX}
  */
 const SignIn = () => {
+
   // retrieve Redux state
-  const { isLoading, isLoggedIn, isError } = useSelector((state) => state.token)
-  const theme = useSelector((state) => state.theme)
+  const { isLoading, isLoggedIn, isError } = useSelector(selectToken)
+  const theme = useSelector(selectTheme)
 
   // local states
   const [email, setEmail] = useState('')

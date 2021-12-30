@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import action
 import { toggle } from '../features/theme'
+// import selector
+import { selectTheme } from '../utils/selectors'
 
 /**
  * CSS for the component using styled.components
@@ -29,13 +31,14 @@ const NightModeButton = styled.button`
 
 /**
  * Renders the footer on each page
+ * Also contains button to toggle light/dark mode
  * @function Footer
  * @returns {JSX}
  */
  const Footer = () => {
 
    // retrieve Redux state
-  const  theme  = useSelector((state) => state.theme)
+   const theme = useSelector(selectTheme)
 
   const dispatch = useDispatch()
 

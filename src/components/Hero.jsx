@@ -4,6 +4,8 @@ import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // hero banner background
 import heroImg from '../assets/images/bank-tree.jpeg'
+// import selector
+import { selectTheme } from '../utils/selectors' 
 
 /**
  * CSS for the component using styled.components
@@ -67,7 +69,7 @@ const HeroText = styled.p`
 const Hero = () => {
 
   // retrieve Redux state
-  const theme = useSelector((state) => state.theme)
+  const theme = useSelector(selectTheme)
 
   return (
     <HeroContainer>

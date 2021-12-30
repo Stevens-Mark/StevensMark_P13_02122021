@@ -13,6 +13,8 @@ import { updateUser } from '../features/fetchUpdateUser'
 // import helper functions
 import { capitalize } from '../utils/functions/capitalize'
 import { Notify } from '../utils/functions/Notify'
+// import selectors
+import { selectTheme, selectToken, selectUser } from '../utils/selectors'
 
 /**
  * CSS for component using styled.components
@@ -151,10 +153,10 @@ const ErrorMsg = styled.h1`
 const User = () => {
 
   // retrieve Redux state
-  const theme = useSelector((state) => state.theme)
-  const { isLoggedIn, token } = useSelector((state) => state.token)
-  const { isLoading, isUpdated, isError } = useSelector((state) => state.userStats)
-  const { firstName, lastName  } = useSelector((state) => state.userStats.user)
+  const theme = useSelector(selectTheme)
+  const { isLoggedIn, token } = useSelector(selectToken)
+  const { isLoading, isUpdated, isError } = useSelector(selectUser)
+  const { firstName, lastName  } = useSelector(selectUser).user
 
   // local states
   const [newFirst, setNewFirst] = useState('')

@@ -8,6 +8,8 @@ import logo from '../assets/images/argentBankLogo.png'
 // import actions
 import { resetUser } from '../features/fetchUpdateUser'
 import { resetToken } from '../features/fetchToken'
+// import selectors
+import { selectTheme, selectToken, selectUser } from '../utils/selectors'
 
 /**
  * CSS for the component using styled.components
@@ -56,9 +58,9 @@ const MainNavA = styled(NavLink)`
 const Header = () => {
 
   // retrieve Redux states
-  const theme = useSelector((state) => state.theme)
-  const isLoggedIn = useSelector((state) => state.token.isLoggedIn)
-  const firstName = useSelector((state) => state.userStats.user.firstName)
+  const theme = useSelector(selectTheme)
+  const isLoggedIn = useSelector(selectToken).isLoggedIn
+  const firstName = useSelector(selectUser).user.firstName
 
   const dispatch = useDispatch()
   
