@@ -53,7 +53,7 @@ const MainNavA = styled(NavLink)`
 
 const UserName = styled.span`
   display: block;
-  @media (min-width: 347px) {
+  @media (min-width: 425px) {
     display: inline-block;
   }
 `;
