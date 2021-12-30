@@ -1,25 +1,23 @@
-// On utilise des variables pour les noms des actions
-// pour éviter les fautes de frappe
-const TOGGLE_THEME = 'theme/toggle'
-const SET_THEME = 'theme/set'
+import { createSlice } from '@reduxjs/toolkit'
 
-// action creators
-
-export const toggleTheme = () => ({ type: TOGGLE_THEME })
-
-export const setTheme = (theme = 'light') => ({
-  type: SET_THEME,
-  payload: theme,
+ /**
+ * create actions & reducer logic regarding dark/light mode toggle
+ * @function themeSlice
+ * @param {object} state
+ * @param {string} action
+ * @returns {object} new state
+ */
+const themeSlice = createSlice({
+    name: 'theme',
+    initialState: 'light',
+    // reducers allows to define the actions and the reducer
+    reducers: {
+        toggle: (state) => {
+            return state === 'light' ? 'dark' : 'light'
+        },
+    },
 })
 
-// Le reducer
-// on utilise une valeur par défaut pour donner le state initial
-export default function themeReducer(state = 'light', action) {
-  if (action.type === TOGGLE_THEME) {
-    return state === 'light' ? 'dark' : 'light'
-  }
-  if (action.type === SET_THEME) {
-    return action.payload
-  }
-  return state
-}
+// export each action & reducer
+export const { toggle } = themeSlice.actions
+export default themeSlice.reducer

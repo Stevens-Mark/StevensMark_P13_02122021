@@ -85,6 +85,7 @@ const initialState = {
  const userSlice = createSlice({
   name: 'user',
   initialState,
+  // reducers allows to define the actions and the reducer
   reducers: {
     fetching: {
       reducer: (draft, action) => {
@@ -159,7 +160,6 @@ const initialState = {
   },
 })
 
-// export each action individually
+// export each action & reducer
 export const { fetching, resolved, rejected, updateSending, updateSuccess, updateFail, resetUser } = userSlice.actions
-// export the reducer as default export
 export default userSlice.reducer

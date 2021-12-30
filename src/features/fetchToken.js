@@ -51,6 +51,7 @@ export async function fetchToken(store, email, password) {
 const tokenSlice = createSlice({
   name: 'token',
   initialState,
+  // reducers allows to define the actions and the reducer
   reducers: {
     fetching: {
       reducer: (draft, action) => {
@@ -96,7 +97,6 @@ const tokenSlice = createSlice({
   },
 })
 
-// export each action individually
+// export each action & reducer
 export const { fetching, resolved, rejected, resetToken } = tokenSlice.actions
-// export the reducer as default export
 export default tokenSlice.reducer

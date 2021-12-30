@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import colors from '../utils/style/colors'
 // import action
-import { toggleTheme } from '../features/theme'
+import { toggle } from '../features/theme'
 
 /**
  * CSS for the component using styled.components
@@ -42,7 +42,7 @@ const NightModeButton = styled.button`
   return (
     <FOOTER>
       <FooterText>Copyright 2020 Argent Bank</FooterText>
-      <NightModeButton theme={theme} onClick={() => dispatch(toggleTheme())}>
+      <NightModeButton theme={theme} onClick={() => dispatch(toggle())}>
             Change mode : {theme === 'light' ? '☀️' : '🌙'}
         </NightModeButton>
     </FOOTER>
