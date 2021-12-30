@@ -8,6 +8,8 @@ import logo from '../assets/images/argentBankLogo.png'
 // import actions
 import { resetUser } from '../features/fetchUpdateUser'
 import { resetToken } from '../features/fetchToken'
+// import helper function
+import { capitalize } from '../utils/functions/capitalize'
 // import selectors
 import { selectTheme, selectToken, selectUser } from '../utils/selectors'
 
@@ -62,6 +64,8 @@ const Header = () => {
   const isLoggedIn = useSelector(selectToken).isLoggedIn
   const firstName = useSelector(selectUser).user.firstName
 
+  // ensure first letter of name capitalised
+  const capitalizedFirst = capitalize(firstName)
   const dispatch = useDispatch()
   
   return (
@@ -73,7 +77,7 @@ const Header = () => {
         <MainNavA theme={theme} activeClassName="active" to="/signin"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
         ) : 
         ( <div>
-            <MainNavA theme={theme} to="/user"><i className="fa fa-user-circle"></i>{firstName}</MainNavA> 
+            <MainNavA theme={theme} to="/user"><i className="fa fa-user-circle"></i>{capitalizedFirst}</MainNavA> 
             <MainNavA theme={theme} to="/" 
             onClick={() => { dispatch(resetUser()); dispatch(resetToken());}}>
               <i className="fa fa-sign-out"></i>Sign Out</MainNavA> 

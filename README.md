@@ -6,7 +6,7 @@
 
 
 
-## Utilisez une API pour un compte utilisateur bancaire avec React
+## Use an API for a bank user account with React
 
 The project is for a new startup bank, Argent Bank, that is trying to break into the industry and needs help setting up their app. 
 
