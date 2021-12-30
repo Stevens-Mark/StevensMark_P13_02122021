@@ -14,8 +14,8 @@ The project is for a new startup bank, Argent Bank, that is trying to break into
 A two-part contract that breaks down into several phases:
 
 ### Phase 1: 
-User Authentication - Creating a web application for customers to log in and manage their accounts and profiles
-` `
+User Authentication - Creating a web application for customers to log in and manage their accounts and profiles.
+
 - Create the full responsive web application with React
 - As a starting point, the static HTML and CSS for the homepage, login page and profile page are provided
 - Use Redux to manage the state of the whole application
@@ -32,18 +32,18 @@ Transactions - This would involve specifying the API endpoints needed for a poss
 Transactions are still in the design phase. On our side, we are developing a functionality for transactions that should allow users to :
 -	view all their transactions for the current month
 -	view the details of a transaction in another view
--	Add, edit or delete transaction information
-` `
-Since you are already managing the web application for phase 1, we want to hear your thoughts on how you think the APIs should be modeled on the back end. We need you to provide us with a document describing the proposed transaction APIs, following the Swagger guidelines
-` `
+-	Add, edit or delete transaction information.
+
+Since you are already managing the web application for phase 1, we want to hear your thoughts on how you think the APIs should be modeled on the back end. We need you to provide us with a document describing the proposed transaction APIs, following the Swagger guidelines.
+
 Key elements to specify for each API endpoint will include:
 -	The HTTP method (e.g. GET, POST, etc.)
 -	The route (e.g. /store/inventory)
 -	The description of what the endpoint corresponds to (e.g.: Return of the pet inventory)
 -	The possible parameters to account for the different scenarios (e.g. itemId (optional) = ID of the specific item to request from the inventory database)
--	The different responses with corresponding response codes that make sense for this endpoint (e.g. 404: unknown item error response)
-` `
-You can use the transactions page presented in the mockups to guide your choices (but you don't need to implement this page). Just make sure the document is exported to a YAML file (i.e. File > Save as YAML) using the Swagger syntax, which can be exported in the Swagger editing tool
+-	The different responses with corresponding response codes that make sense for this endpoint (e.g. 404: unknown item error response).
+
+You can use the transactions page presented in the mockups to guide your choices (but you don't need to implement this page). Just make sure the document is exported to a YAML file (i.e. File > Save as YAML) using the Swagger syntax, which can be exported in the Swagger editing tool.
 
 ## Resources
 - [Issues](https://github.com/Stevens-Mark/Project-10-Bank-API/tree/master/.github/ISSUE_TEMPLATE)
@@ -140,7 +140,7 @@ Un contrat en deux parties qui se décompose en plusieurs phases :
 
 ### Phase 1 : 
 Authentification de l'utilisateur - Création d'une application Web permettant aux clients de se connecter et de gérer leurs comptes et leurs profils.
-` `
+
 - Créer l'application web full responsive avec React
 - Comme point de départ, le HTML statique et le CSS pour la page d'accueil, la page de connexion et la page de profil sont fournis
 - Utiliser Redux pour gérer l'état de l'ensemble de l'application
@@ -157,18 +157,18 @@ Transactions - Il s'agit de spécifier les points de terminaison de l'API néces
 Les transactions sont encore en phase de conception. De notre côté, nous développons une fonctionnalité pour les transactions qui devrait permettre aux utilisateurs de :
 - de visualiser toutes leurs transactions pour le mois en cours
 - de visualiser les détails d'une transaction dans une autre vue
-- ajouter, modifier ou supprimer des informations sur les transactions
-` `
-Étant donné que vous gérez déjà l'application Web pour la phase 1, nous souhaitons connaître votre avis sur la manière dont les API doivent être modélisées au niveau du back-end. Nous avons besoin que vous nous fournissiez un document décrivant les API de transaction proposées, en suivant les directives Swagger
-` `
+- ajouter, modifier ou supprimer des informations sur les transactions.
+
+Étant donné que vous gérez déjà l'application Web pour la phase 1, nous souhaitons connaître votre avis sur la manière dont les API doivent être modélisées au niveau du back-end. Nous avons besoin que vous nous fournissiez un document décrivant les API de transaction proposées, en suivant les directives Swagger.
+
 Les éléments clés à spécifier pour chaque point de terminaison de l'API comprendront :
 - La méthode HTTP (par exemple, GET, POST, etc.)
 - La route (par exemple, /store/inventory)
 - La description de ce à quoi le point de terminaison correspond (par exemple : Retour de l'inventaire des animaux de compagnie)
 - Les paramètres possibles pour tenir compte des différents scénarios (par exemple, itemId (facultatif) = ID de l'article spécifique à demander à la base de données d'inventaire)
-- Les différentes réponses avec les codes de réponse correspondants qui ont un sens pour ce point de terminaison (par exemple, 404 : réponse d'erreur pour un article inconnu)
-` `
-Vous pouvez utiliser la page de transactions présentée dans les maquettes pour guider vos choix (mais vous n'avez pas besoin d'implémenter cette page). Assurez-vous simplement que le document est exporté vers un fichier YAML (c'est-à-dire Fichier > Enregistrer sous YAML) en utilisant la syntaxe Swagger, qui peut être exportée dans l'outil d'édition Swagger
+- Les différentes réponses avec les codes de réponse correspondants qui ont un sens pour ce point de terminaison (par exemple, 404 : réponse d'erreur pour un article inconnu).
+
+Vous pouvez utiliser la page de transactions présentée dans les maquettes pour guider vos choix (mais vous n'avez pas besoin d'implémenter cette page). Assurez-vous simplement que le document est exporté vers un fichier YAML (c'est-à-dire Fichier > Enregistrer sous YAML) en utilisant la syntaxe Swagger, qui peut être exportée dans l'outil d'édition Swagger.
 
 ## Ressources
 
