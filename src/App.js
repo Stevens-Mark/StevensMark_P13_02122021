@@ -14,7 +14,7 @@ import Error from './pages/Error'
  */
 export default function App() {
   return (   
-    <Router>
+    <Router basename='/StevensMark_P13_02122021/'>
       <Header />  
         <Switch>
           <Route exact path="/" component={WelcomePage}/>
