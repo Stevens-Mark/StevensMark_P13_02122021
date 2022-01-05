@@ -26,7 +26,12 @@ export async function fetchToken(store, email, password) {
      store.dispatch(resolved(token))
    } catch (error) {
     // otherwise request rejected: with relevant error message
-    store.dispatch(rejected(error.response.data.message))
+      if (!error.response) {
+        // network error
+        store.dispatch(rejected('There is a Network Error !'))
+    } else {
+        store.dispatch(rejected(error.response.data.message))
+    }
   }
 }
 
