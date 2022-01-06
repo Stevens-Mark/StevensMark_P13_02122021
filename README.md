@@ -4,7 +4,9 @@
 
 # Argent Bank
 
+Open website at Git pages: https://stevens-mark.github.io/StevensMark_P13_02122021/
 
+- Although without the backend you will only be able to access the home & sign in pages.
 
 ## Use an API for a bank user account with React
 
@@ -46,7 +48,7 @@ Key elements to specify for each API endpoint will include:
 You can use the transactions page presented in the mockups to guide your choices (but you don't need to implement this page). Just make sure the document is exported to a YAML file (i.e. File > Save as YAML) using the Swagger syntax, which can be exported in the Swagger editing tool.
 
 ## Resources
-- [Issues](https://github.com/Stevens-Mark/Project-10-Bank-API/tree/master/.github/ISSUE_TEMPLATE)
+- [Issues](https://github.com/Stevens-Mark/Project-13-Bank-API/tree/master/.github/ISSUE_TEMPLATE)
 - Further information can be found in the folder `Argent Bank Briefs`
 
 ## Skills
@@ -82,9 +84,9 @@ You can use the transactions page presented in the mockups to guide your choices
 ### First - Backend Api
 
 - Clone the Backend Api onto your computer :  
-`git clone https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API.git`
+`git clone https://github.com/OpenClassrooms-Student-Center/Project-13-Bank-API.git`
 or :  
-`git clone https://github.com/Stevens-Mark/Project-10-Bank-API.git`
+`git clone https://github.com/Stevens-Mark/Project-13-Bank-API.git`
 
 - Follow the installation instructions carefully in the readme file provided.
 
@@ -128,7 +130,9 @@ The App normally runs on http://localhost:3001/
 
 # Argent Bank
 
+Ouvrir le site web aux pages Git: https://stevens-mark.github.io/StevensMark_P13_02122021/
 
+- Bien que sans le backend, vous ne pourrez accéder qu'aux pages d'accueil et de connexion.
 
 ## Utilisez une API pour un compte utilisateur bancaire avec React
 
@@ -172,7 +176,7 @@ Vous pouvez utiliser la page de transactions présentée dans les maquettes pour
 
 ## Ressources
 
-- [Issues](https://github.com/Stevens-Mark/Project-10-Bank-API/tree/master/.github/ISSUE_TEMPLATE)
+- [Issues](https://github.com/Stevens-Mark/Project-13-Bank-API/tree/master/.github/ISSUE_TEMPLATE)
 - Vous trouverez plus d'informations dans le dossier `Argent Bank Briefs`
 
 ## Skills
@@ -211,9 +215,9 @@ Vous pouvez utiliser la page de transactions présentée dans les maquettes pour
 
 - Clonez l'Api Backend sur votre ordinateur :
 
-  `git clone https://github.com/OpenClassrooms-Student-Center/Project-10-Bank-API.git`
+  `git clone https://github.com/OpenClassrooms-Student-Center/Project-13-Bank-API.git`
 ou :
-  `git clone https://github.com/Stevens-Mark/Project-10-Bank-API.git`
+  `git clone https://github.com/Stevens-Mark/Project-13-Bank-API.git`
 
 - Suivez attentivement les instructions d'installation dans le fichier readme fourni.
 
