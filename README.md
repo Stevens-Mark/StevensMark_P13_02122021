@@ -126,6 +126,10 @@ The App normally runs on http://localhost:3001/
 - Email: `steve@rogers.com`
 - Password: `password456`
 
+
+## Phase 2 - Proposal
+The  document describing the proposed transaction APIs, following the Swagger guidelines can be found in the "Yaml" folder.
+
 # OPENCLASSROOMS PROJET 13
 
 # Argent Bank
@@ -257,3 +261,6 @@ L'application fonctionne normalement sur http://localhost:3001/
 - Last Name: `Rogers`
 - Email: `steve@rogers.com`
 - Password: `password456`
+
+## Phase 2 - Proposition
+Le document décrivant les API de transaction proposées, suivant les directives Swagger, se trouve dans le dossier "Yaml".
