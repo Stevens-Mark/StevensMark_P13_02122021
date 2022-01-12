@@ -15,7 +15,6 @@ import { selectTheme, selectToken } from '../utils/selectors'
  * CSS for the component using styled.components
  */
 const MAIN = styled.main`
-  // background-color: ${colors.mainBackground};
   background-color: ${({ theme }) => (theme === 'light' ? `${colors.mainBackground}` : `${colors.mainBackgroundDarkMode}`)};
   min-height: 85vh;
 `;

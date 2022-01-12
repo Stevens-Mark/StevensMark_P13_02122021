@@ -193,7 +193,9 @@ paths:
         '400':
           description: Invalid Fields
         '401':
-          description: Unauthorised   
+          description: Unauthorised
+        '404':
+          description: Account not found  
         '500':
           description: Internal Server Error         
      
@@ -298,7 +300,9 @@ paths:
         '400':
           description: Invalid Fields
         '401':
-          description: Unauthorised   
+          description: Unauthorised
+        '404':
+          description: Transaction not found  
         '500':
           description: Internal Server Error  
     patch:
@@ -356,7 +360,9 @@ paths:
         '400':
           description: Invalid Fields
         '401':
-          description: Unauthorised   
+          description: Unauthorised
+        '404':
+          description: Transaction not found     
         '500':
           description: Internal Server Error
           
@@ -490,4 +496,3 @@ definitions:
         type: string
         example: French Baguette
         description: personal notes added by a user about a transaction
-              
