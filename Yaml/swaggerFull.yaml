@@ -490,7 +490,7 @@ definitions:
       category:
         type: string
         default: None
-        enum: [Electricity, Expenses, Food, Gas, General, Loans, Mortgage, None, Rent, Tax, Travel, Other]
+        enum: [Electricity, Food, Gas, Loans, Mortgage, None, Rent, Savings, Tax, Travel, Other]
         description: transaction category type added by a user
       notes:
         type: string

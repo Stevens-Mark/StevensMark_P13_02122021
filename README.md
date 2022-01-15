@@ -127,8 +127,8 @@ The App normally runs on http://localhost:3001/
 - Password: `password456`
 
 
-## Phase 2 - Proposal
-The  document describing the proposed transaction APIs, following the Swagger guidelines can be found in the "Yaml" folder.
+## Phase 2 - Proposal - API Documentation
+The  document describing the proposed transaction APIs, following the Swagger guidelines can be found in the "Yaml" folder. Or once the local environment (backend) is started, visit: http://localhost:3001/api-docs
 
 # OPENCLASSROOMS PROJET 13
 
@@ -262,5 +262,5 @@ L'application fonctionne normalement sur http://localhost:3001/
 - Email: `steve@rogers.com`
 - Password: `password456`
 
-## Phase 2 - Proposition
-Le document décrivant les API de transaction proposées, suivant les directives Swagger, se trouve dans le dossier "Yaml".
+## Phase 2 - Proposition - API Documentation
+Le document décrivant les API de transaction proposées, suivant les directives Swagger, se trouve dans le dossier "Yaml". Ou une fois que l'environnement local (backend) est démarré, visitez : http://localhost:3001/api-docs.

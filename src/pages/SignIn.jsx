@@ -125,8 +125,8 @@ const SignIn = () => {
     fetchToken(store, email, password)
   }
 
-  // Redirect to User transaction page when authenticated/LoggedIn
-  if (isLoggedIn) return <Redirect to="/user" /> 
+  // Redirect to User profile & "dummy accounts" page when authenticated/LoggedIn
+  if (isLoggedIn) return <Redirect to="/user/profile" /> 
 
   return (
       <MAIN theme={theme}>

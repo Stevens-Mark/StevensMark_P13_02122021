@@ -18,8 +18,8 @@ export default function App() {
       <Header />  
         <Switch>
           <Route exact path="/" component={WelcomePage}/>
-          <Route path="/signin" component={SignIn}/>
-          <Route path="/user" component={User}/>
+          <Route path="/login" component={SignIn}/>
+          <Route path="/user/profile" component={User}/>
           <Route path="*" component={Error} />
         </Switch> 
       <Footer />
