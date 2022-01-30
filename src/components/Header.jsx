@@ -36,7 +36,7 @@ const MainNav = styled.nav`
   }
 `;
 
-const MainNavA = styled(NavLink)`
+const MainNavLink = styled(NavLink)`
   color: ${({ theme }) => (theme === 'light' ? `${colors.aLink}` : `${colors.tertiary}`)};
   font-weight: bold;
   text-decoration: none;
@@ -65,30 +65,28 @@ const UserName = styled.span`
  */
 const Header = () => {
 
-  // retrieve Redux states
   const theme = useSelector(selectTheme)
-  const isLoggedIn = useSelector(selectToken).isLoggedIn
+  const isLoggedIn = useSelector(selectToken).isLoggedIn  // retrieve Redux states
   const firstName = useSelector(selectUser).user.firstName
 
-  // ensure first letter of name capitalised
-  const capitalizedFirst = capitalize(firstName)
+  const capitalizedFirst = capitalize(firstName)  // ensure first letter of name capitalised
   const dispatch = useDispatch()
   
   return (
     <MainNav>
-      <MainNavA to="/"><MainNavLogo theme={theme} className="logo" src={logo} alt="Argent Bank"></MainNavLogo>
-          <h1 className="sr-only">Argent Bank</h1></MainNavA>
+      <MainNavLink to="/"><MainNavLogo theme={theme} className="logo" src={logo} alt="Argent Bank" />
+          <h1 className="sr-only">Argent Bank - Welcome</h1></MainNavLink>
       {!isLoggedIn ? 
         ( 
-        <MainNavA theme={theme} activeClassName="active" to="/login"><i className="fa fa-user-circle"></i>Sign In</MainNavA> 
+        <MainNavLink theme={theme} activeClassName="active" to="/login"><i className="fa fa-user-circle"></i>Sign In</MainNavLink> 
         ) : 
         ( <div>
             <UserName>
-              <MainNavA theme={theme} activeClassName="active" to="/user/profile"><i className="fa fa-user-circle"></i>{capitalizedFirst}</MainNavA>
+              <MainNavLink theme={theme} activeClassName="active" to="/user/profile"><i className="fa fa-user-circle"></i>{capitalizedFirst}</MainNavLink>
             </UserName>
-            <MainNavA theme={theme} to="/" 
+            <MainNavLink theme={theme} to="/" 
             onClick={() => { dispatch(resetUser()); dispatch(resetToken());}}>
-              <i className="fa fa-sign-out"></i>Sign Out</MainNavA> 
+              <i className="fa fa-sign-out"></i>Sign Out</MainNavLink> 
           </div>
         )}
     </MainNav>

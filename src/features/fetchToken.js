@@ -1,7 +1,5 @@
-// import axios
 import axios from 'axios'
-// redux tool kit function
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit' 
 
 /**
  * API call
@@ -13,21 +11,16 @@ import { createSlice } from '@reduxjs/toolkit'
  * @returns {string} token or error message to store
  */
 export async function fetchToken(store, email, password) {
-  // start the request
-    store.dispatch(fetching())
+     store.dispatch(fetching())      // start the request
   try {
-    // use axios to make the query
     const response = await axios.post('http://localhost:3001/api/v1/user/login', 
     {
       email, password
     })
-    const token = await response.data.body.token
-    // if request resolved then save the token in the store
+    const token = await response.data.body.token    // if resolved save the token to store
      store.dispatch(resolved(token))
-   } catch (error) {
-    // otherwise request rejected: with relevant error message
-      if (!error.response) {
-        // network error
+   } catch (error) {                                // request rejected: error message
+      if (!error.response) {                    
         store.dispatch(rejected('There is a Network Error !'))
     } else {
         store.dispatch(rejected(error.response.data.message))
@@ -52,8 +45,7 @@ const tokenSlice = createSlice({
     token: null,
     isError: '',
   },
-  // reducers allows to define the actions and the reducer
-  reducers: {
+  reducers: {               // reducers allows to define the actions and the reducer
     fetching: (draft) => {
         draft.isLoading = true
     },
@@ -78,6 +70,5 @@ const tokenSlice = createSlice({
   },
 })
 
-// export each action & reducer
 export const { fetching, resolved, rejected, resetToken } = tokenSlice.actions
-export default tokenSlice.reducer
+export default tokenSlice.reducer     // export each action & reducer

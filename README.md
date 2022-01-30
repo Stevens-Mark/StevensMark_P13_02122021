@@ -1,10 +1,12 @@
 ![ArgentBank](/src/assets/images/argentBankLogo.png)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1bfd9040-73da-4438-9d12-1947e015d19a/deploy-status)](https://app.netlify.com/sites/argentbank/deploys)
+
 # OPENCLASSROOMS PROJECT 13
 
 # Argent Bank
 
-Open website at Git pages: https://stevens-mark.github.io/StevensMark_P13_02122021/
+Open website at [Argent Bank](https://argentbank.netlify.app/)
 
 - Although without the backend you will only be able to access the home & sign in pages.
 
@@ -22,7 +24,7 @@ User Authentication - Creating a web application for customers to log in and man
 - As a starting point, the static HTML and CSS for the homepage, login page and profile page are provided
 - Use Redux to manage the state of the whole application
 - The back-end engineers have already created all the APIs needed. All the Swagger documentation is inside the repo
-- What the application should do - see details for each in `Issues` below:
+- What the application should do - see details for each in the `Issues` link below or the `Issues` folder in the repo:
 -	The user can visit the home page
 -	The user can log in to the system
 -	The user can log out of the system
@@ -134,7 +136,7 @@ The  document describing the proposed transaction APIs, following the Swagger gu
 
 # Argent Bank
 
-Ouvrir le site web aux pages Git: https://stevens-mark.github.io/StevensMark_P13_02122021/
+Ouvrir le site web à [Argent Bank](https://argentbank.netlify.app/)
 
 - Bien que sans le backend, vous ne pourrez accéder qu'aux pages d'accueil et de connexion.
 
@@ -153,7 +155,7 @@ Authentification de l'utilisateur - Création d'une application Web permettant a
 - Comme point de départ, le HTML statique et le CSS pour la page d'accueil, la page de connexion et la page de profil sont fournis
 - Utiliser Redux pour gérer l'état de l'ensemble de l'application
 - Les ingénieurs back-end ont déjà créé toutes les API nécessaires. Toute la documentation Swagger se trouve dans le dépôt
-- Ce que l'application doit faire - voir les détails pour chacun dans les `Issues` ci-dessous :
+- Ce que l'application doit faire - voir les détails pour chacun dans le lien `Issues` ci-dessous ou le dossier `Issues` dans le repo :
 - L'utilisateur peut visiter la page d'accueil
 - L'utilisateur peut se connecter au système
 - L'utilisateur peut se déconnecter du système

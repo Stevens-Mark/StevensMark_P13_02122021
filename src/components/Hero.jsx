@@ -68,12 +68,10 @@ const HeroText = styled.p`
  */
 const Hero = () => {
 
-  // retrieve Redux state
-  const theme = useSelector(selectTheme)
+  const theme = useSelector(selectTheme)   // retrieve Redux state
 
   return (
     <HeroContainer>
-        <h1 className="sr-only">Argent Bank - Welcome</h1>
         <HeroContent theme={theme}>
           <h2 className="sr-only">Promoted Content</h2>
           <HeroSubtitle>No fees.</HeroSubtitle>

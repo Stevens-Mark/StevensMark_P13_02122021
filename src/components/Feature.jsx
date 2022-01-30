@@ -45,8 +45,7 @@ const FeaturesIcon = styled.img`
  */
 const Feature = () => {
 
-  // retrieve Redux state
-  const theme = useSelector(selectTheme)
+  const theme = useSelector(selectTheme)   // retrieve Redux state
 
   return (
     <Features>

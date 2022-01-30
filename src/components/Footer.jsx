@@ -11,8 +11,6 @@ import { selectTheme } from '../utils/selectors'
  * CSS for the component using styled.components
  */
  const FOOTER = styled.footer`
-  // display: flex;
-  // justify-content: center;
   border-top: 2px solid #ccc;
   padding: 2rem 0 1.5rem;
 `;
@@ -37,9 +35,7 @@ const NightModeButton = styled.button`
  */
  const Footer = () => {
 
-   // retrieve Redux state
-   const theme = useSelector(selectTheme)
-
+  const theme = useSelector(selectTheme) // retrieve Redux state
   const dispatch = useDispatch()
 
   return (

@@ -164,16 +164,14 @@ const User = () => {
   const [submitted, setSubmitted] = useState(false)
   const [inputOk, setInputOk] = useState(false)
 
- // ensure first letters of name capitalised
-  const capitalizedFirst = capitalize(firstName)
+  const capitalizedFirst = capitalize(firstName)  // ensure first letters of name capitalised
   const capitalizedLast = capitalize(lastName)
 
   const store = useStore()
   
   useEffect(() => {
     document.title = 'Argent Bank | Welcome'
-    // load/fetch user data
-    fetchUser(store, token)
+    fetchUser(store, token)      // load/fetch user data
   }, [store, token])
 
   // submit form (if both name fields completed, otherwise indicate error)

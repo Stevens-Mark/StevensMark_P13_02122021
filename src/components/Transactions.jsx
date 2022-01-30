@@ -89,22 +89,25 @@ const TransactionButton = styled.button`
  */
 const Transactions = () => {
 
-  // retrieve Redux state
-  const theme = useSelector(selectTheme)
+  const theme = useSelector(selectTheme)    // retrieve Redux state
 
   return (
     <section>
       <h2 className ="sr-only">Accounts</h2>
+      
         {AccountData.map((data) => (
           <Account theme={theme} key={data.id}>
+            
             <AccountWrapper>
-              <AccountTitle>{data.title}</AccountTitle>
-              <AccountAmount>$ {data.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2})}</AccountAmount>
-              <AccountAmountDescription>{data.description}</AccountAmountDescription>
+                <AccountTitle>{data.title}</AccountTitle>
+                <AccountAmount>$ {data.amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2})}</AccountAmount>
+                <AccountAmountDescription>{data.description}</AccountAmountDescription>
             </AccountWrapper>
+
             <AccountWrapperCta>
               <TransactionButton>View transactions</TransactionButton>
             </AccountWrapperCta>
+
           </Account>
         ))}
     </section>

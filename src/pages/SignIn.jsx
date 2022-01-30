@@ -109,8 +109,8 @@ const SignIn = () => {
 
   useEffect(() => {
     document.title = 'Argent Bank | Sign In'
-    // if user chose to be remembered then retrieve username from local storage
-    const rememberMe = localStorage.getItem('rememberMe') === 'true';
+    // if user chose to be remembered then retrieve username
+    const rememberMe = localStorage.getItem('rememberMe') === 'true';    
     const user = rememberMe ? localStorage.getItem('user') : '';
     setEmail(user)
     setRememberMe(rememberMe)
@@ -118,15 +118,13 @@ const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    // if user chooses to be remembered then save to local storage
-    localStorage.setItem('rememberMe', rememberMe)
+    localStorage.setItem('rememberMe', rememberMe) // if user chooses to be remembered
     localStorage.setItem('user', rememberMe ? email : '')
-    // get authentication 'token' from API
-    fetchToken(store, email, password)
+     fetchToken(store, email, password)     // get authentication 'token' from API
   }
 
-  // Redirect to User profile & "dummy accounts" page when authenticated/LoggedIn
   if (isLoggedIn) return <Redirect to="/user/profile" /> 
+  // Redirect to User profile & "dummy accounts" page when authenticated/LoggedIn
 
   return (
       <MAIN theme={theme}>

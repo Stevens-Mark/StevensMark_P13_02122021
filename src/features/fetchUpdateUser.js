@@ -1,4 +1,3 @@
-// import axios
 import axios from 'axios'
 // redux tool kit function
 import { createSlice } from '@reduxjs/toolkit'
@@ -13,21 +12,18 @@ import { createSlice } from '@reduxjs/toolkit'
  * @returns {object|string} user information or error message to store
  */
  export async function fetchUser(store, token) {
-  // start the request
-    store.dispatch(fetching())
+
+    store.dispatch(fetching())   // start the request
   try {
-    // use axios to make the query
     const response = await axios.post('http://localhost:3001/api/v1/user/profile', 
     {}, 
     {
       headers: { 'Authorization': `Bearer ${token}` }
     })
     const user = await response.data.body
-    // if request resolved then save the user in the store
-     store.dispatch(resolved(user))
-  } catch (error) {
-    // otherwise request rejected with corresponding error mesage
-    store.dispatch(rejected(error.response.data.message))
+     store.dispatch(resolved(user))      // request resolved: save  user to store
+  } catch (error) {  
+    store.dispatch(rejected(error.response.data.message)) // request rejected: error mesage
   }
 }
 
@@ -43,10 +39,9 @@ import { createSlice } from '@reduxjs/toolkit'
  * @returns {object} user's new name to store or nothing
  */
  export async function updateUser(store, token, firstName, lastName) {
-  // start the update request
-    store.dispatch(updateSending())
+
+    store.dispatch(updateSending())  // start the update request
   try {
-    // use axios to make the query
     const response = await axios.put('http://localhost:3001/api/v1/user/profile', 
     {
       firstName, lastName
@@ -55,11 +50,9 @@ import { createSlice } from '@reduxjs/toolkit'
       headers: { 'Authorization': `Bearer ${token}`}
     })
     const user = await response.data.body
-    // if request update resolved then save the user in the store
-     store.dispatch(updateSuccess(user))
+     store.dispatch(updateSuccess(user))     // request resolved: save new name to store
   } catch (error) {
-    // otherwise update request rejected
-    store.dispatch(updateFail())
+    store.dispatch(updateFail())      // otherwise update request rejected
   }
 }
 
@@ -80,8 +73,7 @@ import { createSlice } from '@reduxjs/toolkit'
     user: {},
     isError: '',
   },
-  // reducers allows to define the actions and the reducer
-  reducers: {
+  reducers: {     // reducers allows to define the actions and the reducer
     fetching: (draft) => {
         draft.isLoading = true
     },
@@ -95,8 +87,7 @@ import { createSlice } from '@reduxjs/toolkit'
         draft.user = {}
         draft.isError = action.payload
     },
-    // for user name updating
-    updateSending: (draft) => {
+    updateSending: (draft) => {      // for user name updating
         draft.isLoading = true
     },
     updateSuccess: (draft, action) => {
@@ -108,10 +99,8 @@ import { createSlice } from '@reduxjs/toolkit'
     updateFail: (draft) => {
         draft.isLoading = false
         draft.isUpdated = false
-        // draft.isError = action.payload
     },
-    // for user logout
-    resetUser: (draft) => {
+     resetUser: (draft) => {     // for user logout
         draft.isLoading = false
         draft.isUpdated = false
         draft.user = {}
@@ -120,6 +109,5 @@ import { createSlice } from '@reduxjs/toolkit'
   },
 })
 
-// export each action & reducer
 export const { fetching, resolved, rejected, updateSending, updateSuccess, updateFail, resetUser } = userSlice.actions
-export default userSlice.reducer
+export default userSlice.reducer  // export each action & reducer
